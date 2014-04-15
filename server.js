@@ -21,6 +21,18 @@ app.get('/', function(req, res) {
 	res.render('index.html');
 });
 
+app.get('/login', function(req, res) {
+	res.render('figure1.html');
+});
+
+app.get('/register', function(req, res) {
+	res.render('figure2.html');
+});
+
+app.get('/patientprofile', function(req, res) {
+	res.render('figure3.html');
+});
+
 // End Routes
 
 console.log("Server started at port 8000.");
