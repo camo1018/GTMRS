@@ -4,7 +4,16 @@
 
 var express = require('express');
 var ejs = require('ejs');
+var mysql = require('mysql');
+
 var app = express();
+
+var connection = mysql.createConnection({
+	host: 'academic-mysql.cc.gatech.edu',
+	database: 'cs4400_Group_31',
+	user: 'cs4400_Group_31',
+	password: 'ypKBU9LV'
+});
 
 app.configure(function() {
 	app.set('views', __dirname+'/views');
@@ -33,7 +42,22 @@ app.get('/patientprofile', function(req, res) {
 	res.render('figure3.html');
 });
 
+// Data Retrieval
+//
+
 // End Routes
+
+// Database Test
+connection.connect();
+
+connection.query('SELECT * FROM User', function(err, rows, fields) {
+	if (err) throw err;
+
+	console.log('The username of the first row: ', rows[0].Username);
+});
+
+connection.end();
+// End Database Test
 
 console.log("Server started at port 8000.");
 
