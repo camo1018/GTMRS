@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Figure 2 Register Screen</title>
+    <title>Figure 3 Patient Profile Screen</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,18 +18,29 @@
     <![endif]-->
   </head>
   <body>
-    <h1 align="center">New User Registration</h1>
+    <h1 align="center">Patient Profile</h1>
     <center><img src="buzz CS4400 image.jpg" align="middle"></center>
     <center><form>
-    Username: <input type="text" name="username"><br>
-    Password: <input type="password" name="password"><br>
-    Confirm Password: <input type="password" name="password"><br></center>
-    <center><p>Type of User:
+    Patient Name: <input type="text" name="name"><br>
+    Date of Birth: <input type="date" name="birthday"><br>
+    Gender:
     <select>
-      <option value="doctor">Doctor</option>
-      <option value="admin">Administrative Personnel</option>
-      <option value="patient">Patient</option>
-    </select></p></center>
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+    </select><br>
+    Address: <input type="text" name="address"><br>
+    Homephone: <input type="tel" name="hphone"><br>
+    Workphone: <input type="tel" name="wphone"><br>
+    Weight: <input type="number" name="weight"><br>
+    Height: <input type="text" name="height"><br>
+    Annual Income ($):
+    <select>
+      <option value="low">0-25000</option>
+      <option value="middle">25000-50000</option>
+      <option value="high">50000+</option>
+    </select><br>
+    <allergies>Allergies: <input type="text" name="allergy"></allergies>
+    <button type="button" id="btn1">Add<br></button>
     <center><button type="button">Register</a></center>
     </form>
 
@@ -38,5 +49,12 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/index.html"></script>
+    <script>
+    $(document).ready(function(){
+    $("#btn1").click(function(){
+      $("allergies").append("Added");
+     });
+     });
+    </script>
   </body>
 </html>

@@ -22,7 +22,7 @@
     <center><img src="buzz CS4400 image.jpg" align="middle"></center>
     <center><form>
     Username: <input type="text" name="username"><br>
-    Password: <input type="text" name="password"><br></center>
+    Password: <input type="password" name="password"><br></center>
     <center><a href="url">Create Account</a><br></center>
     <center><button type="button">Login</a></center>
 
