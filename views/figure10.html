@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Figure 1 Login Screen</title>
+    <title>Figure 10 Rate A Doctor Screen</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,27 +18,31 @@
     <![endif]-->
   </head>
   <body>
-    <h1 align="center">Georgia Tech Medical<br>Records System Login</h1>
-    <center><img src="img/buzz CS4400 image.jpg" align="middle">
-    <table style="width:500px">
-        <tr>
-            <td></td>
-            <td></td>
-            <td><a href="#">Create New Account</a></td>
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" name="username"></td>
+    <center><h1 align="center">Rate A Doctor</h1>
+    <img src="img/buzz CS4400 image.jpg" align="middle">
+      <table style="width:350px">
+       	 <tr>
+          <td>Select Doctors:</td>
+          <td><select>
+			 <option value="goel">Dr. Sanjay Goel</option>
+			<option value="brent">Dr. Mary Brent</option>
+			<option value="buffet">Dr. Mark Buffet</option> 
+			<option value="rose">Dr. Mary Rose</option>
+			<option value="simpson">Dr. Mary Simpson</option> 
+			<option value="specer">Dr. Mark Specer</option>
+			<option value="tudini">Dr. Philip Tudini</option>
+          </select></td>
         </tr>
         <tr>
-            <td>Password:</td>
-            <td><input type="password" name="password"></td>
+          <td>Rating:</td>
+          <td><input type="number" name="roomNo"></td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-            <td><button type="button">Login</td>
+          <td></td>
+          <td></td>
+          <td><button type="button">Submit Rating</button></td>
         </tr>
-    </table>
+      </table>
     </center>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

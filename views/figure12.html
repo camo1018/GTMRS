@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Figure 12 Appointments Calendar</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/gtmrs.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1 align="center">Appointments Calendar</h1>
+    <center><img src="buzz CS4400 image.jpg" align="middle"></center>
+    <center><p>Select Date:
+		<select>
+		<script language="javascript" type="text/javascript"> 
+
+		for(var d=1;d<=31;d++)
+		{
+		    document.write("<option>"+d+"</option>");
+		}
+		</script>
+		</select>
+     <select>
+        <option value="jan">January</option>
+        <option value="feb">February</option>
+        <option value="march">March</option>
+        <option value="apr">April</option>
+        <option value="may">May</option>
+        <option value="june">June</option>
+		<option value="july">July</option>
+        <option value="aug">August</option>
+        <option value="sep">September</option>
+        <option value="oct">October</option>
+        <option value="nov">November</option>
+        <option value="dec">December</option>
+	</select>
+	<select>
+	<script language="javascript" type="text/javascript"> 
+
+	for(var d=2010;d<=2015;d++)
+	{
+	    document.write("<option>"+d+"</option>");
+	}
+	</script>
+	</select></p></center>
+    <center><table style="width:700px" border="1">
+    <tr>
+      <td>Sno</td>
+      <td>Patient Name</td> 
+      <td>Scheduled Time</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Mary Kim </td>
+      <td>12:30PM - 1:00PM</td>
+      </tr>
+    <tr>
+      <td>2</td>
+      <td>Darryl Jones</td>
+      <td>1:00PM - 1:30PM</td>
+      </tr>  
+    <tr>
+      <td>3</td>
+      <td>Raj Kundra</td>
+      <td>1:30PM - 2:00PM</td>
+      </tr>  
+    </table></center>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.html"></script>
+  </body>
+</html>
