@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Figure 3 Patient Profile Screen</title>
+    <title>Figure 2 Register Screen</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,21 +18,42 @@
     <![endif]-->
   </head>
   <body>
-    <center><h1 align="center">Patient Homepage</h1>
-    <img src="img/buzz CS4400 image.jpg" align="middle"></center>
-    <center>
-      <table style="width:500px">
+
+<h1 align="center">Payment Information</h1>
+    <center><img src="img/buzz CS4400 image.jpg" align="middle">
+    <table style="width:500px">
+        <tr>
+            <td>Cardholder's Name:</td>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <td>Card Number:</td>
+            <td><input type="number" name="cardNum"></td>
+        </tr>
+        <tr>
+            <td>Type of Card:</td>
+            <td><select>
+                <option value="visa">Visa</option>
+                <option value="mastercard">MasterCard</option>
+                <option value="amex">American Express</option>
+                <option value="discover">Discover</option>
+              </select>
+            </td>
+        </tr>
+        <tr>
+            <td>CVV:</td>
+            <td><input type="number" name="cvv"></td>
+        </tr>
+        <tr>
+            <td>Date of Expiry:</td>
+            <td><input type="date" name="expireDate"></td>
+        </tr>
         <tr>
           <td></td>
-          <td><p align="right"><a href="#">You have _UNREADMESSAGES_ unread messages</a></p></td>
+          <td></td>
+          <td><button type="button">Order</td>
         </tr>
-        <tr><td><a href="#">Make Appointment</a></td>
-        <tr><td><a href="#">View Visit History</a></td></tr>
-        <tr><td><a href="#">Order Medication</a></td></tr>
-        <tr><td><a href="#">Communicate</a></td></tr>
-        <tr><td><a href="#">Rate a Doctor</a></td></tr>
-        <tr><td><a href="#">Edit Profile</a></td></tr>
-      </table>
+    </table>
     </center>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

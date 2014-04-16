@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Figure 3 Patient Profile Screen</title>
+    <title>Figure 1 Login Screen</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,21 +18,27 @@
     <![endif]-->
   </head>
   <body>
-    <center><h1 align="center">Patient Homepage</h1>
-    <img src="img/buzz CS4400 image.jpg" align="middle"></center>
-    <center>
-      <table style="width:500px">
+    <h1 align="center">Send Message to Doctor</h1>
+    <center><img src="img/buzz CS4400 image.jpg" align="middle">
+    <table style="width:400px">
         <tr>
-          <td></td>
-          <td><p align="right"><a href="#">You have _UNREADMESSAGES_ unread messages</a></p></td>
+            <td>Select Name:</td>
+            <td><select>
+                <option value="doc1">DOCTORNAME</option>
+                <option value="doc2">DOCTORNAME</option>
+                <option value="doc3">DOCTORNAME</option>
+            </select></td>
         </tr>
-        <tr><td><a href="#">Make Appointment</a></td>
-        <tr><td><a href="#">View Visit History</a></td></tr>
-        <tr><td><a href="#">Order Medication</a></td></tr>
-        <tr><td><a href="#">Communicate</a></td></tr>
-        <tr><td><a href="#">Rate a Doctor</a></td></tr>
-        <tr><td><a href="#">Edit Profile</a></td></tr>
-      </table>
+        <tr>
+            <td>Message:</td>
+            <td><textarea name="message"></textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><button type="button">Send Message</button></td>
+        </tr>
+    </table>
     </center>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
