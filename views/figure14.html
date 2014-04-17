@@ -18,90 +18,95 @@
     <![endif]-->
   </head>
   <body>
-    <div><h1 align="center">Patient View History</h1>
-    <center><img src="img/buzz CS4400 image.jpg" align="middle">
-    <form>
-    Name: <input type="text" name="patientname">
-    Phone: <input type="text" name="patientphone">
-    <button type="button">Search</button><br>
-    <table border="1">
-        <tr>
-            <td>Patient Name</td>
-            <td>Phone Number</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Patient Name Goes Here</td>
-            <td>123-456-7890</td>
-            <td><button type="button">View</button><button type="button">Record a Visit</button></td>
-        </tr>
+    <h1 align="center">Patient View History</h1>
+    <center><img src="img/buzz CS4400 image.jpg" align="middle"><br>
+    
+        Name: <input type="text" name="patientname">
+        Phone: <input type="text" name="patientphone">
+        <button type="button">Search</button><br>
+        <table border="1">
+            <tr>
+                <td>Patient Name</td>
+                <td>Phone Number</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Patient Name Goes Here</td>
+                <td>123-456-7890</td>
+                <td><button type="button">View</button><button type="button">Record a Visit</button></td>
+            </tr><br>
+          </table><br>
 
-    </form></div><br>
-
-  <div><div id="menu" style="background-color:#FFFFFF;height:400px;width:200px;float:left;">
-      <b>Dates of Visits</b><br>
-      <br><table style="width:100px" border="1">
+    <table style="width:100px">
       <tr>
-        <td><button type="button" style="width:100px">4/15/14</button></td>
-      </tr>
-      <tr>
-        <td><button type="button" style="width:100px">05/12/14</button></td>
-      <tr>
-        <td><button type="button" style="width:100px">07/01/14</button></td>
-      </table>
-      </div>
-
-      <div id="content" style="background-color:#FFFFFF;height:400px;width:200px;float:left;">
-      <br><table style="width:500px">
-      <tr>
-        <td>Consulting Doctor:</td>
-        <td><form><input type="text" name="doctorname"><br></form></td>
-      </tr>
-      <tr>
-        <td>Blood Pressure:</td>
-        <td><form>Systolic: <input type="text" name="sysnumber"></form><form>
-        <form>Diastolic: <input type="text" name="diasnumber"></form></td>
-      </tr>
-      <tr>
-        <td>Diagnosis:</td>
-        <td><select>
-          <option value="eye">Diagnosis 1</option>
-          <option value="general">Diagnosis 2 - optional</option>
-          <option value="heart">Diagnosis 3 - optional</option>
-          <option value="orthopedic">Diagnosis 4 - optional</option>
-          </select>
+        <td>
+          <div id="menu" style="background-color:#FFFFFF;height:400px;width:200px;float:left;">
+          <b>Dates of Visits</b><br>
+          <br><table style="width:100px" border="1">
+          <tr>
+            <td><button type="button" style="width:100px">4/15/14</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" style="width:100px">05/12/14</button></td>
+          <tr>
+            <td><button type="button" style="width:100px">07/01/14</button></td>
+          </table>
+          </div>
         </td>
-      </tr>
-      <tr>
-        <td>Medications Prescribed:</td>
-        <td><table style="width:500px" border="1">
-        <tr>
-          <td style="width:150px">Medicine Name</td>
-          <td style="width:100px">Dosage</td>
-          <td style="width:80px">Duration</td>
-          <td style="width:300px">Notes</td>
+
+        <td>
+          <div id="content" style="background-color:#FFFFFF;height:400px;width:200px;float:left;">
+          <table style="width:500px">
+          <tr>
+            <td>Date of Visit:</td>
+            <td><form><input type="date" name="visitDate"><br></form></td>
+          </tr>
+          <tr>
+            <td>Blood Pressure:</td>
+            <td><form>Systolic: <input type="text" name="sysnumber"></form><form>
+            <form>Diastolic: <input type="text" name="diasnumber"></form></td>
+          </tr>
+          <tr>
+            <td>Diagnosis:</td>
+            <td><select>
+              <option value="eye">Diagnosis 1</option>
+              <option value="general">Diagnosis 2 - optional</option>
+              <option value="heart">Diagnosis 3 - optional</option>
+              <option value="orthopedic">Diagnosis 4 - optional</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Medications Prescribed:</td>
+            <td><table style="width:500px" border="1">
+            <tr>
+              <td style="width:150px">Medicine Name</td>
+              <td style="width:100px">Dosage</td>
+              <td style="width:80px">Duration</td>
+              <td style="width:300px">Notes</td>
+            </tr>
+            <tr>
+              <td>Med1</td>
+              <td>1 per day</td>
+              <td>10 days</td>
+              <td>Notes Here</td>
+            </tr>
+            <tr>
+              <td>Med2</td>
+              <td>2 per day</td>
+              <td>20 days</td>
+              <td>Notes Here</td>
+            </tr>
+            </td>
+          </td>
         </tr>
-        <tr>
-          <td>Med1</td>
-          <td>1 per day</td>
-          <td>10 days</td>
-          <td>Notes Here</td>
-        </tr>
-        <tr>
-          <td>Med2</td>
-          <td>2 per day</td>
-          <td>20 days</td>
-          <td>Notes Here</td>
-        </tr>
-        </td>
+          </table>
+
         </table>
-
+        </div>
       </table>
-      </div>
-    </div>
 
-    <br>
-    <button type="button">Send Message</button>
+    
     </center>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
