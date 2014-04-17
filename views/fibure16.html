@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Figure 16 Surgery Record Screen</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/gtmrs.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1 align="center">Surgery Record</h1>
+    <center><img src="img/buzz CS4400 image.jpg" align="middle">
+    <center><p>
+    <tr>
+      <td>Surgery Parient:</td>
+      <td><input type="text" name="pName"></td>
+    </tr><button type="button">Search</button>
+    </p></center>
+    <center><table style="width:616px" border="1">
+    <tr>
+      <td>Patient Name</td>
+      <td>Phone Number</td> 
+    </tr>
+    <tr>
+      <td>Tim Reed</td>
+      <td>898-909-0909</td>
+    </tr>
+    </table></center>    
+    <table border="1">
+        <tr>
+            <td><table style="width:300px">
+                <tr>
+                   <td>Patient Name:</td>
+                   <td><input type="text" name="pName"></td>
+                 </tr>
+                 <tr>
+                   <td>Surgeon Name:</td>
+                   <td><input type="text" name="sName"></td>
+                 </tr>
+                 <tr>
+                   <td>Procedure Name:</td>
+                   <td><select>
+                     <option value="craniotomy">Craniotomy</option>
+                 </select></td>
+                 </tr>
+                 <tr>
+                   <td>CPT Code:</td>
+                   <td><input type="text" name="cpt"></td>
+                 </tr>
+                 <tr>
+                    <td>Number of assistants:</td>
+                    <td><select>
+          		      <script language="javascript" type="text/javascript"> 
+                            for(var d=0;d<=10;d++)
+          		          {
+          		              document.write("<option>"+d+"</option>");
+          		          }
+          		      </script>
+                      </select></td>
+                 </tr>
+                 <tr>
+                    <td>Preoperative Medication:</td>
+                    <td><textarea name="medication"></textarea></td>
+                </tr>
+            </table></td>
+            <td><table style="width:300px">
+                <tr>
+                    <td>Anesthesia Start Time:</td>
+                    <td><select>
+            			<option value="800am">8:00 am</option>
+            			<option value="830am">8:30 am</option>
+                        <option value="900am">9:00 am</option>
+                        <option value="930am">9:30 am</option>
+                        <option value="1000am">10:00 am</option>
+                        <option value="1030am">10:30 am</option>
+                        <option value="1100am">11:00 am</option>
+                        <option value="1130am">11:30 am</option>
+                        <option value="1200pm">12:00 pm</option>
+                        <option value="1230pm">12:30 pm</option>
+                        <option value="100pm">1:00 pm</option>
+                        <option value="130pm">1:30 pm</option>
+                        <option value="200pm">2:00 pm</option>
+                        <option value="230pm">2:30 pm</option>
+                        <option value="200pm">3:00 pm</option>
+                        <option value="330pm">3:30 pm</option>
+            			<option value="400pm">4:00 pm</option>
+                  		<option value="430pm">4:30 pm</option>
+                  		<option value="500pm">5:00 pm</option>
+                  		<option value="530pm">5:30 pm</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Surgery Start Time:</td>
+                    <td><select>
+            			<option value="800am">8:00 am</option>
+            			<option value="830am">8:30 am</option>
+                        <option value="900am">9:00 am</option>
+                        <option value="930am">9:30 am</option>
+                        <option value="1000am">10:00 am</option>
+                        <option value="1030am">10:30 am</option>
+                        <option value="1100am">11:00 am</option>
+                        <option value="1130am">11:30 am</option>
+                        <option value="1200pm">12:00 pm</option>
+                        <option value="1230pm">12:30 pm</option>
+                        <option value="100pm">1:00 pm</option>
+                        <option value="130pm">1:30 pm</option>
+                        <option value="200pm">2:00 pm</option>
+                        <option value="230pm">2:30 pm</option>
+                        <option value="200pm">3:00 pm</option>
+                        <option value="330pm">3:30 pm</option>
+            			<option value="400pm">4:00 pm</option>
+                  		<option value="430pm">4:30 pm</option>
+                  		<option value="500pm">5:00 pm</option>
+                  		<option value="530pm">5:30 pm</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Surgery Completion Time:</td>
+                    <td><select>
+            			<option value="830am">8:30 am</option>
+                        <option value="900am">9:00 am</option>
+                        <option value="930am">9:30 am</option>
+                        <option value="1000am">10:00 am</option>
+                        <option value="1030am">10:30 am</option>
+                        <option value="1100am">11:00 am</option>
+                        <option value="1130am">11:30 am</option>
+                        <option value="1200pm">12:00 pm</option>
+                        <option value="1230pm">12:30 pm</option>
+                        <option value="100pm">1:00 pm</option>
+                        <option value="130pm">1:30 pm</option>
+                        <option value="200pm">2:00 pm</option>
+                        <option value="230pm">2:30 pm</option>
+                        <option value="200pm">3:00 pm</option>
+                        <option value="330pm">3:30 pm</option>
+            			<option value="400pm">4:00 pm</option>
+                  		<option value="430pm">4:30 pm</option>
+                  		<option value="500pm">5:00 pm</option>
+                  		<option value="530pm">5:30 pm</option>
+                        <option value="600pm">6:00 pm</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Description of Complications during surgery:</td>
+                    <td><textarea name="complications"></textarea></td>
+                </tr>
+            </table></td>
+        </tr>
+    </table>
+    <br>
+    <button type="button">Record</button>
+    </center>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.html"></script>
+  </body>
+</html>
