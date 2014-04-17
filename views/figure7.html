@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Figure 7 Order Medication From Pharmacy Screen</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/gtmrs.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <center><h1 align="center">Order Medication From Pharmacy</h1>
+    <img src="img/buzz CS4400 image.jpg" align="middle">
+	<table style="width:400px">
+		 <tr>
+          <td>Medicine Name:</td>
+          <td><input type="text" name="medname"></td>
+        </tr>
+       <tr>
+          <td>Dosage:</td>
+          <td><select>
+		      <script language="javascript" type="text/javascript"> 
+                  for(var d=1;d<=10;d++)
+		          {
+		              document.write("<option>"+d+"</option>");
+		          }
+		      </script>
+            </select>per day</td>
+        </tr>
+        <tr>
+           <td>Duration:</td>
+           <td><select>
+ 		       <script language="javascript" type="text/javascript"> 
+                   for(var d=0;d<=12;d++)
+ 		           {
+ 		               document.write("<option>"+d+"</option>");
+ 		           }
+ 		       </script>
+           </select>months
+           <select>
+ 		       <script language="javascript" type="text/javascript"> 
+                   for(var d=0;d<=30;d++)
+ 		           {
+ 		               document.write("<option>"+d+"</option>");
+ 		           }
+ 		       </script>
+           </select>days
+        </tr>
+        <tr>
+          <td>Consulting Doctor:</td>
+          <td><input type="text" name="doctor"></td>
+        </tr>
+        <tr>
+          <td>Date of Prescription:</td>
+          <td><input type="date" name="pDate"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><p style="text-align:right"><a href="add">Add medication to basket</a></p></td>
+        <td><button type="button">Checkout</button></td>
+        </tr>
+      </table>
+    </center>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.html"></script>
+  </body>
+</html>
