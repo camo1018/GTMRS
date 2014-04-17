@@ -42,22 +42,20 @@ app.get('/patientprofile', function(req, res) {
 	res.render('figure3.html');
 });
 
-// Data Retrieval
-//
+// Figure 3. Patient Profile
+app.get('/patientprofile/test', function(req, res) {
+	console.log('Sup');
+	connection.connect();
+	connection.query('SELECT * FROM User', function(err, rows, fields) {
+		if (err) throw err;
 
-// End Routes
-
-// Database Test
-connection.connect();
-
-connection.query('SELECT * FROM User', function(err, rows, fields) {
-	if (err) throw err;
-
-	console.log('The username of the first row: ', rows[0].Username);
+		console.log('The username of the first row: ', rows[0].Username);
+	});
+	connection.end();
+	res.send('good');
 });
 
-connection.end();
-// End Database Test
+// End Routes
 
 console.log("Server started at port 8000.");
 
