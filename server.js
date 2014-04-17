@@ -43,6 +43,12 @@ app.get('/patientprofile', function(req, res) {
 });
 
 // Figure 3. Patient Profile
+app.get('/patientprofile/submitNewProfile', function(req, res) {
+	console.log('Submitting a new patient profile to the server.');
+	connection.connect();
+	
+});
+
 app.get('/patientprofile/test', function(req, res) {
 	console.log('Sup');
 	connection.connect();

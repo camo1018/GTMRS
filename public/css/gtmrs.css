@@ -1,0 +1,11 @@
+.allergyListRow {
+	font-size: 13px;
+}
+
+.allergyListElementOffset {
+	padding-left: 20px;
+}
+
+.validationError {
+	color: red;
+}

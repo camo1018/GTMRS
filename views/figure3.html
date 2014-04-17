@@ -20,46 +20,53 @@
   <body>
     <center><h1 align="center">Patient Profile</h1>
     <img src="img/buzz CS4400 image.jpg" align="middle">
-      <table style="width:350px">
+      <table style="width:400px">
         <tr>
           <td>Patient Name:</td>
-          <td><input type="text" name="name"></td>
+          <td><input id="nameField" type="text" name="name"></td>
+          <td id="nameValidationError" class="validationError">* Name is required.</td>
         </tr>
         <tr>
           <td>Date of Birth:</td>
-          <td><input type="date" name="birthday"></td>
+          <td><input id="dobField" type="date" name="birthday"></td>
+          <td id="dobValidationError" class="validationError">* Invalid Date of Birth.</td>
         </tr>
         <tr>
           <td>Gender:</td>
-          <td><select>
+          <td><select id="genderOption">
             <option value="female">Female</option>
             <option value="male">Male</option>
           </select></td>
         </tr>
         <tr>
           <td>Address:</td>
-          <td><input type="text" name="address"></td>
+          <td><input id="addressField" type="text" name="address"></td>
+          <td id="addressValidationError" class="validationError">* Address is required.</td>
         </tr>
         <tr>
           <td>Home Phone:</td>
-          <td><input type="tel" name="hphone"></td>
+          <td><input id="homePhoneField" type="tel" name="hphone"></td>
+          <td id="homePhoneValidationError" class="validationError">* Home Phone is required.</td>
         </tr>
         <tr>
           <td>Work Phone:</td>
-          <td><input type="tel" name="wphone"></td>
+          <td><input id="workPhoneField" type="tel" name="wphone"></td>
+          <td id="workPhoneValidationError" class="validationError">* Work Phone is required.</td>
         </tr>
         <tr>
           <td>Weight:</td>
-          <td><input type="number" name="weight"></td>
+          <td><input id="weightField" type="number" name="weight"></td>
+          <td id="weightValidationError" class="validationError">* Weight is required.</td>
         </tr>
         <tr>
           <td>Height:</td>
-          <td><input type="text" name="height"></td>
+          <td><input id="heightField" type="text" name="height"></td>
+          <td id="heightValidationError" class="validationError">* Height is required.</td>
         </tr>
         <tr>
           <td>Annual Income ($):</td>
           <td>
-          <select>
+          <select id="incomeOption">
             <option value="low">0-25000</option>
             <option value="middle">25000-50000</option>
             <option value="high">50000+</option>
@@ -68,8 +75,14 @@
         </tr>
         <tr>
           <td>Allergies:</td>
-          <td><input type="text" name="allergy"> </td>
-          <td><button type="button">Add</button></td>
+          <td><input id="allergyField" type="text" name="allergy"> </td>
+          <td><button id="allergyAddButton" type="button">Add</button></td>
+        </tr>
+        <tr id="allergyList">
+          <tr class="allergyListRow">
+            <td class="allergyListElementOffset">Allergy Thing</td>
+            <td><button id="listOffset" type="button">-</button></td>
+          </tr>
         </tr>
         <tr>
           <td></td>
