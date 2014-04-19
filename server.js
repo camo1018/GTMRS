@@ -54,6 +54,10 @@ app.get('/paymentinfo', function(req, res) {
 	res.render('figure8.html');
 });
 
+app.get('/recordvisit', function(req, res) {
+	res.render('figure15.html');
+});
+
 // Figure 3. Patient Profile
 app.get('/patientprofile/submitNewProfile', function(req, res) {
 	console.log('Submitting a new patient profile to the server.');
