@@ -23,20 +23,21 @@
     <table style="width:400px">
         <tr>
             <td>Select Name:</td>
-            <td><select>
-                <option value="doc1">DOCTORNAME</option>
-                <option value="doc2">DOCTORNAME</option>
-                <option value="doc3">DOCTORNAME</option>
+            <td><select <select id="dNameOption">>
+                <option value="doc1">Dr. Mary Simpson</option>
+                <option value="doc2">Dr. Mary Rose</option>
+                <option value="doc3">Dr. Philip Tudini</option>
             </select></td>
         </tr>
         <tr>
             <td>Message:</td>
-            <td><textarea name="message"></textarea></td>
+            <td><textarea id="messageField" name="message"></textarea></td>
+            <td id="messageValidationError" class="validationError">* Message is required.</td>
         </tr>
         <tr>
             <td></td>
             <td></td>
-            <td><button type="button">Send Message</button></td>
+            <td><button id="sendMessageButton" type="button">Send Message</button></td>
         </tr>
     </table>
     </center>
@@ -45,6 +46,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure17a.js"></script>
   </body>
 </html>

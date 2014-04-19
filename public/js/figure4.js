@@ -64,7 +64,7 @@ $(function() {
 	});
 
 	// Everytime we click the Add button under Allergies, we will append html text into the document so that we will have a new row that describes an allergy.
-	$('#availabilityAddButton').bind('click', function() {
+/*	$('#availabilityAddButton').bind('click', function() {
 		var availailityTime = $('#allergyField').val();
 
 		// If there is already an allergy of the same name, then don't add it.
@@ -86,3 +86,4 @@ $(function() {
 	});
 
 });
+    */
