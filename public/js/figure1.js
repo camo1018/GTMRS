@@ -35,26 +35,5 @@ $(function() {
 
 	});
 
-	// Everytime we click the Add button under Allergies, we will append html text into the document so that we will have a new row that describes an allergy.
-	$('#addAllergyButton').bind('click', function() {
-		var allergyName = $('#allergyField').val();
-
-		// If there is already an allergy of the same name, then don't add it.
-		if (allergies.indexOf(allergyName) != -1)
-			return;
-
-		$('#allergyList').append('<tr class="allergyListRow">' +
-            '<td id="allergyElement" class="allergyListElementOffset">' + allergyName + '</td>' +
-            '<td><button id="remove' + allergyName + '" type="button">-</button></td>' +
-          '</tr>');
-
-		$('#remove'+allergyName).bind('click', function() {
-			var allergyElementName = $(this).parent().find('#allergyElement').val();
-			allergies.splice(allergies.indexOf(allergyElementName),1);
-			$(this).parent().remove();
-		})
-
-		allergies.push($('allergyField').val())
-	});
 
 });
