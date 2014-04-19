@@ -24,7 +24,7 @@
     <table style="width:500px">
         <tr>
             <td>Cardholder's Name:</td>
-            <td><input type="text" id="nameid" name="name"></td>
+            <td><input type="text" id="name" name="name"></td>
             <td id="cardholderValidationError" class="validationError">*Cardholder's Name is required.</td>
         </tr>
         <tr>
@@ -44,17 +44,18 @@
         </tr>
         <tr>
             <td>CVV:</td>
-            <td><input type="number" id="cvvNum" name="cvv"></td>
+            <td><input type="number" id="cvvNum" name="cvvNum"></td>
             <td id="cvvValidationError" class="validationError">*CVV is required.</td>
         </tr>
         <tr>
             <td>Date of Expiry:</td>
-            <td><input type="date" name="expireDate"></td>
+            <td><input type="date" id="expireDate" name="expireDate"></td>
+            <td id="dateValidationError" class="validationError">*Date of expiry is required.</td>
         </tr>
         <tr>
           <td></td>
           <td></td>
-          <td><button id="orderbutton "type="button">Order</td>
+          <td><button id="orderbutton" type="button">Order</td>
         </tr>
     </table>
     </center>

@@ -23,7 +23,9 @@
 	<table style="width:400px">
 		 <tr>
           <td>Medicine Name:</td>
-          <td><input type="text" name="medname"></td>
+          <td><input id="medsField" type="text" name="medname"></td>
+          <td id="medsValidationError" class="validationError">* Medication name is required.</td>
+        </tr>
         </tr>
        <tr>
           <td>Dosage:</td>
@@ -57,7 +59,9 @@
         </tr>
         <tr>
           <td>Consulting Doctor:</td>
-          <td><input type="text" name="doctor"></td>
+          <td><input id="docField" type="text" name="doctor"></td>
+          <td id="docValidationError" class="validationError">* Consulting doctor is required.</td>
+        </tr>
         </tr>
         <tr>
           <td>Date of Prescription:</td>
@@ -66,7 +70,7 @@
         <tr>
           <td></td>
           <td><p style="text-align:right"><a href="add">Add medication to basket</a></p></td>
-        <td><button type="button">Checkout</button></td>
+        <td><button id="checkoutButton" type="button">Checkout</button></td>
         </tr>
       </table>
     </center>

@@ -11,7 +11,8 @@ $(function() {
 	$('#orderbutton').bind('click', function() {
 		var cardholder = $('#name').val();
 		var cardnumber = $('#cardNum').val();
-		var cvv = $('#cvvNum')
+		var cvv = $('#cvvNum').val();
+		var doe = $('#expireDate').val();
 
 		// Validation
 		var validationError = false;
@@ -26,6 +27,10 @@ $(function() {
 		}
 		if (cvv == '') {
 			$('#cvvValidationError').show();
+			validationError = true;
+		}
+		if (doe == '') {
+			$('#dateValidationError').show();
 			validationError = true;
 		}
 

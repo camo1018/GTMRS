@@ -54,12 +54,16 @@ app.get('/paymentinfo', function(req, res) {
 	res.render('figure8.html');
 });
 
+app.get('/recordvisit', function(req, res) {
+	res.render('figure15.html');
+
 app.get('/sendmessagetodoctor', function(req, res) {
 	res.render('figure17a.html');
 });
 
 app.get('/sendmessagetopatient', function(req, res) {
 	res.render('figure17b.html');
+
 });
 
 // Figure 3. Patient Profile

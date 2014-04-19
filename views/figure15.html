@@ -23,30 +23,36 @@
       <table style="width:400px">
         <tr>
           <td>Date of Visit:</td>
-          <td><input type="date" name="date"></td>
+          <td><input id="dovField" type="date" name="date"></td>
+          <td id="dovValidationError" class="validationError">* Date of visit is required.</td>
         </tr>
         <tr>
           <td>Patient Name:</td>
-          <td><input type="text" name="name"></td>
+          <td><input id="pnameField" type="text" name="name"></td>
+          <td id="nameValidationError" class="validationError">* Patient name is required.</td>
         </tr>
         <tr>
           <td>Systolic Blood Pressure:</td>
-          <td><input type="number" name="systolic"></td>
+          <td><input id="sbpField" type="number" name="systolic"></td>
+          <td id="sbpValidationError" class="validationError">* Systolic blood pressure is required.</td>
         </tr>
         <tr>
           <td>Diastolic Blood Pressure:</td>
-          <td><input type="number" name="diastoic"></td>
+          <td><input id="dbpField" type="number" name="diastoic"></td>
+          <td id="dbpValidationError" class="validationError">* Diastolic blood pressure is required.</td>
         </tr>
         <tr>
           <td>Diagnosis:</td>
-          <td><textarea name="diagnosis"></textarea></td>
+          <td><textarea id="diagnosisField" name="diagnosis"></textarea></td>
+          <td id="diagnosisValidationError" class="validationError">* Diagnosis is required.</td>
         </tr>
       </table>
       <br><b>Prescribe Medication</b>
       <br><table style="width:500px">
         <tr>
           <td>Drug Name:</td>
-          <td><input type="text" name="drug"></td>
+          <td><input id="drugField" type="text" name="drug"></td>
+          <td id="drugValidationError" class="validationError">* Drug name is required.</td>
         </tr>
         <tr>
           <td>Dosage:</td>
@@ -111,7 +117,7 @@
           <td>Notes:</td>
           <td><textarea name="notes"></textarea></td>
           <td><a href="#">Add new prescription</a></td>
-          <td><button type="submit">Submit</button></td>
+          <td><button id="submitButton" type="submit">Submit</button></td>
         </tr>
       </table>
     </center>
@@ -120,6 +126,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure15.js"></script>
   </body>
 </html>

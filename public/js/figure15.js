@@ -10,41 +10,40 @@ $(function() {
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#submitButton').bind('click', function() {
-		var name = $('#nameField').val();
-		var dateOfBirth = $('#dobField').val();
-		var gender = $('#genderOption').val();
-		var address = $('#addressField').val();
-		var homePhone = $('#homePhoneField').val();
-		var workPhone = $('#workPhoneField').val();
-		var weight = $('#weightField').val();
+		var dateOfVisit = $('#dovField').val();
+		var name = $('#pnameField').val();
+		var systolic = $('#sbpField').val();
+		var diastolic = $('#dbpField').val();
+		var diagnosis = $('#diagnosisField').val();
+		var medname = $('#drugField').val();
 		var height = $('#heightField').val();
 		var income = $('#incomeOption').val();
 
 		// Validation
 		var validationError = false;
 
+		if (dateOfVisit == '') {
+			$('#dovValidationError').show();
+			validationError = true;
+		}
 		if (name == '') {
 			$('#nameValidationError').show();
 			validationError = true;
 		}
-		if (dateOfBirth == '') {
-			$('#dobValidationError').show();
+		if (systolic == '') {
+			$('#sbpValidationError').show();
 			validationError = true;
 		}
-		if (address == '') {
-			$('#addressValidationError').show();
+		if (diastolic == '') {
+			$('#dbpValidationError').show();
 			validationError = true;
 		}
-		if (homePhone == '') {
-			$('#homePhoneValidationError').show();
+		if (diagnosis == '') {
+			$('#diagnosisValidationError').show();
 			validationError = true;
 		}
-		if (workPhone == '') {
-			$('#workPhoneValidationError').show();
-			validationError = true;
-		}
-		if (weight == '') {
-			$('#weightValidationError').show();
+		if (medname == '') {
+			$('#drugValidationError').show();
 			validationError = true;
 		}
 		if (height == '') {
@@ -65,19 +64,10 @@ $(function() {
 	// Everytime we click the Add button under Allergies, we will append html text into the document so that we will have a new row that describes an allergy.
 	$('#allergyAddButton').bind('click', function() {
 		var allergyName = $('#allergyField').val();
-		$('#allergyValidationError').hide();
-		$('#allergyDuplicateError').hide();
-
-		if (allergyName == '') {
-			$('#allergyValidationError').show();
-			return;
-		}
 
 		// If there is already an allergy of the same name, then don't add it.
-		if (allergies.indexOf(allergyName) != -1) {
-			$('#allergyDuplicateError').show();
+		if (allergies.indexOf(allergyName) != -1)
 			return;
-		}
 
 		$('#allergyList').append('<tr class="allergyListRow">' +
             '<td id="allergyElement" class="allergyListElementOffset">' + allergyName + '</td>' +
@@ -87,10 +77,10 @@ $(function() {
 		$('#remove'+allergyName).bind('click', function() {
 			var allergyElementName = $(this).parent().find('#allergyElement').val();
 			allergies.splice(allergies.indexOf(allergyElementName),1);
-			$(this).parent().parent().remove();
-		});
+			$(this).parent().remove();
+		})
 
-		allergies.push(allergyName);
+		allergies.push($('allergyField').val())
 	});
 
 });
