@@ -63,7 +63,7 @@ $(function() {
 	});
 
 	// Everytime we click the Add button under Allergies, we will append html text into the document so that we will have a new row that describes an allergy.
-	$('#addAllergyButton').bind('click', function() {
+	$('#allergyAddButton').bind('click', function() {
 		var allergyName = $('#allergyField').val();
 
 		// If there is already an allergy of the same name, then don't add it.
