@@ -23,8 +23,6 @@ $(function() {
 			$('#docValidationError').show();
 			validationError = true;
 		}
-	
-		}
 
 		// Checkout!
 
