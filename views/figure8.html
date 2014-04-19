@@ -24,11 +24,13 @@
     <table style="width:500px">
         <tr>
             <td>Cardholder's Name:</td>
-            <td><input type="text" name="name"></td>
+            <td><input type="text" id="nameid" name="name"></td>
+            <td id="cardholderValidationError" class="validationError">*Cardholder's Name is required.</td>
         </tr>
         <tr>
             <td>Card Number:</td>
-            <td><input type="number" name="cardNum"></td>
+            <td><input type="number" id="cardNum" name="cardNum"></td>
+            <td id="cardNumValidationError" class="validationError">*Card number is required.</td>
         </tr>
         <tr>
             <td>Type of Card:</td>
@@ -42,7 +44,8 @@
         </tr>
         <tr>
             <td>CVV:</td>
-            <td><input type="number" name="cvv"></td>
+            <td><input type="number" id="cvvNum" name="cvv"></td>
+            <td id="cvvValidationError" class="validationError">*CVV is required.</td>
         </tr>
         <tr>
             <td>Date of Expiry:</td>
@@ -51,7 +54,7 @@
         <tr>
           <td></td>
           <td></td>
-          <td><button type="button">Order</td>
+          <td><button id="orderbutton "type="button">Order</td>
         </tr>
     </table>
     </center>
@@ -60,6 +63,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure8.js"></script>
   </body>
 </html>
