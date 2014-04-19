@@ -24,15 +24,18 @@
     <table style="width:500px">
         <tr>
             <td>Username:</td>
-            <td><input type="text" name="username"></td>
+            <td><input id="username" type="text" name="username"></td>
+            <td id="nameValidationError" class="validationError">* Username is required.</td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" name="password"></td>
+            <td><input id="password" type="password" name="password"></td>
+            <td id="passValidationError" class="validationError">* Password is required.</td>
         </tr>
         <tr>
             <td>Confirm Password:</td>
-            <td><input type="password" name="password"></td>
+            <td><input id="confirmPass" type="password" name="password"></td>
+            <td id="confirmValidationError" class="validationError">* Confirm password is required.</td>
         </tr>
         <tr>
             <td>Type of User:</td>
@@ -47,7 +50,7 @@
         <tr>
           <td></td>
           <td></td>
-          <td><button type="button">Register</td>
+          <td><button id="registerButton" type="button">Register</td>
         </tr>
     </table>
     </center>
@@ -56,6 +59,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure2.js"></script>
   </body>
 </html>
