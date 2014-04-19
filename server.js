@@ -42,6 +42,10 @@ app.get('/patientprofile', function(req, res) {
 	res.render('figure3.html');
 });
 
+app.get('/doctorprofile', function(req, res) {
+	res.render('figure4.html');
+});
+
 app.get('/ordermedication', function(req, res) {
 	res.render('figure7.html');
 });
