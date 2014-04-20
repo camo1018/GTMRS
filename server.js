@@ -56,6 +56,7 @@ app.get('/paymentinfo', function(req, res) {
 
 app.get('/recordvisit', function(req, res) {
 	res.render('figure15.html');
+});
 
 app.get('/sendmessagetodoctor', function(req, res) {
 	res.render('figure17a.html');
