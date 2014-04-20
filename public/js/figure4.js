@@ -19,7 +19,6 @@ $(function() {
 		var specialty = $('#specialtyOption').val();
         var roomNo = $('#roomField').val();
         var address = $('#addressField').val();
-		var available = $('#availabilityOption').val();
         var from = $('#fromOption').val();
         var to = $('#toOption').val();
 
@@ -65,7 +64,10 @@ $(function() {
 
 	// Everytime we click the Add button under, we will append html text into the document so that we will have a new row that describes an availability.
 	$('#availabilityAddButton').bind('click', function() {
-		var availability = $('#availabilityOption').val();
+		var availableday = $('#availabilityOption').val();
+		var availabletotime = $('#toOption').val();
+		var availablefromtime = $('#fromOption').val();
+		var available = (availableday+availabletotime+availablefromtime);
 		$('#availabilityDuplicateError').hide();
 
 		// If there is already an allergy of the same name, then don't add it.
@@ -79,9 +81,9 @@ $(function() {
             '<td><button id="remove' + available + '" type="button">-</button></td>' +
           '</tr>');
 
-		$('#remove'+available).bind('click', function() {
-			var availibilityElementName = $(this).parent().find('#availibilityElement').val();
-			availability.splice(availability.indexOf(availibilityElementName),1);
+		$('#remove'+ available).bind('click', function() {
+			var availabilityElementName = $(this).parent().find('#availabilityElement').val();
+			availability.splice(availability.indexOf(availabilityElementName),1);
 			$(this).parent().parent().remove();
 		});
 
