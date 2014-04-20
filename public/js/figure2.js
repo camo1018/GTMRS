@@ -27,6 +27,12 @@ $(function() {
 			$('#confirmValidationError').show();
 			validationError = true;
 		}
+
+		var parameters = { username: username, password: password, confirm: confirm };
+
+		$.get('/register/newuser', parameters, function(data) {
+			document.location = "patienthome";
+		});
 		
 		// Submit!
 

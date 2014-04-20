@@ -23,6 +23,7 @@ $(function() {
 			$('#passwordValidationError').show();
 			validationError = true;
 		}
+
 	
 
 		// Submit!
