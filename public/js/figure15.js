@@ -10,6 +10,7 @@ $(function() {
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#submitButton').bind('click', function() {
+		$('.validationError').hide();
 		var dateOfVisit = $('#dovField').val();
 		var name = $('#pnameField').val();
 		var systolic = $('#sbpField').val();
@@ -18,6 +19,8 @@ $(function() {
 		var medname = $('#drugField').val();
 		var height = $('#heightField').val();
 		var income = $('#incomeOption').val();
+		var month = $('#monthDuration').val();
+		var day = $('#dayDuration').val();
 
 		// Validation
 		var validationError = false;
@@ -48,6 +51,10 @@ $(function() {
 		}
 		if (height == '') {
 			$('#heightValidationError').show();
+			validationError = true;
+		}
+		if (month == "0" && day == "0"){
+			$('#durationValidationError').show();
 			validationError = true;
 		}
 

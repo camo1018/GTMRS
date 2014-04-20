@@ -64,8 +64,9 @@
           </select>per day</td>
         </tr>
         <tr>
-          <td>Duration:</td>
-          <td><select>
+          <td id="durationField">Duration:</td>
+          <td><select id="monthDuration">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -79,7 +80,8 @@
             <option value="11">11</option>
             <option value="12">12</option>
           </select>months
-          <select>
+          <select id="dayDuration">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -112,6 +114,7 @@
             <option value="30">30</option>
           </select>days
           </td>
+          <td id="durationValidationError" class="validationError">* Duration is required.</td>
         </tr>
         <tr>
           <td>Notes:</td>
