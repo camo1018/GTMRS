@@ -70,8 +70,38 @@ app.get('/sendmessagetopatient', function(req, res) {
 // Figure 3. Patient Profile
 app.get('/patientprofile/submitNewProfile', function(req, res) {
 	console.log('Submitting a new patient profile to the server.');
+	var username = req.query.username;
+	var name = req.query.name;
+	var dob = req.query.dob;
+	var gender = req.query.gender;
+	var address = req.query.address;
+	var homePhone = req.query.homePhone;
+	var workPhone = req.query.workPhone;
+	var emergencyName = req.query.emergencyName;
+	var emergencyPhone = req.query.emergencyPhone;
+	var weight = req.query.weight;
+	var height = req.query.height;
+	var income = req.query.income;
+	var allergies = req.query.allergies;
+
 	connection.connect();
-	
+	var query = 'INSERT INTO Patient VALUES (\'' + username + '\', \'' + name + '\', \'' + dob + '\', \'' + gender + '\', \'' + address + '\', \'' + homePhone + '\', \''
+		+ workPhone + '\', \'' + emergencyName + '\', \'' + emergencyPhone + '\', ' + weight + ', ' + height + ', ' + income + ', NULL)';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log('New Patient profile inserted');
+	});
+	var index;
+	for (index = 0; index < allergies.length; ++index) {
+		connection.query('INSERT INTO Allergies VALUES (\'' + username + '\', \'' + allergies[index] + '\')', function(err, rows, fields) {
+			if (err) throw err;
+			console.log('Allergy row inserted');
+		});
+	}
+		
+	connection.end();
+	res.send('good');
 });
 
 app.get('/patientprofile/test', function(req, res) {
