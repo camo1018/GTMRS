@@ -46,6 +46,14 @@ app.get('/doctorprofile', function(req, res) {
 	res.render('figure4.html');
 });
 
+app.get('/patienthome', function(req, res) {
+	res.render('figure5.html');
+});
+
+app.get('/makeappointment', function(req, res) {
+	res.render('figure6.html');
+});
+
 app.get('/ordermedication', function(req, res) {
 	res.render('figure7.html');
 });
@@ -54,8 +62,36 @@ app.get('/paymentinfo', function(req, res) {
 	res.render('figure8.html');
 });
 
+app.get('/visithistory', function(req, res) {
+	res.render('figure9.html');
+});
+
+app.get('/ratedoctor', function(req, res) {
+	res.render('figure10.html');
+});
+
+app.get('/doctorhome', function(req, res) {
+	res.render('figure11.html');
+});
+
+app.get('/dailyappointmentscalendar', function(req, res) {
+	res.render('figure12.html');
+});
+
+app.get('/monthlyappointmentscalendar', function(req, res) {
+	res.render('figure13.html');
+});
+
+app.get('/patientvisithistory', function(req, res) {
+	res.render('figure14.html');
+});
+
 app.get('/recordvisit', function(req, res) {
 	res.render('figure15.html');
+});
+
+app.get('/surgeryrecord', function(req, res) {
+	res.render('figure16.html');
 });
 
 app.get('/sendmessagetodoctor', function(req, res) {
