@@ -88,4 +88,12 @@ $(function() {
 		availability.push(available);
 	});
 
+		var parameters = { licenseNum: license, fname: fName, lname: lName, dob: birthday, 
+			wPhone: wPhone, spec: specialty, roomNum:roomNo, address: address, 
+			availableday: available, fromtime: from, totime: to };
+
+		$.get('/doctorProfile/submitDocProfile', parameters, function(data) {
+			document.location = "doctorhome";
+		});
+
 });	
