@@ -20,33 +20,34 @@
   <body>
     <center><h1 align="center">Rate A Doctor</h1>
     <img src="img/buzz CS4400 image.jpg" align="middle">
-      <table style="width:500px">
+      <table style="width:400px">
        	 <tr>
-          <td>Select Doctors:</td>
+          <td>Select a Doctor:</td>
           <td><select>
-			<option value="goel">Dr. Sanjay Goel</option>
-			<option value="brent">Dr. Mary Brent</option>
-			<option value="buffet">Dr. Mark Buffet</option> 
-			<option value="rose">Dr. Mary Rose</option>
-			<option value="simpson">Dr. Mary Simpson</option> 
-			<option value="specer">Dr. Mark Specer</option>
-			<option value="tudini">Dr. Philip Tudini</option>
-          </select></td>
+          			<option value="goel">Dr. Sanjay Goel</option>
+          			<option value="brent">Dr. Mary Brent</option>
+          			<option value="buffet">Dr. Mark Buffet</option> 
+          			<option value="rose">Dr. Mary Rose</option>
+          			<option value="simpson">Dr. Mary Simpson</option> 
+          			<option value="specer">Dr. Mark Specer</option>
+          			<option value="tudini">Dr. Philip Tudini</option>
+              </select></td>
         </tr>
         <tr>
-         <td>Rating:</td>
-         <td><button type="button"><img src="buzz_ratings.jpg" align="middle"></button>  
-          <button type="button"><img src="buzz_ratings.jpg" align="middle"></button>
-          <button type="button"><img src="buzz_ratings.jpg" align="middle"></button>
-          <button type="button"><img src="buzz_ratings.jpg" align="middle"></button>  
-          <button type="button"><img src="buzz_ratings.jpg" align="middle"></button>       
+         <td>Select a Rating:</td>
+         <td><select>
+              <option value="0" id="NoRate" name="NoRate">Rating</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select></td>
+          <td id="ratingValidationError" class="validationError">* Rating is required.</td>
         </tr> 
         <tr>
           <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><button type="button">Submit Rating</button></td>
+          <td><button type="button" id="SubmitRating">Submit Rating</button></td>
         </tr>
       </table>
     </center>
@@ -55,6 +56,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure10.js"></script>
   </body>
 </html>

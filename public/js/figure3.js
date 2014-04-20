@@ -19,6 +19,8 @@ $(function() {
 		var weight = $('#weightField').val();
 		var height = $('#heightField').val();
 		var income = $('#incomeOption').val();
+		var ename = $('#EcontactName').val();
+		var ephone = $('#EcontactPhone').val()
 
 		// Validation
 		var validationError = false;
@@ -49,6 +51,14 @@ $(function() {
 		}
 		if (height == '') {
 			$('#heightValidationError').show();
+			validationError = true;
+		}
+		if (ename == '') {
+			$('#econtactValidationError').show();
+			validationError = true;
+		}
+		if (ephone == '') {
+			$('#ephoneValidationError').show();
 			validationError = true;
 		}
 

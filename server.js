@@ -54,9 +54,13 @@ app.get('/paymentinfo', function(req, res) {
 	res.render('figure8.html');
 });
 
+app.get('/rate', function(req, res) {
+	res.render('figure10.html');
+});	
+
 app.get('/recordvisit', function(req, res) {
 	res.render('figure15.html');
-});
+});	
 
 app.get('/sendmessagetodoctor', function(req, res) {
 	res.render('figure17a.html');

@@ -20,7 +20,7 @@
   <body>
     <center><h1 align="center">Patient Profile</h1>
     <img src="img/buzz CS4400 image.jpg" align="middle">
-      <table style="width:400px">
+      <table style="width:900px">
         <tr>
           <td>Patient Name:</td>
           <td><input id="nameField" type="text" name="name"></td>
@@ -74,11 +74,20 @@
           </td>
         </tr>
         <tr>
+          <td>Emergency Contact Name:</td>
+          <td><input id="EcontantName" type="text" name="EcontactName"></td>
+          <td id="econtactValidationError" class="validationError">* Emergency contact name is required.</td>
+        </tr>
+        <tr>
+          <td>Emergency Contact Phone:</td>
+          <td><input id="EcontactPhone" type="text" name="EcontactPhone"></td>
+          <td id="ephoneValidationError" class="validationError">* Emergency contact phone number is required.</td>
+        <tr>
           <td>Allergies:</td>
           <td><input id="allergyField" type="text" name="allergy"> </td>
           <td><button id="allergyAddButton" type="button">Add</button></td>
-          <td id="allergyValidationError" class="validationError">Allergy name cannot be empty.</td>
-          <td id="allergyDuplicateError" class="validationError">An allergy of that name already exists.</td>
+          <td id="allergyValidationError" class="validationError">* Allergy name is required.</td>
+          <td id="allergyDuplicateError" class="validationError">* An allergy of that name already exists.</td>
         </tr>
         <tr id="allergyList">
           <tr class="allergyListRow">
