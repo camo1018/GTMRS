@@ -34,8 +34,8 @@
         <tr>
           <td>Gender:</td>
           <td><select id="genderOption">
-            <option value="female">Female</option>
-            <option value="male">Male</option>
+            <option value="F">Female</option>
+            <option value="M">Male</option>
           </select></td>
         </tr>
         <tr>
@@ -54,6 +54,18 @@
           <td id="workPhoneValidationError" class="validationError">* Work Phone is required.</td>
         </tr>
         <tr>
+        <tr>
+          <td>Emergency Contact Name:</td>
+          <td><input id="emergencyNameField" type="tel" name="emergencyname"></td>
+          <td id="emergencyNameValidationError" class="validationError">* Emergency Contact Name is required.</td>
+        </tr>
+        <tr>
+        <tr>
+          <td>Emergency Contact Phone:</td>
+          <td><input id="emergencyPhoneField" type="tel" name="emergencyphone"></td>
+          <td id="emergencyPhoneValidationError" class="validationError">* Emergency Contact Phone is required.</td>
+        </tr>
+        <tr>
           <td>Weight:</td>
           <td><input id="weightField" type="number" name="weight"></td>
           <td id="weightValidationError" class="validationError">* Weight is required.</td>
@@ -67,9 +79,9 @@
           <td>Annual Income ($):</td>
           <td>
           <select id="incomeOption">
-            <option value="low">0-25000</option>
-            <option value="middle">25000-50000</option>
-            <option value="high">50000+</option>
+            <option value=0>0-25000</option>
+            <option value=1>25000-50000</option>
+            <option value=2>50000+</option>
           </select>
           </td>
         </tr>

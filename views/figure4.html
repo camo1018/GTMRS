@@ -69,11 +69,11 @@
         <tr>
           <td>Availability:</td>
           <td><select id="availabilityOption">
-            <option value="monds">Monday</option>
+            <option value="mon">Monday</option>
             <option value="tues">Tuesday</option>
-            <option value="weds">Wednesday</option>
+            <option value="wed">Wednesday</option>
             <option value="thurs">Thursday</option>
-            <option value="fries">Friday</option>
+            <option value="fri">Friday</option>
           </select></td>
 		  <td>From:<select id="fromOption">
 			<option value="800am">8:00 am</option>
@@ -120,7 +120,12 @@
       		<option value="600pm">6:00 pm</option>
 		 </select></td>
          <td><button id="availabilityAddButton" type="button">Add</button></td>
-		</tr>
+         <td id="availabilityDuplicateError" class="validationError">Availiability already exists.</td>
+		<tr id="availabilityList">
+          <tr class="availabilityListRow">
+          </tr>
+        </tr>
+    </tr>
         <tr>
           <td></td>
           <td></td>
@@ -128,7 +133,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td><button type="submitButton">Submit</button></td>
+          <td><button id="submitButton">Submit</button></td>
         </tr>
       </table>
     </center>

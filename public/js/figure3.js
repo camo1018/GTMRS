@@ -16,6 +16,8 @@ $(function() {
 		var address = $('#addressField').val();
 		var homePhone = $('#homePhoneField').val();
 		var workPhone = $('#workPhoneField').val();
+		var emergencyName = $('#emergencyNameField').val();
+		var emergencyPhone = $('#emergencyPhoneField').val();
 		var weight = $('#weightField').val();
 		var height = $('#heightField').val();
 		var income = $('#incomeOption').val();
@@ -45,6 +47,14 @@ $(function() {
 			$('#workPhoneValidationError').show();
 			validationError = true;
 		}
+		if (emergencyName == '') {
+			$('#emergencyNameValidationError').show();
+			validationError = true;
+		}
+		if (emergencyPhone == '') {
+			$('#emergencyPhoneValidationError').show();
+			validationError = true;
+		}
 		if (weight == '') {
 			$('#weightValidationError').show();
 			validationError = true;
@@ -68,8 +78,16 @@ $(function() {
 		if (validationError)
 			return;
 
+		// TODO: Test username for now.  This needs to be changed to be variable based on the session (created after login).
+		var username = "abc1234";
 
+		var parameters = { username: username, name: name, dob: dateOfBirth, gender: gender, address: address, 
+			homePhone: homePhone, workPhone: workPhone, emergencyName: emergencyName, emergencyPhone: emergencyPhone, 
+			weight: weight, height: height, income: income, allergies: allergies };
 
+		$.get('/patientProfile/submitNewProfile', parameters, function(data) {
+			document.location = "patienthome";
+		});
 	});
 
 	// Everytime we click the Add button under Allergies, we will append html text into the document so that we will have a new row that describes an allergy.

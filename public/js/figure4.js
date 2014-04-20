@@ -6,18 +6,20 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
-	// var allergies = new Array();
+	var availability = new Array();
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#submitButton').bind('click', function() {
+        $('.validationError').hide();
         var license = $('#licenseField').val();
 		var fName = $('#fnameField').val();
         var lName = $('#lnameField').val();
 		var birthday = $('#dobField').val();
-        var wphone = $('#wPhoneField').val();
+        var wPhone = $('#wPhoneField').val();
 		var specialty = $('#specialtyOption').val();
         var roomNo = $('#roomField').val();
-		var availability = $('#availabilityOption').val();
+        var address = $('#addressField').val();
+		var available = $('#availabilityOption').val();
         var from = $('#fromOption').val();
         var to = $('#toOption').val();
 
@@ -59,31 +61,31 @@ $(function() {
 		if (validationError)
 			return;
 
-
-
 	});
 
-	// Everytime we click the Add button under Allergies, we will append html text into the document so that we will have a new row that describes an allergy.
-/*	$('#availabilityAddButton').bind('click', function() {
-		var availailityTime = $('#allergyField').val();
+	// Everytime we click the Add button under, we will append html text into the document so that we will have a new row that describes an availability.
+	$('#availabilityAddButton').bind('click', function() {
+		var availability = $('#availabilityOption').val();
+		$('#availabilityDuplicateError').hide();
 
 		// If there is already an allergy of the same name, then don't add it.
-		if (allergies.indexOf(allergyName) != -1)
+		if (availability.indexOf(available) != -1) {
+			$('#allergyDuplicateError').show();
 			return;
+		}
 
-		$('#allergyList').append('<tr class="allergyListRow">' +
-            '<td id="allergyElement" class="allergyListElementOffset">' + allergyName + '</td>' +
-            '<td><button id="remove' + allergyName + '" type="button">-</button></td>' +
+		$('#availabilityList').append('<tr class="availabilityListRow">' +
+            '<td id="availabilityElement" class="availabilityListElementOffset">' + available + '</td>' +
+            '<td><button id="remove' + available + '" type="button">-</button></td>' +
           '</tr>');
 
-		$('#remove'+allergyName).bind('click', function() {
-			var allergyElementName = $(this).parent().find('#allergyElement').val();
-			allergies.splice(allergies.indexOf(allergyElementName),1);
-			$(this).parent().remove();
-		})
+		$('#remove'+available).bind('click', function() {
+			var availibilityElementName = $(this).parent().find('#availibilityElement').val();
+			availability.splice(availability.indexOf(availibilityElementName),1);
+			$(this).parent().parent().remove();
+		});
 
-		allergies.push($('allergyField').val())
+		availability.push(available);
 	});
 
-});
-    */
+});	
