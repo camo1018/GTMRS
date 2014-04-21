@@ -62,11 +62,10 @@ app.get('/paymentinfo', function(req, res) {
 	res.render('figure8.html');
 });
 
-<<<<<<< HEAD
 app.get('/rate', function(req, res) {
 	res.render('figure10.html');
 });	
-=======
+
 app.get('/visithistory', function(req, res) {
 	res.render('figure9.html');
 });
@@ -90,7 +89,6 @@ app.get('/monthlyappointmentscalendar', function(req, res) {
 app.get('/patientvisithistory', function(req, res) {
 	res.render('figure14.html');
 });
->>>>>>> FETCH_HEAD
 
 app.get('/recordvisit', function(req, res) {
 	res.render('figure15.html');
@@ -106,6 +104,36 @@ app.get('/sendmessagetodoctor', function(req, res) {
 
 app.get('/sendmessagetopatient', function(req, res) {
 	res.render('figure17b.html');
+
+});
+
+app.get('/inbox', function(req, res) {
+	res.render('figure18.html');
+
+});
+
+app.get('/adminhome', function(req, res) {
+	res.render('figure19.html');
+
+});
+
+app.get('/billing', function(req, res) {
+	res.render('figure20.html');
+
+});
+
+app.get('/docreport', function(req, res) {
+	res.render('figure21.html');
+
+});
+
+app.get('/surgeryreport', function(req, res) {
+	res.render('figure22.html');
+
+});
+
+app.get('/patientreport', function(req, res) {
+	res.render('figure23.html');
 
 });
 
