@@ -60,7 +60,8 @@ app.get('/patienthome', function(req, res) {
 });
 
 app.get('/makeappointment', function(req, res) {
-	res.render('figure6.html');
+	var data = { username:req.session.username };
+	res.render('figure6.html', { data: data });
 });
 
 app.get('/ordermedication', function(req, res) {
@@ -182,7 +183,7 @@ app.get('/register/newuser', function(req, res) {
 	var userType = req.query.userType;
 
 	var query = 'INSERT INTO User VALUES (\'' + username + '\', \'' + password + '\')';
-	console.log('Executing SQL\n'))
+	console.log('Executing SQL\n');
 })
 
 
