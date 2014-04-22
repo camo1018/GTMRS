@@ -182,7 +182,7 @@ app.get('/register/newuser', function(req, res) {
 	var userType = req.query.userType;
 
 	var query = 'INSERT INTO User VALUES (\'' + username + '\', \'' + password + '\')';
-	console.log('Executing SQL\n'))
+	console.log('Executing SQL\n');
 })
 
 
