@@ -24,15 +24,21 @@ $(function() {
 			validationError = true;
 		}
 
-	
-
 		// Submit!
 
 		// If validation failed, then don't actually submit anything.
 		if (validationError)
 			return;
 
-
+		var parameters = { username: username, password: password };
+		$.get('/login/loginUser', parameters, function(data) {
+			if (data == '') {
+				document.location = 'login';
+			}
+			else {
+				document.location = 'patienthome';
+			}
+		});
 
 	});
 

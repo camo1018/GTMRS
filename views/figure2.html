@@ -36,11 +36,12 @@
             <td>Confirm Password:</td>
             <td><input id="confirmPass" type="password" name="confirm"></td>
             <td id="confirmValidationError" class="validationError">* Confirm password is required.</td>
+            <td id="confirmMatchError" class="validationError">The passwords do not match.</td>
         </tr>
         <tr>
             <td>Type of User:</td>
             <td>
-              <select>
+              <select id="userType">
                 <option value="doctor">Doctor</option>
                 <option value="admin">Administrative Personnel</option>
                 <option value="patient">Patient</option>

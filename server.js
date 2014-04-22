@@ -8,6 +8,9 @@ var mysql = require('mysql');
 
 var app = express();
 
+app.use(express.cookieParser());
+app.use(express.session({secret: 'CS4400'}));
+
 var connection = mysql.createConnection({
 	host: 'academic-mysql.cc.gatech.edu',
 	database: 'cs4400_Group_31',
@@ -27,7 +30,11 @@ app.configure(function() {
 
 // HTML
 app.get('/', function(req, res) {
-	res.render('index.html');
+	//req.session.username = "abc1234";
+	//var username = req.session.username;
+	//var data = { username:username };
+	//res.render('index.html', { data:data });	
+	res.send("Index");
 });
 
 app.get('/login', function(req, res) {
@@ -39,7 +46,8 @@ app.get('/register', function(req, res) {
 });
 
 app.get('/patientprofile', function(req, res) {
-	res.render('figure3.html');
+	var data = { username:req.session.username };
+	res.render('figure3.html', { data:data });
 });
 
 app.get('/doctorprofile', function(req, res) {
@@ -47,7 +55,8 @@ app.get('/doctorprofile', function(req, res) {
 });
 
 app.get('/patienthome', function(req, res) {
-	res.render('figure5.html');
+	var data = { username:req.session.username };
+	res.render('figure5.html', { data: data });
 });
 
 app.get('/makeappointment', function(req, res) {
@@ -137,6 +146,46 @@ app.get('/patientreport', function(req, res) {
 
 });
 
+// Figure-specific Functions
+
+// Figure 1. Login
+app.get('/login/loginUser', function(req, res) {
+	console.log('Logging in user for ' + req.query.username);
+	var username = req.query.username;
+	var password = req.query.password;
+
+	// Search for user in the database
+	var query = 'SELECT * FROM User WHERE Username = \'' + username + '\' AND Password = \'' + password +'\'';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var user = '';
+		if (rows.length > 0) {
+			user += rows[0].Username;
+			console.log('User [' + user + '] retrieved');
+		}
+
+		// User was found.
+		if (user != '') {
+			req.session.username = user;		
+		}
+
+		res.send(user);
+	});
+})
+
+// Figure 2. Registers
+app.get('/register/newuser', function(req, res) {
+	console.log("Registering a new user.");
+	var username = req.query.username;
+	var password = req.query.password;
+	var userType = req.query.userType;
+
+	var query = 'INSERT INTO User VALUES (\'' + username + '\', \'' + password + '\')';
+	console.log('Executing SQL\n'))
+})
+
+
 // Figure 3. Patient Profile
 app.get('/patientprofile/submitNewProfile', function(req, res) {
 	console.log('Submitting a new patient profile to the server.');
@@ -153,8 +202,6 @@ app.get('/patientprofile/submitNewProfile', function(req, res) {
 	var height = req.query.height;
 	var income = req.query.income;
 	var allergies = req.query.allergies;
-
-	connection.connect();
 	var query = 'INSERT INTO Patient VALUES (\'' + username + '\', \'' + name + '\', \'' + dob + '\', \'' + gender + '\', \'' + address + '\', \'' + homePhone + '\', \''
 		+ workPhone + '\', \'' + emergencyName + '\', \'' + emergencyPhone + '\', ' + weight + ', ' + height + ', ' + income + ', NULL)';
 	console.log('Executing SQL\n' + query);
@@ -169,20 +216,16 @@ app.get('/patientprofile/submitNewProfile', function(req, res) {
 			console.log('Allergy row inserted');
 		});
 	}
-		
-	connection.end();
 	res.send('good');
 });
 
 app.get('/patientprofile/test', function(req, res) {
 	console.log('Sup');
-	connection.connect();
 	connection.query('SELECT * FROM User', function(err, rows, fields) {
 		if (err) throw err;
 
 		console.log('The username of the first row: ', rows[0].Username);
 	});
-	connection.end();
 	res.send('good');
 });
 

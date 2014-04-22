@@ -78,8 +78,7 @@ $(function() {
 		if (validationError)
 			return;
 
-		// TODO: Test username for now.  This needs to be changed to be variable based on the session (created after login).
-		var username = "abc1234";
+		var username = serverData.username;
 
 		var parameters = { username: username, name: name, dob: dateOfBirth, gender: gender, address: address, 
 			homePhone: homePhone, workPhone: workPhone, emergencyName: emergencyName, emergencyPhone: emergencyPhone, 
