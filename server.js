@@ -8,6 +8,9 @@ var mysql = require('mysql');
 
 var app = express();
 
+app.use(express.cookieParser());
+app.use(express.session({secret: 'CS4400'}));
+
 var connection = mysql.createConnection({
 	host: 'academic-mysql.cc.gatech.edu',
 	database: 'cs4400_Group_31',
