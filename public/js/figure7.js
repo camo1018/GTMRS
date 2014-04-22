@@ -11,16 +11,22 @@ $(function() {
 	$('#checkoutButton').bind('click', function() {
 		var medication = $('#medsField').val();
 		var doctor = $('#docField').val();
+		var pdate = $('#pdate').val();
 	
 		// Validation
 		var validationError = false;
 
+		$('.validationError').hide();
 		if (medication == '') {
 			$('#medsValidationError').show();
 			validationError = true;
 		}
 		if (doctor == '') {
 			$('#docValidationError').show();
+			validationError = true;
+		}
+		if (pdate == '') {
+			$('#pdateValidationError').show();
 			validationError = true;
 		}
 
