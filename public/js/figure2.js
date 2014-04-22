@@ -10,7 +10,10 @@ $(function() {
 	$('#registerButton').bind('click', function() {
 		var username = $('#username').val();
 		var password = $('#password').val();
+		var userType = $('#userType').val();
 		var confirm = $('#confirmPass').val();
+
+		$('.validationError').hide();
 
 		// Validation
 		var validationError = false;
@@ -27,12 +30,10 @@ $(function() {
 			$('#confirmValidationError').show();
 			validationError = true;
 		}
-
-		var parameters = { username: username, password: password, confirm: confirm };
-
-		$.get('/register/newuser', parameters, function(data) {
-			document.location = "patienthome";
-		});
+		else if (password != confirm) {
+			$('#confirmMatchError').show();
+			validationError = true;
+		}
 		
 		// Submit!
 
@@ -40,7 +41,11 @@ $(function() {
 		if (validationError)
 			return;
 
+		var parameters = { username: username, password: password, userType: userType};
 
+		$.get('/register/newuser', parameters, function(data) {
+			document.location = "patienthome";
+		});
 
 	});
 });
