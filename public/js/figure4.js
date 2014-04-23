@@ -7,6 +7,7 @@ $(function() {
 	$('.validationError').hide();
 
 	var availability = new Array();
+	var availability2 = new Array();
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#submitButton').bind('click', function() {
@@ -77,7 +78,8 @@ $(function() {
 		var availableday = $('#availabilityOption').val();
 		var availabletotime = $('#toOption').val();
 		var availablefromtime = $('#fromOption').val();
-		var available = (availableday+":"+availablefromtime+"-"+availabletotime);
+		var available = (availableday+availablefromtime+"-"+availabletotime);
+		var availabilityObj = { day: availableday, from: availablefromtime, to: availabletotime };
 		$('#availabilityDuplicateError').hide();
 
 		// If there is already an allergy of the same name, then don't add it.
@@ -94,9 +96,11 @@ $(function() {
 		$('#remove'+ available).bind('click', function() {
 			var availabilityElementName = $(this).parent().find('#availabilityElement').val();
 			availability.splice(availability.indexOf(availabilityElementName),1);
+			availability2.splice(availability.indexOf(availabilityElementName),1);
 			$(this).parent().parent().remove();
 		});
 
 		availability.push(available);
+		availability2.push(availabilityObj);
 	});
 });	
