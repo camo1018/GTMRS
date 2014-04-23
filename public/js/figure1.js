@@ -36,7 +36,17 @@ $(function() {
 				document.location = 'login';
 			}
 			else {
-				document.location = 'patienthome';
+				// Now determine what type of user it is.
+				$.get('/login/getUserType', parameters, function(data2) {
+					if (data2 == 'patient')
+						document.location = 'patienthome';
+					else if (data2 == 'doctor')
+						document.location = 'doctorhome';
+					else if (data2 == 'admin')
+						document.location = 'adminhome';
+					else
+						document.location = '';
+				});
 			}
 		});
 
