@@ -170,7 +170,43 @@ app.get('/login/loginUser', function(req, res) {
 
 		res.send(user);
 	});
-})
+});
+
+app.get('/login/getUserType', function(req, res) {
+	console.log('Getting user type for user ' + req.query.username);
+	var username = req.query.username;
+
+	// Search for user in the database
+	var query = 'SELECT (Username) FROM Patient WHERE Username = \'' + username + '\'';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		if (rows.length > 0) {
+			res.send('patient');
+			return;			
+		}
+	});
+
+	query = 'SELECT (Username) FROM Doctor WHERE Username = \'' + username + '\'';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		if (rows.length > 0) {
+			res.send('doctor');
+			return;			
+		}
+	});
+
+	query = 'SELECT (Username) FROM Admin WHERE Username = \'' + username + '\'';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		if (rows.length > 0) {
+			res.send('admin');
+			return;			
+		}
+	});
+});
 
 // Figure 2. Registers
 app.get('/register/newuser', function(req, res) {
