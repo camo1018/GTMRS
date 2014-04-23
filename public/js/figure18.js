@@ -9,20 +9,18 @@ $(function() {
 	
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#sendMessageButton').bind('click', function() {
-		var dmessage = $('#dmessageField').val();
-        var pmessage = $('#pmessageField').val();
+		var message = $('#messageField').val();
 		
 
 		// Validation
 		var validationError = false;
 
-		if (dmessage == '' && pmessage=='') {
-			$('#dmessageValidationError').show();
-            $('#pmessageValidationError').show();
+		if (message == '') {
+			$('#messageValidationError').show();
 			validationError = true;
 		}
 		
-	
+		
 		// Submit!
 
 		// If validation failed, then don't actually submit anything.
