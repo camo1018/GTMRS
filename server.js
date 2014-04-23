@@ -51,7 +51,8 @@ app.get('/patientprofile', function(req, res) {
 });
 
 app.get('/doctorprofile', function(req, res) {
-	res.render('figure4.html');
+	var data = { username:req.session.username };
+	res.render('figure4.html', { data:data });
 });
 
 app.get('/patienthome', function(req, res) {
@@ -215,7 +216,7 @@ app.get('/register/newuser', function(req, res) {
 	var password = req.query.password;
 	var userType = req.query.userType;
 
-	var query = 'SELECT * FROM User WHERE Username = \'' + username + '\'');
+	var query = 'SELECT * FROM User WHERE Username = \'' + username + '\'';
 	connection.query(query, function(err1, rows1, fields1) {
 		if (rows1.length > 0) {
 			console.log('User already exists!');
@@ -282,6 +283,41 @@ app.get('/patientprofile/submitNewProfile', function(req, res) {
 		});
 	}
 	res.send('good');
+});
+
+// Figure 4.  Doctor Profile
+app.get('/doctorprofile/submitDocProfile', function(req, res) {
+	console.log('Submitting a new doctor profile to the server.');
+	var username = req.query.username;
+	var licenseNum = req.query.licenseNum;
+	var fname = req.query.fname;
+	var lname = req.query.lname;
+	var dob = req.query.dob;
+	var wPhone = req.query.wPhone;
+	var spec = req.query.spec;
+	var roomNum = req.query.roomNum;
+	var address = req.query.address;
+	var availability = req.query.availability;
+
+	var query = 'UPDATE Doctor SET FirstName=\'' + fname + '\', LastName=\'' + lname + '\', LicenseNumber=\'' + licenseNum + '\', Dob=\'' +
+		dob + '\', HomeAddress=\'' + address + '\', WorkPhone=\'' + wPhone + '\', Specialty=\'' + spec + '\', RoomNo=\'' + roomNum + '\' WHERE Username=\''
+		+ username +'\'';
+
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log('Doctor profile updated for user ' + username);
+	})
+
+	// First, delete all pre-existing rows of Availability.
+	query = 'DELETE FROM Availability WHERE DUsername=\'' + username + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var index;
+		for (index = 0; index < availability.length; ++index) {
+			var subQuery = 'INSERT INTO Availability VALUES(\'' + username + '\', \'' + availability.day + '\', \'' + availability.from 	
+		}
+		
+	}
 });
 
 app.get('/patientprofile/test', function(req, res) {

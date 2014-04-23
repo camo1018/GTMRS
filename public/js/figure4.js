@@ -60,6 +60,16 @@ $(function() {
 		if (validationError)
 			return;
 
+		var username = serverData.username;
+
+		var parameters = { username: username, licenseNum: license, fname: fName, lname: lName, dob: birthday, 
+			wPhone: wPhone, spec: specialty, roomNum:roomNo, address: address, 
+			availability: availability };
+
+		$.get('/doctorProfile/submitDocProfile', parameters, function(data) {
+			document.location = "doctorhome";
+		});
+
 	});
 
 	// Everytime we click the Add button under, we will append html text into the document so that we will have a new row that describes an availability.
@@ -89,13 +99,4 @@ $(function() {
 
 		availability.push(available);
 	});
-
-		var parameters = { licenseNum: license, fname: fName, lname: lName, dob: birthday, 
-			wPhone: wPhone, spec: specialty, roomNum:roomNo, address: address, 
-			availableday: available, fromtime: from, totime: to };
-
-		$.get('/doctorProfile/submitDocProfile', parameters, function(data) {
-			document.location = "doctorhome";
-		});
-
 });	
