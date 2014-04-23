@@ -60,7 +60,8 @@ app.get('/patienthome', function(req, res) {
 });
 
 app.get('/makeappointment', function(req, res) {
-	res.render('figure6.html');
+	var data = { username:req.session.username };
+	res.render('figure6.html', { data: data });
 });
 
 app.get('/ordermedication', function(req, res) {
@@ -79,9 +80,6 @@ app.get('/visithistory', function(req, res) {
 	res.render('figure9.html');
 });
 
-app.get('/ratedoctor', function(req, res) {
-	res.render('figure10.html');
-});
 
 app.get('/doctorhome', function(req, res) {
 	res.render('figure11.html');
@@ -216,7 +214,6 @@ app.get('/register/newuser', function(req, res) {
 	});
 	
 });
-
 
 // Figure 3. Patient Profile
 app.get('/patientprofile/submitNewProfile', function(req, res) {

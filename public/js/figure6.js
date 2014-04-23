@@ -8,42 +8,27 @@ $(function() {
 
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
-	$('#orderbutton').bind('click', function() {
-		var cardholder = $('#name').val();
-		var cardnumber = $('#cardNum').val();
-		var cvv = $('#cvvNum').val();
-		var doe = $('#expireDate').val();
-
+	$('#reqbutton').bind('click', function() {
+		var check1 = $('#check1');
+		var check2 = $('#check2');
+	$('.validationError').hide();
 		// Validation
 		var validationError = false;
 
-		$('.validationError').hide();
-		if (cardholder == '') {
-			$('#cardholderValidationError').show();
-			validationError = true;
-		}
-		if (cardnumber == '') {
-			$('#cardNumValidationError').show();
-			validationError = true;
-		}
-		if (cvv == '') {
-			$('#cvvValidationError').show();
+		if (check1.is(":checked") == false && check2.is(":checked") == false) {
+			$('#checkValidationError').show();
 			validationError = true;
 
+		}
 
-		}
-		if (doe == '') {
-			$('#dateValidationError').show();
-			validationError = true;
-		}
+
+
 
 		// Submit!
 
 		// If validation failed, then don't actually submit anything.
 		if (validationError)
 			return;
-
-
 
 	});
 

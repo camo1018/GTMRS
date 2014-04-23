@@ -67,12 +67,12 @@ $(function() {
 		var availableday = $('#availabilityOption').val();
 		var availabletotime = $('#toOption').val();
 		var availablefromtime = $('#fromOption').val();
-		var available = (availableday+availabletotime+availablefromtime);
+		var available = (availableday+":"+availablefromtime+"-"+availabletotime);
 		$('#availabilityDuplicateError').hide();
 
 		// If there is already an allergy of the same name, then don't add it.
 		if (availability.indexOf(available) != -1) {
-			$('#allergyDuplicateError').show();
+			$('#availabilityDuplicateError').show();
 			return;
 		}
 

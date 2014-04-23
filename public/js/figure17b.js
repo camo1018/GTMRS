@@ -16,15 +16,13 @@ $(function() {
 		// Validation
 		var validationError = false;
 
-		if (dmessage == '') {
+		if (dmessage == '' && pmessage=='') {
 			$('#dmessageValidationError').show();
+            $('#pmessageValidationError').show();
 			validationError = true;
 		}
 		
-		if (pmessage == '') {
-			$('#pmessageValidationError').show();
-			validationError = true;
-		}
+	
 		// Submit!
 
 		// If validation failed, then don't actually submit anything.

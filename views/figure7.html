@@ -65,11 +65,12 @@
         </tr>
         <tr>
           <td>Date of Prescription:</td>
-          <td><input type="date" name="pDate"></td>
+          <td><input type="date" name="pDate" id="pdate"></td>
+          <td id="pdateValidationError" class="validationError">* Date of prescription is required.</td>
         </tr>
         <tr>
           <td></td>
-          <td><p style="text-align:right"><a href="add">Add medication to basket</a></p></td>
+          <td><p style="text-align:right" id="addtobasket"><a href="add">Add medication to basket</a></p></td>
         <td><button id="checkoutButton" type="button">Checkout</button></td>
         </tr>
       </table>

@@ -10,6 +10,12 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
+  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -19,16 +25,16 @@
   </head>
   <body>
     <h1 align="center">Schedule Appointments<br>With Doctors</h1>
-    <center><img src="buzz CS4400 image.jpg" align="middle"></center>
+    <center><img src="img/buzz CS4400 image.jpg" align="middle"></center>
     <center><p>Specialty:
     <select>
-      <option value="eye">Eye Physicians</option>
-      <option value="general">General Physicians</option>
-      <option value="heart">Heart Specialists</option>
-      <option value="orthopedic">Orthopedics</option>
-      <option value="psychiatry">Psychiatrists</option>
-      <option value="gynecologist">Gynecologists</option>
-    </select><button type="button">Search</button></p></center>
+      <option value="eye" id="eyephys">Eye Physicians</option>
+      <option value="general" id="genphys">General Physicians</option>
+      <option value="heart" id="heartspec">Heart Specialists</option>
+      <option value="orthopedic" id="ortho">Orthopedics</option>
+      <option value="psychiatry" id="psych">Psychiatrists</option>
+      <option value="gynecologist" id="gyneco">Gynecologists</option>
+    </select><button type="button" id="button">Search</button></p></center>
     <center><table style="width:700px" border="1">
     <tr>
       <td>Doctor Name</td>
@@ -41,23 +47,31 @@
       <td>Dr.X</td>
       <td>123-456-7890</td>
       <td># 600</td>
-      <td>Monday: 1:30PM - 5:00PM    <input type="checkbox" name="appointment" value="1"></td>
-      <td><img src="buzz_ratings.jpg" align="middle"><img src="buzz_ratings.jpg" align="middle"></td>
+
+      <td>Monday: 1:30PM - 5:00PM    <input type="checkbox" name="appointment" value="1" id="check1"></td>
+      <td>2</td>
+
     </tr>
     <tr>
       <td> </td>
       <td> </td>
       <td> </td>
-      <td>Wednesday: 12:00PM - 3:30PM    <input type="checkbox" name="appointment" value="1"></td>
+      <td>Wednesday: 12:00PM - 3:30PM    <input type="checkbox" name="appointment" value="2" id="check2"></td>
       <td> </td>
     </tr>
     </table></center>
-    <br><center><button type="button">Request Appointment</button></p></center>
+
+    <br><center><button type="button" id="reqbutton">Request Appointment</button></p></center>
+    <center class="validationError" id="checkValidationError">* No appointment(s) selected</center>
+
+    <br><center><button type="button">Request Appointment</button></p>
+    <a href="home">Return to Homepage</a></center>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure6.js"></script>
   </body>
 </html>

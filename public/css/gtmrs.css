@@ -12,3 +12,8 @@
 	overflow: visible;
 	color: red;
 }
+
+.left {
+    left: 0px;
+    padding-left: 20px;
+}
