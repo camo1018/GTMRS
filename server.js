@@ -181,9 +181,41 @@ app.get('/register/newuser', function(req, res) {
 	var password = req.query.password;
 	var userType = req.query.userType;
 
-	var query = 'INSERT INTO User VALUES (\'' + username + '\', \'' + password + '\')';
-	console.log('Executing SQL\n'))
-})
+	var query = 'SELECT * FROM User WHERE Username = \'' + username + '\'');
+	connection.query(query, function(err1, rows1, fields1) {
+		if (rows1.length > 0) {
+			console.log('User already exists!');
+			res.send('bad');
+			return;
+		}
+
+		var subquery = 'INSERT INTO User VALUES (\'' + username + '\', \'' + password + '\')';
+		console.log('Executing SQL\n' + query);
+		connection.query(subquery, function(err, rows, fields) {
+			if (err) throw err;
+			console.log('New user registered.');
+		});
+
+		if (userType == 'patient')
+			subquery = 'INSERT INTO Patient (Username) VALUES (\'' + username + '\')';
+		else if (userType == 'doctor')
+			subquery = 'INSERT INTO Doctor (Username) VALUES (\'' + username + '\')';
+		else
+			subquery = 'INSERT INTO Admin (Username) VALUES (\'' + username + '\')';
+		
+		connection.query(subquery, function(err, rows, fields) {
+			if (err) throw err;
+			console.log('New user userType registered.');
+			if (userType == 'patient')
+				res.send('patient');
+			else if (userType == 'doctor')
+				res.send('doctor');
+			else
+				res.send('admin');
+		});
+	});
+	
+});
 
 
 // Figure 3. Patient Profile

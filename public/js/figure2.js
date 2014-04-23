@@ -44,7 +44,14 @@ $(function() {
 		var parameters = { username: username, password: password, userType: userType};
 
 		$.get('/register/newuser', parameters, function(data) {
-			document.location = "patienthome";
+			if (data == 'patient')
+				document.location = 'patienthome';
+			else if (data == 'doctor')
+				document.location = 'doctorhome';
+			else if (data == 'admin')
+				document.location = 'adminhome';
+			else
+				document.location = 'register';
 		});
 
 	});
