@@ -17,6 +17,7 @@ $(function() {
 		// Validation
 		var validationError = false;
 
+		$('.validationError').hide();
 		if (cardholder == '') {
 			$('#cardholderValidationError').show();
 			validationError = true;
@@ -28,6 +29,8 @@ $(function() {
 		if (cvv == '') {
 			$('#cvvValidationError').show();
 			validationError = true;
+
+
 		}
 		if (doe == '') {
 			$('#dateValidationError').show();
