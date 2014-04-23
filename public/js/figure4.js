@@ -7,6 +7,7 @@ $(function() {
 	$('.validationError').hide();
 
 	var availability = new Array();
+	var availability2 = new Array();
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#submitButton').bind('click', function() {
@@ -60,6 +61,14 @@ $(function() {
 		if (validationError)
 			return;
 
+		var parameters = { licenseNum: license, fname: fName, lname: lName, dob: birthday, 
+			wPhone: wPhone, spec: specialty, roomNum:roomNo, address: address, 
+			availableday: available, fromtime: from, totime: to };
+
+		$.get('/doctorProfile/submitDocProfile', parameters, function(data) {
+			document.location = "doctorhome";
+		});
+
 	});
 
 	// Everytime we click the Add button under, we will append html text into the document so that we will have a new row that describes an availability.
@@ -67,7 +76,8 @@ $(function() {
 		var availableday = $('#availabilityOption').val();
 		var availabletotime = $('#toOption').val();
 		var availablefromtime = $('#fromOption').val();
-		var available = (availableday+":"+availablefromtime+"-"+availabletotime);
+		var available = (availableday+availablefromtime+"-"+availabletotime);
+		var availabilityObj = { day: availableday, from: availablefromtime, to: availabletotime };
 		$('#availabilityDuplicateError').hide();
 
 		// If there is already an allergy of the same name, then don't add it.
@@ -84,18 +94,12 @@ $(function() {
 		$('#remove'+ available).bind('click', function() {
 			var availabilityElementName = $(this).parent().find('#availabilityElement').val();
 			availability.splice(availability.indexOf(availabilityElementName),1);
+			availability2.splice(availability.indexOf(availabilityElementName),1);
 			$(this).parent().parent().remove();
 		});
 
 		availability.push(available);
+		availability2.push(availabilityObj);
 	});
-
-		var parameters = { licenseNum: license, fname: fName, lname: lName, dob: birthday, 
-			wPhone: wPhone, spec: specialty, roomNum:roomNo, address: address, 
-			availableday: available, fromtime: from, totime: to };
-
-		$.get('/doctorProfile/submitDocProfile', parameters, function(data) {
-			document.location = "doctorhome";
-		});
 
 });	
