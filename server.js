@@ -80,9 +80,6 @@ app.get('/visithistory', function(req, res) {
 	res.render('figure9.html');
 });
 
-app.get('/ratedoctor', function(req, res) {
-	res.render('figure10.html');
-});
 
 app.get('/doctorhome', function(req, res) {
 	res.render('figure11.html');
