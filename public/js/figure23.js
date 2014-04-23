@@ -7,5 +7,8 @@ $(function() {
 	var mm = today.getMonth()+1;
     $("#month").val(mm);
     
+    var yyyy = today.getFullYear();
+    $("#year").val(yyyy);
+    
 
 });
