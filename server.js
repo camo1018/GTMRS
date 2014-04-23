@@ -314,10 +314,12 @@ app.get('/doctorprofile/submitDocProfile', function(req, res) {
 		if (err) throw err;
 		var index;
 		for (index = 0; index < availability.length; ++index) {
-			var subQuery = 'INSERT INTO Availability VALUES(\'' + username + '\', \'' + availability.day + '\', \'' + availability.from 	
+			var subQuery = 'INSERT INTO Availability VALUES(\'' + username + '\', \'' + availability.day + '\', \'' + availability.from + '\'';
+			connection.query(subQuery, function(err, rows, fields) {
+				if (err) throw err;
+			});
 		}
-		
-	}
+	});
 });
 
 app.get('/patientprofile/test', function(req, res) {
