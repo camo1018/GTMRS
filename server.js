@@ -80,11 +80,13 @@ app.get('/visithistory', function(req, res) {
 });
 
 app.get('/rate', function(req, res) {
-	res.render('figure10.html');
+	var data = { username:req.session.username };
+	res.render('figure10.html', { data: data });
 });	
 
 app.get('/doctorhome', function(req, res) {
-	res.render('figure11.html');
+	var data = { username:req.session.username };
+	res.render('figure11.html', { data: data });
 });
 
 app.get('/dailyappointmentscalendar', function(req, res) {
@@ -464,7 +466,6 @@ app.get('/paymentinfo/checkExistingPaymentInfo', function(req, res) {
 	});
 });
 
-
 app.get('/paymentinfo/order', function(req, res) {
 	var username = req.query.username;
 	var cName = req.query.cName;
@@ -487,6 +488,56 @@ app.get('/paymentinfo/order', function(req, res) {
 
 });
 
+// Figure 9.  Visit History
+app.get('/visithistory/getVisits', function(req, res) {
+	var username = req.query.username;
+
+	var query = 'SELECT * FROM Visit WHERE PUsername = \'' + username + '\'';
+	var visits = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		for (var i = 0; i < rows.length; i++) {
+			var visit = { pUsername: username, dUsername: rows[i].DUsername, visitDate: rows[i].VisitDate, 
+				sdiastolic: rows[i].Diastolic, systolic: rows[i].Systolic, billingAmount: rows[i].BillingAmount };
+			visits.push(visit);
+		}
+		res.json(visits);
+	});
+}
+
+// Figure 10.  Rate a Doctor
+app.get('/rate/submitRating', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var pUsername = req.query.pUsername;
+	var rating = req.query.Rating;
+
+	var query = 'INSERT INTO Rates VALUES (\'' + dUsername + '\', \'' + pUsername + '\', \'' + rating + '\')';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		res.send('good');
+	});
+});
+
+app.get('/rate/getDoctors', function(req, res) {
+	var pUsername = req.query.pUsername;
+
+	var query = 'SELECT Username, FirstName, LastName FROM Doctor' ;
+	//, Visit WHERE Doctor.Username = Visit.DUsername AND \'' + pUsername + '\' = Visit.PUsername'
+	var doctors = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		for (var i = 0; i < rows.length; i++ ) {
+			var resultUsername = rows[i].Username;
+			var resultFName = rows[i].FirstName;
+			var resultLName = rows[i].LastName;
+			var doctor = { username: resultUsername, fName: resultFName, lName: resultLName };
+			doctors.push(doctor);
+		}
+		res.json(doctors);
+	});
+})
+
+
 // Figure 11. Doctor Homepage
 app.get('/doctorhome/getMessageCount', function(req, res) {
 	console.log('Getting message count from the server.');
@@ -500,6 +551,7 @@ app.get('/doctorhome/getMessageCount', function(req, res) {
 		console.log("Returning count " + count);
 	});
 });
+
 
 // TEST
 app.get('/patientprofile/test', function(req, res) {

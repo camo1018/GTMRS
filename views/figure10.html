@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -23,8 +28,8 @@
       <table style="width:400px">
        	 <tr>
           <td>Select a Doctor:</td>
-          <td><select>
-          			<option value="goel" id="1">Dr. Sanjay Goel</option>
+          <td><select id="doctorSelect">
+          			<option value="username" id="1">Dr. Sanjay Goel</option>
           			<option value="brent" id="2">Dr. Mary Brent</option>
           			<option value="buffet" id="3">Dr. Mark Buffet</option> 
           			<option value="rose" id="4">Dr. Mary Rose</option>
