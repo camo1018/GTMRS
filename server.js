@@ -322,6 +322,19 @@ app.get('/doctorprofile/submitDocProfile', function(req, res) {
 	});
 });
 
+// Figure 5. Patient Homepage
+app.get('/patienthome/getMessageCount', function(req, res) {
+	console.log('Getting message count from the server.');
+	var username = req.query.username;
+	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Patient WHERE ReceiverPUsername = \'' + username +'\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var count = rows[0].Count;
+		res.send(''+count);
+		console.log("Returning count " + count);
+	});
+});
+
 app.get('/patientprofile/test', function(req, res) {
 	console.log('Sup');
 	connection.query('SELECT * FROM User', function(err, rows, fields) {
