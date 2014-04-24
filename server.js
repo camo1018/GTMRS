@@ -75,14 +75,13 @@ app.get('/paymentinfo', function(req, res) {
 	res.render('figure8.html', { data: data });
 });
 
-app.get('/rate', function(req, res) {
-	res.render('figure10.html');
-});	
-
 app.get('/visithistory', function(req, res) {
 	res.render('figure9.html');
 });
 
+app.get('/rate', function(req, res) {
+	res.render('figure10.html');
+});	
 
 app.get('/doctorhome', function(req, res) {
 	res.render('figure11.html');
