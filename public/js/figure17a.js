@@ -14,7 +14,8 @@ $(function() {
 
 		// Validation
 		var validationError = false;
-
+		
+		$('.validationError').hide();
 		if (message == '') {
 			$('#messageValidationError').show();
 			validationError = true;
