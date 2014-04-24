@@ -6,6 +6,10 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
+	$.get('/rate/getDoctors', function(data) {
+		// Get doctors then populate the doctorSelect
+	});
+
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#SubmitRating').bind('click', function() {
 		var noRate = $('#NoRate').val();
@@ -24,7 +28,12 @@ $(function() {
 		if (validationError)
 			return;
 
+		// TODO:  Get Doctor's username
+		var dUsername = '';
 
+		var parameters = { dUsername: dUsername, pUsername: pUsername, rating: noRate };
+		$.get('/rate/submitRating', function(data) {
+		});
 	});
 
 
