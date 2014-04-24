@@ -487,6 +487,20 @@ app.get('/paymentinfo/order', function(req, res) {
 
 });
 
+// Figure 11. Doctor Homepage
+app.get('/doctorhome/getMessageCount', function(req, res) {
+	console.log('Getting message count from the server.');
+	var username = req.query.username;
+	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Patient OUTER JOIN Sends_Message_To_Doctor 
+    WHERE ReceiverPUsername = \'' + username +'\'' AND 'ReceiverDUsername = \'' + username +'\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var count = rows[0].Count;
+		res.send(''+count);
+		console.log("Returning count " + count);
+	});
+});
+
 // TEST
 app.get('/patientprofile/test', function(req, res) {
 	console.log('Sup');
