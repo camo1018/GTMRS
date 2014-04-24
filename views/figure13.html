@@ -22,7 +22,8 @@
     <center><img src="img/buzz CS4400 image.jpg" align="middle"></center>
     <a href="home">Return to Homepage</a>
     <center><p>Select Date:
-    <select>
+    <select id="day">
+      <option value="0" id="0"> </option>
       <option value="1" id="1">1</option>
       <option value="2" id="2">2</option>
       <option value="3" id="3">3</option>
@@ -55,21 +56,21 @@
       <option value="30" id="30">30</option>
       <option value="31" id="31">31</option>
     </select>
-    <select>
-      <option value="Jan" id="jan">January</option>
-      <option value="Feb" id="feb">February</option>
-      <option value="March" id="mar">March</option>
-      <option value="April" id="apr">April</option>
-      <option value="May" id="may">May</option>
-      <option value="June" id="june">June</option>
-      <option value="July" id="july">July</option>
-      <option value="Aug" id="aug">August</option>
-      <option value="Sept" id="sep">September</option>
-      <option value="Oct" id="oct">October</option>
-      <option value="Nov" id="nov">November</option>
-      <option value="Dec" id="dec">Decmeber</option>
+    <select id="month">
+      <option value="1" id="jan">January</option>
+      <option value="2" id="feb">February</option>
+      <option value="3" id="mar">March</option>
+      <option value="4" id="apr">April</option>
+      <option value="5" id="may">May</option>
+      <option value="6" id="june">June</option>
+      <option value="7" id="july">July</option>
+      <option value="8" id="aug">August</option>
+      <option value="9" id="sep">September</option>
+      <option value="10" id="oct">October</option>
+      <option value="11" id="nov">November</option>
+      <option value="12" id="dec">December</option>
     </select>
-    <select>
+    <select id="year">
       <option value="2012" id="2012">2012</option>
       <option value="2013" id="2013">2013</option>
       <option value="2014" id="2014">2014</option>
@@ -246,6 +247,6 @@ th.month {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure13.js"></script>
   </body>
 </html>
