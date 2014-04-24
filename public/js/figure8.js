@@ -6,11 +6,20 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
+	var username = serverData.username;
+	var params = { username: username }
+	$.get('/paymentinfo/checkExistingPaymentInfo', params, function(data) {
+		if (data == 'exists') {
+			document.window = 'patienthome';
+		}
+	});
+
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#orderbutton').bind('click', function() {
 		var cardholder = $('#name').val();
 		var cardnumber = $('#cardNum').val();
+		var cardtype = $('#cardType').val();
 		var cvv = $('#cvvNum').val();
 		var doe = $('#expireDate').val();
 
@@ -29,8 +38,6 @@ $(function() {
 		if (cvv == '') {
 			$('#cvvValidationError').show();
 			validationError = true;
-
-
 		}
 		if (doe == '') {
 			$('#dateValidationError').show();
@@ -43,8 +50,10 @@ $(function() {
 		if (validationError)
 			return;
 
+		var parameters = { username: username, cName: cardholder, cNumber: cardnumber, cType: cardtype, cvv: cvv, doe: doe };
 
-
+		$.get('/paymentinfo/order', parameters, function(data) {
+		}));
 	});
 
 

@@ -395,7 +395,7 @@ app.get('/makeappointment/requestAppointment', function(req, res) {
 	var count = appointments.length;
 	for (i = 0; i < appointments.length; ++i) {
 		var query = 'INSERT INTO RequestAppointment VALUES (\'' + pUsername + '\', ' + appointments[i].dUsername + '\', ' 
-			+ appointments[i].date + '\', ' + appointments[i].from + '\'';
+			+ appointments[i].date + '\', ' + appointments[i].from + '\')';
 		connection.query(query, function(err, rows, fields) {
 			if (err){
 				res.send('partial');
@@ -444,7 +444,47 @@ app.get('/ordermedication/checkout', function(req, res) {
 		dFirstName + '\' AND LastName=\'' + dLastName + '\') AND MedicineName=\'' + medication + '\'';
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
-	})
+	});
+});
+
+// Figure 8. Payment Info
+app.get('/paymentinfo/checkExistingPaymentInfo', function(req, res) {
+	var username = req.query.username;
+
+	var query = 'SELECT PaymentCardNumber FROM Patient WHERE Username=\'' + username +'\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var cardNumber = rows[0].PaymentCardNumber;
+		if (cardNumber == null) {
+			res.send('none');
+		}
+		else {
+			res.send('exists');
+		}
+	});
+});
+
+
+app.get('/paymentinfo/order', function(req, res) {
+	var username = req.query.username;
+	var cName = req.query.cName;
+	var cNumber = req.query.cNumber;
+	var cType = req.query.cType;
+	var cvv = req.query.cvv;
+	var doe = req.query.doe;
+
+	var query = 'INSERT INTO PaymentInformation VALUES (\'' + cName + '\', \'' + cNumber + '\', \'' + cType + '\', \'' + cvv + '\', \'' + doe + '\')';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+	});
+
+	query = 'UPDATE Patient SET PaymentCardNumber=\'' + cNumber + '\' WHERE Username=\'' + username + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+	});
+
+	res.send('good');
+
 });
 
 // TEST
