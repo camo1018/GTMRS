@@ -85,7 +85,8 @@ app.get('/rate', function(req, res) {
 });	
 
 app.get('/doctorhome', function(req, res) {
-	res.render('figure11.html');
+	var data = { username:req.session.username };
+	res.render('figure11.html', { data: data });
 });
 
 app.get('/dailyappointmentscalendar', function(req, res) {
@@ -486,6 +487,23 @@ app.get('/paymentinfo/order', function(req, res) {
 	res.send('good');
 
 });
+
+// Figure 9.  Visit History
+app.get('/visithistory/getVisits', function(req, res) {
+	var username = req.query.username;
+
+	var query = 'SELECT * FROM Visit WHERE PUsername = \'' + username + '\'';
+	var visits = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		for (var i = 0; i < rows.length; i++) {
+			var visit = { pUsername: username, dUsername: rows[i].DUsername, visitDate: rows[i].VisitDate, 
+				sdiastolic: rows[i].Diastolic, systolic: rows[i].Systolic, billingAmount: rows[i].BillingAmount };
+			visits.push(visit);
+		}
+		res.json(visits);
+	});
+}
 
 // Figure 10.  Rate a Doctor
 app.get('/rate/submitRating', function(req, res) {
