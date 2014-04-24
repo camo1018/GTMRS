@@ -21,35 +21,36 @@
     <h1 align="center">Appointments Calendar</h1>
     <center><img src="img/buzz CS4400 image.jpg" align="middle"></center>
     <center><p>Select Date:
-		<select>
+		<select id="day">
+        <option value="0" id="empty">  </option>    
 		<script language="javascript" type="text/javascript"> 
 
 		for(var d=1;d<=31;d++)
 		{
-		    document.write("<option>"+d+"</option>");
+		    document.write("<option value="+d+">"+d+"</option>");
 		}
 		</script>
 		</select>
-     <select>
-        <option value="jan" id="jan">January</option>
-        <option value="feb" id="feb">February</option>
-        <option value="march" id="mar">March</option>
-        <option value="apr" id="apr">April</option>
-        <option value="may" id="may">May</option>
-        <option value="june" id="june">June</option>
-		    <option value="july" id="july">July</option>
-        <option value="aug" id="aug">August</option>
-        <option value="sep" id="sep">September</option>
-        <option value="oct" id="oct">October</option>
-        <option value="nov" id="nov">November</option>
-        <option value="dec" id="dec">December</option>
+     <select id="month">
+        <option value="1" id="jan">January</option>
+        <option value="2" id="feb">February</option>
+        <option value="3" id="mar">March</option>
+        <option value="4" id="apr">April</option>
+        <option value="5" id="may">May</option>
+        <option value="6" id="june">June</option>
+		<option value="7" id="july">July</option>
+        <option value="8" id="aug">August</option>
+        <option value="9" id="sep">September</option>
+        <option value="10" id="oct">October</option>
+        <option value="11" id="nov">November</option>
+        <option value="12" id="dec">December</option>
 	</select>
-	<select>
+	<select id="year">
 	<script language="javascript" type="text/javascript"> 
 
 	for(var d=2010;d<=2015;d++)
 	{
-	    document.write("<option>"+d+"</option>");
+	    document.write("<option value="+d+">"+d+"</option>");
 	}
 	</script>
 	</select></p></center>
@@ -78,6 +79,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.html"></script>
+    <script src="js/figure12.js"></script>
   </body>
 </html>
