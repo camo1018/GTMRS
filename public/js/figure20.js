@@ -6,29 +6,24 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
-	
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
-	$('#sendMessageButton').bind('click', function() {
-		var dmessage = $('#dmessageField').val();
-        var pmessage = $('#pmessageField').val();
-		
+	$('#createButton').bind('click', function() {
+		var pname = $('#pnamefield').val();
 
 		// Validation
 		var validationError = false;
 
 		$('.validationError').hide();
-		if ((dmessage == '') && (pmessage == '')) {
-			$('#messageValidationError').show();
+		if (pname == '') {
+			$('#pNameValidationError').show();
 			validationError = true;
 		}
-		
-	
+
 		// Submit!
 
 		// If validation failed, then don't actually submit anything.
 		if (validationError)
 			return;
-
 
 
 	});
