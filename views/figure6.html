@@ -27,7 +27,7 @@
     <h1 align="center">Schedule Appointments<br>With Doctors</h1>
     <center><img src="img/buzz CS4400 image.jpg" align="middle"></center>
     <center><p>Specialty:
-    <select>
+    <select id="specialtyOption">
       <option value="eye" id="eyephys">Eye Physicians</option>
       <option value="general" id="genphys">General Physicians</option>
       <option value="heart" id="heartspec">Heart Specialists</option>
@@ -35,29 +35,13 @@
       <option value="psychiatry" id="psych">Psychiatrists</option>
       <option value="gynecologist" id="gyneco">Gynecologists</option>
     </select><button type="button" id="button">Search</button></p></center>
-    <center><table style="width:700px" border="1">
+    <center><table id="doctorsTable" style="width:700px" border="1">
     <tr>
       <td>Doctor Name</td>
       <td>Phone Number</td> 
       <td>Room Number</td>
       <td>Availability</td>
       <td>Average Rating</td>
-    </tr>
-    <tr>
-      <td>Dr.X</td>
-      <td>123-456-7890</td>
-      <td># 600</td>
-
-      <td>Monday: 1:30PM - 5:00PM    <input type="checkbox" name="appointment" value="1" id="check1"></td>
-      <td>2</td>
-
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td>Wednesday: 12:00PM - 3:30PM    <input type="checkbox" name="appointment" value="2" id="check2"></td>
-      <td> </td>
     </tr>
     </table></center>
 
@@ -66,12 +50,6 @@
 
     </table>
     <br>
-    <table>
-      <tr>
-        <td><button type="button" id="reqbutton">Request Appointment</button></td>
-        <td><center class="validationError" id="checkValidationError">* No appointment(s) selected</center></td>
-      </tr>
-    </table>
 
     <a href="home">Return to Homepage</a></center>
     
@@ -80,6 +58,8 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/lodash.min.js"></script>
+    <script src="js/date.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/figure6.js"></script>
   </body>

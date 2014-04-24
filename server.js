@@ -335,6 +335,79 @@ app.get('/patienthome/getMessageCount', function(req, res) {
 	});
 });
 
+// Figure 6. Make Appointment
+app.get('/makeappointment/getDoctors', function(req, res) {
+	var specialty = req.query.specialty;
+	console.log('Getting Doctors matching Criteria.');
+	var query = 'SELECT Username, FirstName, LastName, WorkPhone, RoomNo FROM Doctor WHERE Specialty = \'' + specialty + '\'';
+	var doctors = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var index;
+		for (index = 0; index < rows.length; ++index) {
+			var doctor = { username: rows[index].Username, fName: rows[index].FirstName, lName: rows[index].LastName, wPhone: rows[index].WorkPhone, roomNo: rows[index].RoomNo };
+			doctors.push(doctor);
+		}
+		res.json(doctors);
+	});
+});
+
+app.get('/makeappointment/getAvailability', function(req, res) {
+	var availability = [];
+	var username = req.query.username;
+	var query = 'SELECT * FROM Availability as A WHERE DUsername = \'' + username + '\' AND A.DUsername NOT IN (SELECT DUsername FROM RequestAppointment as R WHERE R.DUsername=A.DUsername AND A.From = R.Time AND A.Day = DAYOFWEEK(R.Date))';
+	connection.query(query, function(err, rows, fields) {
+		var index;
+		for (index = 0; index < rows.length; ++index) {
+			var timeSlot = { day:rows[index].Day, from:rows[index].From, to:rows[index].To };
+			availability.push(timeSlot);
+		}
+		res.json(availability);
+	});
+});
+
+app.get('/makeappointment/getAverageRating', function(req, res) {
+	var username = req.query.username;
+	var query = 'SELECT AVG(Rating) As AvgRating FROM Rates WHERE DUsername = \'' + username + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var avgRating = rows[0].AvgRating;
+		res.send(''+avgRating);
+	})
+});
+
+app.get('/makeappointment/requestAppointment', function(req, res) {
+	var pUsername = req.query.pUsername;
+	var appointments =req.query.appointments;
+
+	// First compare appointments and make sure there are no overlaps.
+	var i;
+	var j;
+	for (i = 0; i < appointments.length; ++i) {
+		for (j = i + 1; j < appointments.length; ++j) {
+			if (appointments[i].date == appointments[j].date && (appointments[i].from <= appointments[j].to && appointments[j].from <= appointments[i].to)) {
+				res.send('bad');
+				return;
+			}
+		}
+	}
+	var count = appointments.length;
+	for (i = 0; i < appointments.length; ++i) {
+		var query = 'INSERT INTO RequestAppointment VALUES (\'' + pUsername + '\', ' + appointments[i].dUsername + '\', ' 
+			+ appointments[i].date + '\', ' + appointments[i].from + '\'';
+		connection.query(query, function(err, rows, fields) {
+			if (err){
+				res.send('partial');
+			}
+			--count;
+			if (count <= 0) {
+				res.send('good');
+			}
+		});
+	}
+})
+
+// TEST
 app.get('/patientprofile/test', function(req, res) {
 	console.log('Sup');
 	connection.query('SELECT * FROM User', function(err, rows, fields) {
