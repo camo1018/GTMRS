@@ -17,3 +17,22 @@
     left: 0px;
     padding-left: 20px;
 }
+
+/* Figure 7 Specific */
+.success {
+	position: absolute;
+	white-space: nowrap;
+	overflow: visible;
+	color: green;
+	margin-top: 10px;
+	margin-left: -100px;
+}
+
+.fail {
+	position: absolute;
+	white-space: nowrap;
+	overflow: visible;
+	color: red;
+	margin-top: 10px;
+	margin-left: -100px;
+}

@@ -66,11 +66,13 @@ app.get('/makeappointment', function(req, res) {
 });
 
 app.get('/ordermedication', function(req, res) {
-	res.render('figure7.html');
+	var data = { username:req.session.username };
+	res.render('figure7.html', { data: data });
 });
 
 app.get('/paymentinfo', function(req, res) {
-	res.render('figure8.html');
+	var data = { username:req.session.username };
+	res.render('figure8.html', { data: data });
 });
 
 app.get('/rate', function(req, res) {
@@ -406,6 +408,45 @@ app.get('/makeappointment/requestAppointment', function(req, res) {
 		});
 	}
 })
+
+// Figure 7. Order Medication
+app.get('/ordermedication/check', function(req, res) {
+	var username = req.query.username;
+	var medication = req.query.medication;
+	var dosage = req.query.dosage;
+	var duration = req.query.duration;
+	var dFirstName = req.query.doctorFirstName;
+	var dLastName = req.query.doctorLastName;
+	var pdate = req.query.pdate;
+
+	var query = 'SELECT * FROM Prescription WHERE VisitDate=\'' + pdate + '\' AND PUsername=\'' + username + 
+		'\' AND DUsername IN (SELECT Username FROM Doctor WHERE FirstName=\'' + 
+		dFirstName + '\' AND LastName=\'' + dLastName + '\') AND MedicineName=\'' + medication + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		if (rows.length > 0)
+			res.send('good');
+		else
+			res.send('bad');
+	});
+});
+
+app.get('/ordermedication/checkout', function(req, res) {
+	var username = req.query.username;
+	var medication = req.query.medication;
+	var dosage = req.query.dosage;
+	var duration = req.query.duration;
+	var dFirstName = req.query.doctorFirstName;
+	var dLastName = req.query.doctorLastName;
+	var pdate = req.query.pdate;
+
+	var query = 'UPDATE Prescription SET Status=\'Paid\' WHERE VisitDate=\'' + pdate + '\' AND PUsername=\'' + username + 
+		'\' AND DUsername IN (SELECT Username FROM Doctor WHERE FirstName=\'' + 
+		dFirstName + '\' AND LastName=\'' + dLastName + '\') AND MedicineName=\'' + medication + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+	})
+});
 
 // TEST
 app.get('/patientprofile/test', function(req, res) {

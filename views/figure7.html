@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,7 +34,7 @@
         </tr>
        <tr>
           <td>Dosage:</td>
-          <td><select>
+          <td><select id="dosageOption">
 		      <script language="javascript" type="text/javascript"> 
                   for(var d=0;d<=10;d++)
 		          {
@@ -40,7 +45,7 @@
         </tr>
         <tr>
            <td>Duration:</td>
-           <td><select>
+           <td><select id="durationMonthOption">
  		       <script language="javascript" type="text/javascript"> 
                    for(var d=0;d<=12;d++)
  		           {
@@ -48,7 +53,7 @@
  		           }
  		       </script>
            </select>months
-           <select>
+           <select id="durationDayOption">
  		       <script language="javascript" type="text/javascript"> 
                    for(var d=0;d<=30;d++)
  		           {
@@ -62,16 +67,19 @@
           <td><input id="docField" type="text" name="doctor"></td>
           <td id="docValidationError" class="validationError">* Consulting doctor is required.</td>
         </tr>
-        </tr>
         <tr>
           <td>Date of Prescription:</td>
           <td><input type="date" name="pDate" id="pdate"></td>
           <td id="pdateValidationError" class="validationError">* Date of prescription is required.</td>
         </tr>
         <tr>
-          <td></td>
-          <td><p style="text-align:right" id="addtobasket"><a href="add">Add medication to basket&nbsp;&nbsp;</a></p></td>
-          <td><button id="checkoutButton" type="button">Checkout</button></td>
+          <td><button id="addToBasket" type="button" style="margin-top: 10px">Add</button></td>
+          <td id="addFail" class="fail">No matching prescription found.</td>
+          <td id="addSuccess" class="success">Medication added to basket.</td>
+        </tr>
+        <tr>
+          <td><button id="checkoutButton" type="button" style="margin-top: 10px">Checkout</button></td>
+          <td id="checkoutFail" class="fail">The basket is empty.</td>
         </tr>
       </table>
       <br>
