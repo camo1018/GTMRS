@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,8 +33,7 @@
         </tr>
         <tr>
           <td>Patient Name:</td>
-          <td><input id="pnameField" type="text" name="name"></td>
-          <td id="nameValidationError" class="validationError">* Patient name is required.</td>
+          <td><select id="pnameField"></select></td>
         </tr>
         <tr>
           <td>Systolic Blood Pressure:</td>
@@ -44,7 +48,8 @@
         <tr>
           <td>Diagnosis:</td>
           <td><textarea id="diagnosisField" name="diagnosis"></textarea></td>
-          <td id="diagnosisValidationError" class="validationError">* Diagnosis is required.</td>
+          <td><button id="addDiagnosisButton">Add</button></td>
+          <td id="diagnosisAddSuccess" class="success" style="margin-top: 20px; margin-left: 0">Diagnosis added.</td>
         </tr>
       </table>
       <br><b>Prescribe Medication</b>
@@ -56,7 +61,7 @@
         </tr>
         <tr>
           <td>Dosage:</td>
-          <td><select>
+          <td><select id="dosage">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -118,8 +123,11 @@
         </tr>
         <tr>
           <td>Notes:</td>
-          <td><textarea name="notes"></textarea></td>
-          <td><button id="addprescriptionbutton" type="submit">Add New Prescription</button></td>
+          <td><textarea id="notes" name="notes"></textarea></td>
+          <td><button id="addprescriptionbutton" type="submit" style="margin-top: 10px">Add New Prescription</button></td>
+          <td id="addSuccess" class="success" style="margin-top: 20px; margin-left: 0">Medication added to basket.</td>
+        </tr>
+        <tr>
           <td><button id="submitButton" type="submit">Submit</button></td>
         </tr>
       </table>
