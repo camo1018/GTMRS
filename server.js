@@ -885,7 +885,7 @@ app.get('/sendmessagetodoctor/sendMessage', function(req, res) {
 	var date = new Date();
 	date = formatDate(date, "yyyy-MM-dd HH:mm:ss");
 
-	var query = 'INSERT INTO Sends_Message_To_Doctor VALUES (\'' + dUsername + '\', \'' + pUsername + '\', \'' + date + '\', \'' + message + '\', \'Unread\')';
+	var query = 'INSERT INTO Sends_Message_To_Doctor VALUES (\'' + pUsername + '\', \'' + dUsername + '\', \'' + date + '\', \'' + message + '\', \'Unread\')';
 
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
