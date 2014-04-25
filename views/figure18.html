@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,33 +25,15 @@
   <body>
     <h1 align="center">Messages</h1>
     <center><img src="img/buzz CS4400 image.jpg" align="middle">
-    <table style="width:700px" border="1">
+    <table id="messageTable" style="width:700px" border="1">
     <tr>
-      <td align="center">Status</td>
-      <td align="center">Date</td> 
-      <td align="center">From</td>
-      <td align="center">Message</td>
-    </tr>
-    <tr>
-      <td align="center">Unread</td>
-      <td align="center">01/23/2010</td>
-      <td align="center">Nancy Baker</td>
-      <td align="center">Hi Doc. Im feeling much better now</td>
-    </tr>
-    <tr>
-      <td align="center">Read</td>
-      <td align="center">11/09/2009</td>
-      <td align="center">Dr. Mary Simpson</td>
-      <td align="center">Hi, What are your thoughts about the case we spoke about?</td>
+      <td align="center"><b>Status</b></td>
+      <td align="center"><b>Date</b></td> 
+      <td align="center"><b>From</b></td>
+      <td align="center"><b>Message</b></td>
     </tr>
     </table>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><p align="center"><a href="patienthome">Return to Homepage</a></p></td>
-    </tr>
+    <p align="center"><a href="patienthome">Return to Homepage</a></p>
     
     </center>
 

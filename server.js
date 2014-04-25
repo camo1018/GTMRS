@@ -126,7 +126,8 @@ app.get('/sendmessagetopatient', function(req, res) {
 });
 
 app.get('/inbox', function(req, res) {
-	res.render('figure18.html');
+	var data = { username:req.session.username };
+	res.render('figure18.html', { data: data});
 
 });
 
@@ -873,6 +874,89 @@ app.get('/sendmessagetopatient/communicateDoctor', function(req, res) {
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
 		res.send('good');
+	});
+});
+
+////Figure 18. Inbox
+app.get('/inbox/getUserType', function(req, res) {
+	var username = req.query.username;
+
+	// Search for user in the database
+	var query = 'SELECT (Username) FROM Patient WHERE Username = \'' + username + '\'';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		if (rows.length > 0) {
+			res.send('patient');
+			return;			
+		}
+	});
+
+	query = 'SELECT (Username) FROM Doctor WHERE Username = \'' + username + '\'';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		if (rows.length > 0) {
+			res.send('doctor');
+			return;			
+		}
+	});
+
+	query = 'SELECT (Username) FROM Admin WHERE Username = \'' + username + '\'';
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		if (rows.length > 0) {
+			res.send('admin');
+			return;			
+		}
+	});
+});
+
+app.get('/inbox/getMessagesPatient', function(req, res) {
+	var username = req.query.username;
+
+	// Search for user in the database
+	var query = 'SELECT Status, DateTime, FirstName, LastName, Content FROM Sends_Message_To_Patient AS S, Doctor AS D WHERE S.ReceiverPUsername = \'' + 
+		username + '\' AND S.SenderDUsername = D.Username';
+	var messages = [];
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var Status = rows[i].Status;
+			var DateTime = rows[i].DateTime;
+			var DfName = rows[i].FirstName;
+			var DlName = rows[i].LastName;
+			var Message = rows[i].Content;
+			var message = { DateTime:DateTime, DfName:DfName, DlName:DlName, Message:Message, Status:Status };
+			messages.push(message);
+		}
+		res.json(messages);
+	});
+});
+
+app.get('/inbox/getMessagesDoctor', function(req, res) {
+	var username = req.query.username;
+
+	// Search for user in the database
+	var query = 'SELECT Status, DateTime, Name, Content FROM Sends_Message_To_Doctor AS S, Patient AS P WHERE S.ReceiverDUsername = \'' + 
+		username + '\' AND S.SenderPUsername = P.Username';
+	var messages = [];
+	console.log('Executing SQL\n' + query);
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var Status = rows[i].Status;
+			var DateTime = rows[i].DateTime;
+			var PName = rows[i].Name;
+			var Message = rows[i].Content;
+			var message = { DateTime:DateTime, PName:Name, Message:Message, Status:Status };
+			messages.push(message);
+		}
+		res.json(messages);
 	});
 });
 
