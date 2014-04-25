@@ -503,7 +503,7 @@ app.get('/visithistory/getVisits', function(req, res) {
 		}
 		res.json(visits);
 	});
-}
+});
 
 // Figure 10.  Rate a Doctor
 app.get('/rate/submitRating', function(req, res) {
