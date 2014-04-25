@@ -10,16 +10,6 @@ $(function() {
 	var pname = $('#pnamefield').val();
 
 
-	var params = { pname:pname};
-	$.get('/billing/searchPatient', params, function(data) {
-		for(var i =0; i<data.length; i++){
-			var Name = data[i].Name;
-			var Hphone = data[i].Hphone;	
-			var username = data[i].Username;
-			$('#possiblePatients').append('<tr><td id=' + username + ' align="center">' + Name+ '</td><td align="center">' + Hphone + '</td></tr>');
-		}
-	});
-
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#createButton').bind('click', function() {
 		var pname = $('#pnamefield').val();
@@ -47,6 +37,22 @@ $(function() {
 			var username = data[i].Username;
 			$('#possiblePatients').append('<tr><td id=' + username + ' align="center">' + Name+ '</td><td align="center">' + Hphone + '</td></tr>');
 		}
+
+			var parameters = { pname:username};
+			$.get('/billing/createTable', parameters, function(data) {
+			for(var i =0; i<data.length; i++){
+				var Pusername = data[i].Pusername;
+				var vdate = data[i].vdate;
+				var vcost = data[i].vcost;
+				var sname = data[i].sname;
+				var scost = data[i].scost;
+				var tcost = data[i].tcost;
+				$('#visits').append('<td align="center">' + vdate + '</td><td align="center">' + vcost + '</td>');
+				$('#surgeries').append('<td align="center">' + sname + '</td><td align="center">' + scost + '</td>');
+				$('#totalCost').append(tcost);
+
+			}
+	});
 	});
 
 

@@ -35,23 +35,23 @@ $(function() {
 			validationError = true;
 		}
 
-		// Submit!
-
 		// If validation failed, then don't actually submit anything.
 		if (validationError)
 			return;
+		// Submit!
 
 		var parameters = { username: username, password: password, userType: userType};
 
 		$.get('/register/newuser', parameters, function(data) {
 			if (data == 'patient')
-				document.location = 'patienthome';
+				document.location = 'patientprofile';
 			else if (data == 'doctor')
-				document.location = 'doctorhome';
+				document.location = 'doctorprofile';
 			else if (data == 'admin')
 				document.location = 'adminhome';
 			else
 				document.location = 'register';
+
 		});
 
 	});
