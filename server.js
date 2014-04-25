@@ -644,6 +644,71 @@ app.get('/recordvisit/record', function(req, res) {
 	}
 });
 
+// Figure 16.  Surgery Record
+app.get('/surgeryrecord/searchPatient', function(req, res) {
+	var name = req.query.name;
+	var query = 'SELECT * FROM Patient WHERE Name = \'' + name + '\'';
+	var patients = [];
+	connection.query(query, function(err, rows, fields) {
+		for (var i = 0; i < rows.length; i++) {
+			var patient = { username: rows[i].Username, name: rows[i].Name, phone: rows[i].Hphone };
+			patients.push(patient);
+		}
+		res.json(patients);
+	});
+});
+
+app.get('/surgeryrecord/getDoctorName', function(req, res) {
+	var username = req.query.username;
+	var query = 'SELECT FirstName, LastName FROM Doctor WHERE Username = \'' + username + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		res.send(rows[0].FirstName + ' ' + rows[0].LastName);
+	});
+});
+
+app.get('/surgeryrecord/getSurgeries', function(req, res) {
+	var query = 'SELECT * FROM Surgery';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var surgeries = []
+		for (var i = 0; i < rows.length; i++) {
+			var surgery = { cptCode: rows[i].CPTCode, surgeryType: rows[i].SurgeryType, surgeryCost: rows[i].SurgeryCost };
+			surgeries.push(surgery);
+		}
+		res.json(surgeries);
+	});
+});
+
+app.get('/surgeryrecord/getPreops', function(req, res) {
+	var cptCode = req.query.cptCode;
+
+	var query = 'SELECT * FROM PreoperativeMedications WHERE CPTCode = ' + cptCode;
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var meds = [];
+		for (var i = 0; i < rows.length; i++) {
+			var med = { medName: rows[i].MedicationName };
+			meds.push(med);
+		}
+		res.json(meds);
+	});
+})
+
+app.get('/surgeryrecord/recordSurgery', function(req, res) {
+	var pUsername = req.query.pUsername;
+	var dUsername = req.query.dUsername;
+	var surgery = req.query.surgery;
+	var numAssistants = req.query.numAssistants;
+	var anesthesiaStartTime = req.query.anesthesiaStartTime;
+	var surgeryStartTime = req.query.surgeryStartTime;
+	var surgeryCompletionTime = req.query.surgeryCompletionTime;
+	var complications = req.query.complications;
+
+	var query = 'INSERT INTO Performs VALUES (' + surgery.cptCode + ', \'' + pUsername + '\', \'' + dUsername + '\', \'' + surgeryStartTime +
+		'\', \'' + surgeryCompletionTime + '\', \'' + anesthesiaStartTime + '\', \'' + numAssistants + '\', \'' + complications + '\')';	
+});
+
 //Figure 17a. Send Message to Doctor
 app.get('/sendmessagetodoctor/getDoctors', function(req, res) {
 	var pUsername = req.query.pUsername;
