@@ -148,7 +148,8 @@ app.get('/docreport', function(req, res) {
 });
 
 app.get('/surgeryreport', function(req, res) {
-	res.render('figure22.html');
+	var data = { username:req.session.username };
+	res.render('figure22.html', { data: data});
 
 });
 
@@ -1076,6 +1077,28 @@ app.get('/docreport/createTable', function(req, res) {
 			docReport.push(Row);
 			}
 		res.json(docReport);
+	});
+});
+
+// Figure 22. Surgery Report
+app.get('/surgeryreport/createTable', function(req, res) {
+	var username = req.query.username;
+
+	var query = 'SELECT * FROM SurgeriesReport';
+	var surReport = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var Stype = rows[i].SurgeryType;
+			var CPT = rows[i].CPTCode;	
+			var NoProcedures = rows[i].NoOfProcedures;
+			var NoDoctors = rows[i].NoOfDoctors;
+			var Billing = rows[i].TotalBilling;
+			var Row = { Stype:Stype, CPT:CPT, NoProcedures:NoProcedures, NoDoctors:NoDoctors, Billing: Billing };
+			surReport.push(Row);
+			}
+		res.json(surReport);
 	});
 });
 

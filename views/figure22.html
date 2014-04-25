@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,27 +25,13 @@
   <body>
     <h1 align="center">Surgeries Performed</h1>
     <center><img src="img/buzz CS4400 image.jpg" align="middle">
-    <table style="width:600px" border="1">
+    <table id="surgeryReportTable" style="width:600px" border="1">
     <tr>
-      <td align="center">Surgery Type</td>
-      <td align="center">CPT Code</td> 
-      <td align="center">No of Procedures</td>
-      <td align="center">No of Doctors Performing Procedure</td>
-      <td align="center">Total Billing ($)</td>
-    </tr>
-    <tr>
-      <td align="center">Craniotomy</td>
-      <td align="center">44567</td>
-      <td align="center">8</td>
-      <td align="center">3</td>
-      <td align="center">30052</td>
-    </tr>
-    <tr>
-      <td align="center">Should we delete this?</td>
-      <td align="center">1234</td>
-      <td align="center">9</td>
-      <td align="center">4</td>
-      <td align="center">150</td>
+      <td align="center"><b>Surgery Type</b></td>
+      <td align="center"><b>CPT Code</b></td> 
+      <td align="center"><b>No of Procedures</b></td>
+      <td align="center"><b>No of Doctors Performing Procedure</b></td>
+      <td align="center"><b>Total Billing ($)</b></td>
     </tr>
     </table>
     <a href="adminhome">Return to Homepage</a>
