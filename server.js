@@ -1193,8 +1193,8 @@ app.get('/surgeryreport/createTable', function(req, res) {
 // Figure 23. Patient Visit Report
 app.get('/patientreport/createTable', function(req, res) {
 	var username = req.query.username;
-	var month = req.query.month;
-	var year = req.query.year;
+	//var month = req.query.month;
+	//var year = req.query.year;
 
 	var query = 'SELECT * FROM PatientVisit';
 	var patientReport = [];
