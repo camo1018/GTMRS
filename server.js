@@ -576,27 +576,12 @@ app.get('/rate/getDoctors', function(req, res) {
 	});
 })
 
-
-
-// Figure 5. Patient Homepage
-app.get('/patienthome/getMessageCount', function(req, res) {
-	console.log('Getting message count from the server.');
-	var username = req.query.username;
-	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Patient WHERE ReceiverPUsername = \'' + username +'\'';
-	connection.query(query, function(err, rows, fields) {
-		if (err) throw err;
-		var count = rows[0].Count;
-		res.send(''+count);
-		console.log("Returning count " + count);
-	});
-});
-
 // Figure 11. Doctor Homepage
 app.get('/doctorhome/getMessageCount', function(req, res) {
 	console.log('Getting message count from the server.');
 	var username = req.query.username;
-	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Doctor OUTER JOIN Communicates' + 
-    'WHERE ReceiverDUsername = \'' + username +'\' AND ReceiverUsername = \'' + username +'\'';
+	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Doctor WHERE ReceiverDUsername = \'' 
+		+ username + '\' UNION ALL SELECT COUNT(*) AS Count FROM Communicates WHERE ReceiverUsername = \'' + username + '\'';
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
 		var count = rows[0].Count;
