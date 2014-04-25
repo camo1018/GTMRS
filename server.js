@@ -654,7 +654,7 @@ app.get('/patientvisithistory/searchPatientByNamePhone', function(req, res) {
 
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
-		for (var i = 0; i <s rows.length; i++) {
+		for (var i = 0; i < rows.length; i++) {
 			var username = rows[i].Username;
 			var phone = rows[i].Phone;
 			var patient = { username: username, phone: phone };
