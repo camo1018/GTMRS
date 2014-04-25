@@ -12,17 +12,17 @@ $(function() {
 		dataCounts = data;
 		var eventsArray = [];
 		for (var i = 0; i < dataCounts.length; i++) {
-			var eventObj = { title: dataCounts[i].count, start: new Date(dataCounts[i].date.substring(0, 4), dataCounts[i].date.substring(5, 7),
-				dataCounts[i].date.substring(8, 10)) };
+			var eventObj = { title: ''+dataCounts[i].count+' appointment(s)', start: dataCounts[i].date };
 			eventsArray.push(eventObj);
 		}
+		console.log(eventsArray);
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: ''
 			},
-			editable: true,
+			editable: false,
 			events: eventsArray
 		});
 	});   

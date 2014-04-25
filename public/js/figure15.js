@@ -33,13 +33,15 @@ $(function() {
 		$('#addSuccess').show();
 	});
 
-	$('#addDiagnosisButton').on('click', function(0 {
+	$('#addDiagnosisButton').on('click', function() {
 		$('.success').hide();
 		$('.validationError').hide();
 
 		var diagnosis = $('#diagnosisField').val();
+		$('#diagnosisAddSuccess').show();
 		diagnoses.push(diagnosis);
-	}))
+		console.log(diagnoses);
+	});
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#submitButton').bind('click', function() {
@@ -48,7 +50,9 @@ $(function() {
 		var dateOfVisit = $('#dovField').val();
 		var pUsername = $('#pnameField').val();
 		var systolic = $('#sbpField').val();
-		var diastolic = $('#dbpField').val();		
+		var diastolic = $('#dbpField').val();	
+		var month = $('#monthDuration').val();
+		var day = $('#dayDuration').val();	
 
 		// Validation
 		var validationError = false;
@@ -57,7 +61,7 @@ $(function() {
 			$('#dovValidationError').show();
 			validationError = true;
 		}
-		if (name == '') {
+		if (pUsername == '') {
 			$('#nameValidationError').show();
 			validationError = true;
 		}
@@ -69,10 +73,6 @@ $(function() {
 			$('#dbpValidationError').show();
 			validationError = true;
 		}
-		if (month == "0" && day == "0"){
-			$('#durationValidationError').show();
-			validationError = true;
-		}
 
 		// Submit!
 
@@ -80,17 +80,12 @@ $(function() {
 		if (validationError)
 			return;
 
+		var username = serverData.username;
+
 		var parameters = { dateOfVisit: dateOfVisit, dUsername: username, pUsername: pUsername, systolic: systolic, diastolic: diastolic, diagnoses: diagnoses, prescriptions: prescriptions };
 		$.get('/recordvisit/record', parameters, function(data) {
-
+			document.location = 'doctorhome';
 		});
-
-
-
-
-
-
-
 	});
 
 

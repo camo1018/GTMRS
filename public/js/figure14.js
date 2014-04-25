@@ -8,46 +8,54 @@ $(function() {
 
 	var dUsername = serverData.username;
 
+	var visits;
+
 	function populateSearchResult(patients) {
 		$('#patientResultsTable').empty();
 		$('#patientResultsTable').append('<tr><td>Patient Name</td><td>Phone Number</td><td></td</tr>');
 		for (var i = 0; i < patients.length; i++) {
 			$('#patientResultsTable').append('<tr><td>' + patients[i].name + '</td><td>' + patients[i].phone + '</td>' +
-				'<td id="td_' + i + '"><button type="button" id="' + i + '">View</button><button type="button" id="' + i + '">Record a Visit</button></td>');
-			$('#patientResultsTable').find('#td_' + i).find('button')[0].on('click', function() {
-				var pUsername = patients[i].username;
-				var params = { pUsername: pUsername, dUsername: dUsername };
-				$.get('/patientvisithistory/getPatientVisits', params, function(data) {
-					visits = data;
-					for (var i = 0; i < visits.length; i++) {
-						$('#visitDateTable').append('<tr><td><button type="button" style="width:100px" class="visitDateButton" id="'+i+'">' + 
-							visits[i].visitDate + '</button></td></tr>');
+				'<td id="td_' + i + '"><button class="viewButton" type="button" id="' + i + '">View</button><button class="recordButton" type="button" id="' + i + '">Record a Visit</button></td>');
+		}
+		$('.recordButton').on('click', function() {
+			document.location = 'recordvisit';
+		});
+		$('.viewButton').on('click', function() {
+			var indix = $(this).attr('id');
+			var pUsername = patients[indix].username;
+			var params = { pUsername: pUsername, dUsername: dUsername };
+			$.get('/patientvisithistory/getPatientVisits', params, function(data) {
+				visits = data;
+				$('#visitDateTable').empty();
+				for (var i = 0; i < visits.length; i++) {
+					$('#visitDateTable').append('<tr><td><button type="button" style="width:130px" class="visitDateButton" id="'+i+'">' + 
+						visits[i].visitDate.substring(0, 10) + '</button></td></tr>');
+				}
+				$('.visitDateButton').on('click', function() {
+					console.log('hi');
+					var index = $(this).attr('id');
+					$('#visitDate').val(visits[index].visitDate.substring(0, 10));
+					$('#systolic').val(visits[index].systolic);
+					$('#diastolic').val(visits[index].diastolic);
+					$('#diagnoses').empty();
+					for (var i = 0; i < visits[index].diagnoses.length; i++) {
+						$('#diagnoses').append('<option>'+visits[index].diagnoses[i]+'</option>');
 					}
-					$('.visitDateButton').on('click', function() {
-						var index = $(this).attr('id');
-						$('#visitDate').val(visits[index].visitDate);
-						$('#systolic').val(visits[index].systolic);
-						$('#diastolic').val(visits[index].diastolic);
-						$('#diagnoses').empty();
-						for (var i = 0; i < visits[index].diagnoses.length; i++) {
-							$('#diagnoses').append('<option>'+visits[index].diagnoses[i]+'</option>');
-						}
-						$('#prescriptionsTable').empty();
-						$('#prescriptionsTable').append('<tr>' +
-										        '<td style="width:150px">Medicine Name</td>' +
-										        '<td style="width:100px">Dosage</td>' +
-										        '<td style="width:80px">Duration</td>' +
-										        '<td style="width:300px">Notes</td>' +
-										      	'</tr>');	
-						for (var i = 0; i < visits[index].prescriptions.length; i++) {
-							$('#prescriptionsTable').append('<tr><td style="width:150px">' + visits[index].prescriptions[i].medicineName +
-								'</td><td style="width:100px">' + visits[index].prescriptions[i].dosage + '</td><td style="width:80px">' + 
-								visits[index].prescriptions[i].duration + '</td><td style="width:300px">' + visits[index].prescriptions[i].notes + '</td></tr>');
-						}
-					});
+					$('#prescriptionsTable').empty();
+					$('#prescriptionsTable').append('<tr>' +
+									        '<td style="width:150px">Medicine Name</td>' +
+									        '<td style="width:100px">Dosage</td>' +
+									        '<td style="width:80px">Duration</td>' +
+									        '<td style="width:300px">Notes</td>' +
+									      	'</tr>');	
+					for (var i = 0; i < visits[index].prescriptions.length; i++) {
+						$('#prescriptionsTable').append('<tr><td style="width:150px">' + visits[index].prescriptions[i].medicineName +
+							'</td><td style="width:100px">' + visits[index].prescriptions[i].dosage + '</td><td style="width:80px">' + 
+							visits[index].prescriptions[i].duration + '</td><td style="width:300px">' + visits[index].prescriptions[i].notes + '</td></tr>');
+					}
 				});
 			});
-		}
+		});
 	} 
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.

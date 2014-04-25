@@ -645,7 +645,7 @@ app.get('/monthlyappointmentscalendar/getAppointments', function(req, res) {
 		if (err) throw err;
 		var dateCounts = [];
 		for (var i = 0; i < rows.length; i++) {
-			var dateCount = { date: rows[i].Date, count: rows[i].Count };
+			var dateCount = { date: dateFormat(rows[i].Date, 'yyyy-mm-dd'), count: rows[i].Count };
 			dateCounts.push(dateCount);
 		}
 		res.json(dateCounts);
@@ -657,7 +657,7 @@ app.get('/patientvisithistory/searchPatientByName', function(req, res) {
 	var dUsername = req.query.dUsername;
 	var name = req.query.name;
 
-	var query = 'SELECT P.Username as Username, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Name = \'' 
+	var query = 'SELECT P.Username as Username, P.Name as Name, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Name = \'' 
 		+ name + '\' AND V.DUsername = \'' + dUsername + '\'';
 
 	var patients = [];
@@ -667,7 +667,8 @@ app.get('/patientvisithistory/searchPatientByName', function(req, res) {
 		for (var i = 0; i < rows.length; i++) {
 			var username = rows[i].Username;
 			var phone = rows[i].Phone;
-			var patient = { username: username, phone: phone };
+			var name = rows[i].Name;
+			var patient = { username: username, name: name, phone: phone };
 			patients.push(patient);
 		}
 		res.json(patients);
@@ -678,7 +679,7 @@ app.get('/patientvisithistory/searchPatientByPhone', function(req, res) {
 	var dUsername = req.query.dUsername;
 	var phone = req.query.phone;
 
-	var query = 'SELECT P.Username as Username, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Hphone = \'' 
+	var query = 'SELECT P.Username as Username, P.Name as Name, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Hphone = \'' 
 		+ phone + '\' AND V.DUsername = \'' + dUsername + '\'';
 
 	var patients = [];
@@ -687,8 +688,9 @@ app.get('/patientvisithistory/searchPatientByPhone', function(req, res) {
 		if (err) throw err;
 		for (var i = 0; i < rows.length; i++) {
 			var username = rows[i].Username;
+			var name = rows[i].Name;
 			var phone = rows[i].Phone;
-			var patient = { username: username, phone: phone };
+			var patient = { username: username, name: name, phone: phone };
 			patients.push(patient);
 		}
 		res.json(patients);
@@ -700,7 +702,7 @@ app.get('/patientvisithistory/searchPatientByNamePhone', function(req, res) {
 	var name = req.query.name;
 	var phone = req.query.phone;
 
-	var query = 'SELECT P.Username as Username, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Name = \'' 
+	var query = 'SELECT P.Username as Username, P.Name as Name, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Name = \'' 
 		+ name + '\' AND P.Hphone = \'' + phone + '\' AND V.DUsername = \'' + dUsername + '\'';
 
 	var patients = [];
@@ -709,8 +711,9 @@ app.get('/patientvisithistory/searchPatientByNamePhone', function(req, res) {
 		if (err) throw err;
 		for (var i = 0; i < rows.length; i++) {
 			var username = rows[i].Username;
+			var name = rows[i].Name;
 			var phone = rows[i].Phone;
-			var patient = { username: username, phone: phone };
+			var patient = { username: username, name: name, phone: phone };
 			patients.push(patient);
 		}
 		res.json(patients);
@@ -728,30 +731,34 @@ app.get('/patientvisithistory/getPatientVisits', function(req, res) {
 		for (var i = 0; i < rows.length; i++) {
 			var visit = { visitDate: rows[i].VisitDate, diastolic: rows[i].Diastolic, systolic: rows[i].Systolic, 
 				billingAmount: rows[i].BillingAmount, diagnoses: null, prescriptions: null };
-			var query2 = 'SELECT Diagnosis FROM Diagnosis WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
-				'\' AND DUsername = \'' + visit.dUsername + '\'';
-			connection.query(query2, function(err2, rows2, fields2) {
-				var diagnoses = [];
-				if (err2) throw err2;
-				for (var j = 0; j < rows2.length; j++) {
-					diagnoses.push(rows2[j].Diagnosis);
-				}
-				visit.diagnoses = diagnoses;
-				var query3 = 'SELECT * FROM Prescription WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
-					'\' AND DUsername = \'' + visit.dUsername + '\'';
-				connection.query(query3, function(err3, rows3, fields3) {
-					var prescriptions = [];
-					if (err3) throw err3;
-					for (var k = 0; k < rows3.length; k++) {
-						var prescription = { medicineName: rows3[k].MedicineName, dosage: rows3[k].Dosage, duration: rows3[k].Duration, notes: rows3[k].Notes };
-						prescriptions.push(prescription);
+			console.log(dateFormat(visit.visitDate, 'yyyy-mm-dd'));
+
+			var query2 = 'SELECT Diagnosis FROM Diagnosis WHERE VisitDate=\'' + dateFormat(visit.visitDate, 'yyyy-mm-dd') + '\' AND PUsername = \'' + pUsername +
+				'\' AND DUsername = \'' + dUsername + '\'';
+			(function (i, query2, visit) {
+				connection.query(query2, function(err2, rows2, fields2) {
+					var diagnoses = [];
+					if (err2) throw err2;
+					for (var j = 0; j < rows2.length; j++) {
+						diagnoses.push(rows2[j].Diagnosis);
 					}
-					visit.prescriptions = prescriptions;
-					visits.push(visit);
-					if (i >= rows.length - 1)
-						res.json(visits);
+					visit.diagnoses = diagnoses;
+					var query3 = 'SELECT * FROM Prescription WHERE VisitDate=\'' + dateFormat(visit.visitDate, 'yyyy-mm-dd') + '\' AND PUsername = \'' + pUsername +
+						'\' AND DUsername = \'' + dUsername + '\'';
+					connection.query(query3, function(err3, rows3, fields3) {
+						var prescriptions = [];
+						if (err3) throw err3;
+						for (var k = 0; k < rows3.length; k++) {
+							var prescription = { medicineName: rows3[k].MedicineName, dosage: rows3[k].Dosage, duration: rows3[k].Duration, notes: rows3[k].Notes };
+							prescriptions.push(prescription);
+						}
+						visit.prescriptions = prescriptions;
+						visits.push(visit);
+						if (i >= rows.length - 1)
+							res.json(visits);
+					});
 				});
-			});
+			})(i, query2, visit);
 		}
 	});
 
@@ -788,19 +795,26 @@ app.get('/recordvisit/record', function(req, res) {
 		if (err) throw err;
 	});
 
-	for (var i = 0; i < diagnoses; i++) {
+	for (var i = 0; i < diagnoses.length; i++) {
+		console.log('Inserting diagnosis');
 		query = 'INSERT INTO Diagnosis VALUES (\'' + dateOfVisit + '\', \'' + pUsername + '\', \'' + dUsername + '\', \'' + diagnoses[i] + '\')';
-		connection.query(query, function(err, rows, fields) {
-			if (err) throw err;
-		});
+		(function (i, query) {
+			connection.query(query, function(err, rows, fields) {
+				if (err) throw err;
+			});
+		})(i, query);
 	}
 
-	for (var i = 0; i < prescriptions; i++) {
-		query = 'INSERT INTO Prescriptions VALUES (\'' + dateOfVisit + '\', \'' + pUsername + '\', \'' + dUsername + '\', \'' +
-			prescriptions[i].medname + '\', ' + prescriptions[i].dosage + ', ' + prescriptions[i].duration + ', \'' + notes + '\', \'Unpaid\')';
-		connection.query(query, function(err, rows, fields) {
-			if (err) throw err;
-		});
+	for (var i = 0; i < prescriptions.length; i++) {
+		console.log('Inserting prescription');
+		query = 'INSERT INTO Prescription VALUES (\'' + dateOfVisit + '\', \'' + pUsername + '\', \'' + dUsername + '\', \'' +
+			prescriptions[i].medname + '\', ' + prescriptions[i].dosage + ', ' + prescriptions[i].duration + ', \'' + prescriptions[i].notes + '\', \'Unpaid\')';
+		(function (i, query) {
+			connection.query(query, function(err, rows, fields) {
+				if (err) throw err;
+				res.send('good');
+			});
+		})(i, query);
 	}
 });
 
@@ -819,11 +833,12 @@ app.get('/surgeryrecord/searchPatient', function(req, res) {
 });
 
 app.get('/surgeryrecord/getDoctorName', function(req, res) {
-	var username = req.query.username;
+	var username = req.query.dUsername;
 	var query = 'SELECT FirstName, LastName FROM Doctor WHERE Username = \'' + username + '\'';
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
-		res.send(rows[0].FirstName + ' ' + rows[0].LastName);
+		if (rows.length > 0)
+			res.send(rows[0].FirstName + ' ' + rows[0].LastName);
 	});
 });
 
@@ -867,6 +882,11 @@ app.get('/surgeryrecord/recordSurgery', function(req, res) {
 
 	var query = 'INSERT INTO Performs VALUES (' + surgery.cptCode + ', \'' + pUsername + '\', \'' + dUsername + '\', \'' + surgeryStartTime +
 		'\', \'' + surgeryCompletionTime + '\', \'' + anesthesiaStartTime + '\', \'' + numAssistants + '\', \'' + complications + '\')';	
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		res.send('good');
+	});
+
 });
 
 //Figure 17a. Send Message to Doctor
