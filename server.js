@@ -155,7 +155,8 @@ app.get('/surgeryreport', function(req, res) {
 });
 
 app.get('/patientreport', function(req, res) {
-	res.render('figure23.html');
+	var data = { username:req.session.username };
+	res.render('figure23.html', { data: data});
 
 });
 
@@ -1116,6 +1117,27 @@ app.get('/surgeryreport/createTable', function(req, res) {
 			surReport.push(Row);
 			}
 		res.json(surReport);
+	});
+});
+
+// Figure 23. Patient Visit Report
+app.get('/patientreport/createTable', function(req, res) {
+	var username = req.query.username;
+
+	var query = 'SELECT * FROM PatientVisit';
+	var patientReport = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var doc = rows[i].Doctor;
+			var NoPatients = rows[i].NoOfPatientsSeen;	
+			var NoPrescriptions = rows[i].NoOfPrescriptionsWritten;
+			var Billing = rows[i].TotalBilling;
+			var Row = { doc:doc, NoPatients:NoPatients, NoPrescriptions:NoPrescriptions, Billing: Billing };
+			patientReport.push(Row);
+			}
+		res.json(patientReport);
 	});
 });
 
