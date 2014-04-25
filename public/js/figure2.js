@@ -31,7 +31,7 @@ $(function() {
 		var parameters = { username: username, password: password, confirm: confirm };
 
 		$.get('/register/newuser', parameters, function(data) {
-			document.location = "patienthome";
+			document.location = "patientprofile";
 		});
 		
 		// Submit!
