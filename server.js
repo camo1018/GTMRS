@@ -237,7 +237,7 @@ app.get('/register/newuser', function(req, res) {
 	connection.query(query, function(err1, rows1, fields1) {
 		if (rows1.length > 0) {
 			console.log('User already exists!');
-			res.send('bad');
+			res.send('User already exists!');
 			return;
 		}
 
@@ -1117,6 +1117,29 @@ app.get('/billing/searchPatient', function(req, res) {
 			patients.push(patient);
 		}
 		res.json(patients);
+
+	});
+});
+
+app.get('/billing/createTable', function(req, res) {
+	var username = req.query.pname;
+
+	var query = 'SELECT * FROM VisitBill WHERE \'' + username + '\'= Pusername';
+	var bill = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var Pusername = rows[i].Pusername;
+			var vdate = rows[i].VDate;
+			var vcost = rows[i].VisitCost;
+			var sname = rows[i].SurgeryName;
+			var scost = rows[i].SurgeryCost;
+			var tcost = rows[i].TotalAmount;
+			var Row = { Pusername:Pusername, vcost:vcost, sname:sname, scost:scost, tcost:tcost, vdate:vdate };
+			bill.push(Row);
+		}
+		res.json(bill);
 
 	});
 });
