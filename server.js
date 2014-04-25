@@ -76,7 +76,8 @@ app.get('/paymentinfo', function(req, res) {
 });
 
 app.get('/visithistory', function(req, res) {
-	res.render('figure9.html');
+	var data = { username:req.session.username };
+	res.render('figure9.html', { data: data });
 });
 
 app.get('/rate', function(req, res) {
