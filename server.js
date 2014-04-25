@@ -1190,6 +1190,8 @@ app.get('/surgeryreport/createTable', function(req, res) {
 // Figure 23. Patient Visit Report
 app.get('/patientreport/createTable', function(req, res) {
 	var username = req.query.username;
+	var month = req.query.month;
+	var year = req.query.year;
 
 	var query = 'SELECT * FROM PatientVisit';
 	var patientReport = [];
@@ -1201,7 +1203,8 @@ app.get('/patientreport/createTable', function(req, res) {
 			var NoPatients = rows[i].NoOfPatientsSeen;	
 			var NoPrescriptions = rows[i].NoOfPrescriptionsWritten;
 			var Billing = rows[i].TotalBilling;
-			var Row = { doc:doc, NoPatients:NoPatients, NoPrescriptions:NoPrescriptions, Billing: Billing };
+			var Vdate = rows[i].VDate;
+			var Row = { doc:doc, NoPatients:NoPatients, NoPrescriptions:NoPrescriptions, Billing: Billing, Vdate:Vdate };
 			patientReport.push(Row);
 			}
 		res.json(patientReport);
