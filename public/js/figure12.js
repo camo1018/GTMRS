@@ -12,6 +12,26 @@ $(function() {
     
     var yyyy = today.getFullYear();
     $("#year").val(yyyy);
-    
 
+    var fullDate = ''+yyyy+'-'+mm+'-'+dd;
+    var dUsername = serverData.username;
+
+    function updateSchedule(date) {
+	    var parameters = { dUsername: dUsername, date: date }
+	    $.get('/dailyappointmentscalendar/getAppointments', parameters, function(data) {
+	    	var patients = data;
+	    	$('#appointmentsTable').empty();
+	    	$('#appointmentsTable').append('<tr><td>Patient Name</td><td>Scheduled Time</td></tr>');
+	    	for (var i = 0; i < patients.length; i++) {
+	    		$.get('/dailyappointmentscalendar/getTimeRange', { dUsername: dUsername, from: patients[i].time }, function(data) {
+	    			$('#appointmentsTable').append('<tr><td>' + patients[i].name + '</td><td>' + data.from + ' - ' + data.to + '</td></tr>');
+	    		});
+	    	}
+	    }); 
+	}
+
+	$("#day, #month, #year").on('change', function() {
+		var newDate = '' + $('#year').val() + '-' + $('#month') + '-' + $('#day');
+		updateSchedule(newDate);
+	});
 });

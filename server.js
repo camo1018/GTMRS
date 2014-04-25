@@ -599,6 +599,37 @@ app.get('/doctorhome/getMessageCount', function(req, res) {
 });
 
 // Figure 12. Appointments for Selected Date.
+app.get('/dailyappointmentscalendar/getAppointments', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var date = req.query.date;
+
+	var query = 'SELECT P.Username as Username, P.Name as Name, A.Time as Time FROM Patient as P, RequestAppointment as A WHERE P.Username = A.PUsername AND A.Date = \'' + 
+		date + '\' AND A.DUsername = \'' + dUsername + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var patients = [];
+		for (var i = 0; i < rows.length; i++) {
+			var pUsername = rows[i].Username;
+			var pName = rows[i].Name;
+			var time = rows[i].Time;
+			var patient = { username: pUsername, name: pName, time: time};
+			patients.push(patient);
+		}
+		res.json(patients);
+	});
+});
+
+app.get('/dailyappointmentscalendar/getTimeRange', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var time = req.query.time;
+
+	var query = 'SELECT From, To FROM Availability WHERE DUsername = \'' + dUsername + '\' AND From = \'' + time + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var time = { from: rows[0].From, to: rows[0].To };
+		res.send(time);
+	});
+});
 
 // Figure 14. Patient Visit History
 app.get('/patientvisithistory/searchPatientByName', function(req, res) {
