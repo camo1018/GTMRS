@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -25,11 +30,7 @@
             <td><table style="width:400px">
                 <tr>
                     <td>Select Doctor:</td>
-                    <td><select>
-                        <option value="doc1">Dr.Mary Simpson</option>
-                        <option value="doc2">Dr.Philip Tudini</option>
-                        <option value="doc3">Dr.Mark Brent</option>
-                    </select></td>
+                    <td><select id='dNameOption'><option></option></select></td>
                 </tr>
                 <tr>
                     <td>Message:</td>
@@ -42,11 +43,7 @@
             <td><table style="width:400px">
                 <tr>
                     <td>Select Patient:</td>
-                    <td><select>
-                        <option value="doc1">Nancy Baker (770-783-98-23)</option>
-                        <option value="doc2">Lora Spencer (782-928-9290)</option>
-                        <option value="doc3">Nick Brown (404-574-53-09)</option>
-                    </select></td>
+                    <td><select id='pNameOption'><option></option></select></td>
                 </tr>
                 <tr>
                     <td>Message:</td>

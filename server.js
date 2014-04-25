@@ -114,11 +114,13 @@ app.get('/surgeryrecord', function(req, res) {
 });
 
 app.get('/sendmessagetodoctor', function(req, res) {
-	res.render('figure17a.html');
+	var data = { username:req.session.username };
+	res.render('figure17a.html', { data: data });
 });
 
 app.get('/sendmessagetopatient', function(req, res) {
-	res.render('figure17b.html');
+	var data = { username:req.session.username };
+	res.render('figure17b.html', { data: data});
 
 });
 
@@ -642,6 +644,118 @@ app.get('/recordvisit/record', function(req, res) {
 	}
 });
 
+//Figure 17a. Send Message to Doctor
+app.get('/sendmessagetodoctor/getDoctors', function(req, res) {
+	var pUsername = req.query.pUsername;
+	var query = 'SELECT Username, FirstName, LastName FROM Doctor';
+	var doctors = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var resultUsername = rows[i].Username;
+			var resultFName = rows[i].FirstName;
+			var resultLName = rows[i].LastName;
+			var doctor = { username: resultUsername, fName: resultFName, lName: resultLName };
+			doctors.push(doctor);
+		}
+		res.json(doctors);
+	});
+});
+
+function formatDate(date){
+	var year = date.getFullYear();
+	var month = date.getMonth();
+	var day = date.getDay();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	var sec = date.getSeconds();
+	return (year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec);
+};
+
+app.get('/sendmessagetodoctor/sendMessage', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var pUsername = req.query.pUsername;
+	var message = req.query.message;
+	var date = new Date();
+	date = formatDate(date, "yyyy-MM-dd HH:mm:ss");
+
+	var query = 'INSERT INTO Sends_Message_To_Doctor VALUES (\'' + dUsername + '\', \'' + pUsername + '\', \'' + date + '\', \'' + message + '\', \'Unread\')';
+
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		res.send('good');
+	});
+
+
+});
+
+//Figure 17b. Send Message to Patient (or other Doctor)
+app.get('/sendmessagetopatient/getPatients', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var query = 'SELECT Username, Name, Hphone FROM Patient';
+	var patients = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var resultUsername = rows[i].Username;
+			var resultName = rows[i].Name;
+			var Hphone = rows[i].Hphone
+			var patient = { username: resultUsername, Name: resultName, Hphone: Hphone };
+			patients.push(patient);
+		}
+		res.json(patients);
+	});
+});
+
+app.get('/sendmessagetopatient/getDoctors', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var query = 'SELECT Username, FirstName, LastName FROM Doctor';
+	var doctors = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var resultUsername = rows[i].Username;
+			var resultFName = rows[i].FirstName;
+			var resultLName = rows[i].LastName;
+			var doctor = { username: resultUsername, fName: resultFName, lName: resultLName };
+			doctors.push(doctor);
+		}
+		res.json(doctors);
+	});
+});
+
+app.get('/sendmessagetopatient/sendToPatient', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var pUsername = req.query.pUsername;
+	var message = req.query.message;
+	var date = new Date();
+	date = formatDate(date, "yyyy-MM-dd HH:mm:ss");
+
+	var query = 'INSERT INTO Sends_Message_To_Patient VALUES (\'' + dUsername + '\', \'' + pUsername + '\', \'' + date + '\', \'' + message + '\', \'Unread\')';
+
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		res.send('good');
+	});
+});
+
+app.get('/sendmessagetopatient/communicateDoctor', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var RDUsername = req.query.receivingDUsername;
+	var message = req.query.message;
+	var date = new Date();
+	date = formatDate(date, "yyyy-MM-dd HH:mm:ss");
+
+	var query = 'INSERT INTO Communicates VALUES (\'' + dUsername + '\', \'' + RDUsername + '\', \'' + date + '\', \'' + message + '\', \'Unread\')';
+
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		res.send('good');
+	});
+});
 
 // TEST
 app.get('/patientprofile/test', function(req, res) {
