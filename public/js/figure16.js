@@ -15,16 +15,18 @@ $(function() {
 	var params = { dUsername: dUsername };
 	$.get('/surgeryrecord/getDoctorName', params, function(data) {
 		dName = data;
+		console.log(data);
 	});
 
 	var surgeries = []
 	$.get('/surgeryrecord/getSurgeries', function(data) {
 		surgeries = data;
+		$('#procedureOption').empty();
 		for (var i = 0; i < surgeries.length; i++) {
-			$('#procedureOption').append('<option value="' = i + '">' + surgeries[i].surgeryType + '</option>');
+			$('#procedureOption').append('<option value="' + i + '">' + surgeries[i].surgeryType + '</option>');
 		}
 		$('#procedureOption').on('change', function() {
-			$('#CPTCode').val(surgeries[$(this).val()].cptCode);
+			$('#CPTcode').val(surgeries[$(this).val()].cptCode);
 			var cptParam = { cptCode: surgeries[$(this).val()].cptCode };
 			$.get('/surgeryrecord/getPreops', cptParam, function(data) {
 				var preopStr = '';
@@ -45,7 +47,6 @@ $(function() {
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#searchButton').bind('click', function() {
 		var pname = $('#pNameField').val();
-
 
 		// Validation
 		var validationError = false;
@@ -68,9 +69,9 @@ $(function() {
 			$('#searchTable').append('<tr><td>Patient Name</td><td>Phone Number</td></tr>');
 			for (var i = 0; i < patients.length; i++) {
 				var patient = patients[i];
-				$('#searchTable').append('<tr id="tr_' + i + '"><td id="' + i + '">' + patient.name + '</td><td id="' + i + '">' + patient.phone +'</td></tr>');
+				$('#searchTable').append('<tr id="tr_' + i + '"><td id="' + i + '" style="cursor: pointer">' + patient.name + '</td><td id="' + i + '" style="cursor: pointer">' + patient.phone +'</td></tr>');
 				$('#tr_'+ i).find('td').on('click', function() {
-					pUsername = patients[$(this).attr('id')].username);
+					pUsername = patients[$(this).attr('id')].username;
 					$('#patientName').val(patients[$(this).attr('id')].name);
 					$('#surgeonName').val(dName);
 				});

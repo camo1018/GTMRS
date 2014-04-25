@@ -258,6 +258,8 @@ app.get('/register/newuser', function(req, res) {
 		connection.query(subquery, function(err, rows, fields) {
 			if (err) throw err;
 			console.log('New user userType registered.');
+			// Login as the newly registered user.
+			req.session.username = username;
 			if (userType == 'patient')
 				res.send('patient');
 			else if (userType == 'doctor')
@@ -285,8 +287,9 @@ app.get('/patientprofile/submitNewProfile', function(req, res) {
 	var height = req.query.height;
 	var income = req.query.income;
 	var allergies = req.query.allergies;
-	var query = 'INSERT INTO Patient VALUES (\'' + username + '\', \'' + name + '\', \'' + dob + '\', \'' + gender + '\', \'' + address + '\', \'' + homePhone + '\', \''
-		+ workPhone + '\', \'' + emergencyName + '\', \'' + emergencyPhone + '\', ' + weight + ', ' + height + ', ' + income + ', NULL)';
+	var query = 'UPDATE Patient SET Name = \'' + name + '\', Dob = \'' + dob + '\', Gender = \'' 
+		+ gender + '\', Address = \'' + address + '\', Hphone = \'' + homePhone + '\', Wphone = \'' + workPhone + '\', EmergencyName = \'' + emergencyName +
+		'\', EmergencyPhone = \'' + emergencyPhone + '\', Weight = ' + weight + ', Height = ' + height + ', Income = ' + income + ' WHERE Username = \'' + username + '\'';
 	console.log('Executing SQL\n' + query);
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
