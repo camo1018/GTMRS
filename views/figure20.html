@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,14 +34,10 @@
       <td class="validationError" id="pNameValidationError">* Patient name is required.</td>
     </tr></table>
     <br></center>
-    <center><table style="width:616px" border="1">
+    <center><table id="possiblePatients" style="width:616px" border="1">
     <tr>
       <td>Patient Name</td>
       <td>Phone Number</td> 
-    </tr>
-    <tr>
-      <td>Tim Reed</td>
-      <td>898-909-0909</td>
     </tr>
     </table><br>   
 

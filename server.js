@@ -138,7 +138,8 @@ app.get('/adminhome', function(req, res) {
 });
 
 app.get('/billing', function(req, res) {
-	res.render('figure20.html');
+	var data = { username:req.session.username };
+	res.render('figure20.html',  { data: data});
 
 });
 
@@ -1077,6 +1078,28 @@ app.get('/inbox/getMessagesDoctor', function(req, res) {
 		});
 	});
 });
+
+// Figure 20. Billing Report
+app.get('/billing/searchPatient', function(req, res) {
+	var username = req.query.pname;
+
+	var query = 'SELECT Name, Hphone, Username FROM Patient WHERE \'' + username + '\' = Name';
+	var patients = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var Name = rows[i].Name;
+			var Hphone = rows[i].Hphone;
+			var Username = rows[i].Username;
+			var patient = { Name:Name, Hphone:Hphone, Username:Username };
+			patients.push(patient);
+		}
+		res.json(patients);
+
+	});
+});
+
 
 // Figure 21. Doctor Performance Report
 app.get('/docreport/createTable', function(req, res) {
