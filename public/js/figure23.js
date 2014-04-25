@@ -10,17 +10,26 @@ $(function() {
     var yyyy = today.getFullYear();
     $("#year").val(yyyy);
     
+    var month = $("#month").val();
+    var year = $('#year').val();
+
     var Username = serverData.username;
 
-	var params = { Username: Username};
+	var params = { Username: Username, month:month, year:year};
 	$.get('/patientreport/createTable', params, function(data) {
 		for(var i =0; i<data.length; i++){
 			var doc = data[i].doc;
 			var NoPatients = data[i].NoPatients;	
 			var NoPrescriptions = data[i].NoPrescriptions;
 			var Billing = data[i].Billing;
-			$('#visitReportTable').append('<tr><td align="center">' + doc + '</td><td align="center">' + NoPatients + 
-			'</td><td align="center">' + NoPrescriptions + '</td><td align="center">' + Billing + '</td></tr>');
+			var vdate = date[i].Vdate;
+			var visityear = vdate.substring(0,4);
+			var visitmonth = vdate.substring(5,7);
+			if(visityear==year && visitmonth==month){
+				$('#visitReportTable').append('<tr><td align="center">' + doc + '</td><td align="center">' + NoPatients + 
+				'</td><td align="center">' + NoPrescriptions + '</td><td align="center">' + Billing + '</td></tr>');
+			}
+
 		}
 	});
 
