@@ -125,6 +125,7 @@ $(function() {
 				var to = doctorsArray[doctorIndex].availability[availabilityIndex].to;
 				var appointment = { dUsername: dUsername, date: date, from: from, to: to };
 				appointments.push(appointment);
+				document.location = 'patienthome';
 			}
 		})
 
