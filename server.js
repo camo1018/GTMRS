@@ -96,7 +96,8 @@ app.get('/dailyappointmentscalendar', function(req, res) {
 });
 
 app.get('/monthlyappointmentscalendar', function(req, res) {
-	res.render('figure13.html');
+	var data = { username:req.session.username };
+	res.render('figure13.html', { data: data });
 });
 
 app.get('/patientvisithistory', function(req, res) {
@@ -629,6 +630,22 @@ app.get('/dailyappointmentscalendar/getTimeRange', function(req, res) {
 		if (err) throw err;
 		var time = { from: rows[0].From, to: rows[0].To };
 		res.send(time);
+	});
+});
+
+// Figure 13.  Appointments for the Month
+app.get('/monthlyappointmentscalendar/getAppointments', function(req, res) {
+	var dUsername = req.query.dUsername;
+
+	var query = 'SELECT Date, Count(*) as Count FROM RequestAppointment WHERE DUsername = \'' + dUsername + '\' GROUP BY Date';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var dateCounts = [];
+		for (var i = 0; i < rows.length; i++) {
+			var dateCount = { date: rows[i].Date, count: rows[i].Count };
+			dateCounts.push(dateCount);
+		}
+		res.json(dateCounts);
 	});
 });
 

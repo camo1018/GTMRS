@@ -8,7 +8,14 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fullcalendar.css" rel="stylesheet">
+    <link href="css/fullcalendar.print.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
+
+    <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,237 +23,32 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+      body {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 14px;
+        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+        }
+
+      #calendar {
+        width: 900px;
+        margin: 0 auto;
+        margin-bottom: 100px;
+        }
+    </style>
+
   </head>
   <body>
     <h1 align="center">Appointments Calendar</h1>
     <center><img src="img/buzz CS4400 image.jpg" align="middle"></center>
-    <a href="doctorhome">Return to Homepage</a>
-    <center><p>Select Date:
-    <select id="day">
-      <option value="0" id="0"> </option>
-      <option value="1" id="1">1</option>
-      <option value="2" id="2">2</option>
-      <option value="3" id="3">3</option>
-      <option value="4" id="4">4</option>
-      <option value="5" id="5">5</option>
-      <option value="6" id="6">6</option>
-      <option value="7" id="7">7</option>
-      <option value="8" id="8">8</option>
-      <option value="9" id="9">9</option>
-      <option value="10" id="10">10</option>
-      <option value="11" id="11">11</option>
-      <option value="12" id="12">12</option>
-      <option value="13" id="13">13</option>
-      <option value="14" id="14">14</option>
-      <option value="15" id="15">15</option>
-      <option value="16" id="16">16</option>
-      <option value="17" id="17">17</option>
-      <option value="18" id="18">18</option>
-      <option value="19" id="19">19</option>
-      <option value="20" id="20">20</option>
-      <option value="21" id="21">21</option>
-      <option value="22" id="22">22</option>
-      <option value="23" id="23">23</option>
-      <option value="24" id="24">24</option>
-      <option value="25" id="25">25</option>
-      <option value="26" id="26">26</option>
-      <option value="27" id="27">27</option>
-      <option value="28" id="28">28</option>
-      <option value="29" id="29">29</option>
-      <option value="30" id="30">30</option>
-      <option value="31" id="31">31</option>
-    </select>
-    <select id="month">
-      <option value="1" id="jan">January</option>
-      <option value="2" id="feb">February</option>
-      <option value="3" id="mar">March</option>
-      <option value="4" id="apr">April</option>
-      <option value="5" id="may">May</option>
-      <option value="6" id="june">June</option>
-      <option value="7" id="july">July</option>
-      <option value="8" id="aug">August</option>
-      <option value="9" id="sep">September</option>
-      <option value="10" id="oct">October</option>
-      <option value="11" id="nov">November</option>
-      <option value="12" id="dec">December</option>
-    </select>
-    <select id="year">
-      <option value="2012" id="2012">2012</option>
-      <option value="2013" id="2013">2013</option>
-      <option value="2014" id="2014">2014</option>
-    </select>
-    <center><table style="width:700px" border="1">
-    <style type="text/css">     
-div.title {
-    font: x-large Verdana, Arial, Helvetica, sans-serif;
-    text-align: center;
-    height: 40px;
-    background-color: white;
-    color: black;
-    }
-/* Styling for the footer */
-div.footer {
-    font: small Verdana, Arial, Helvetica, sans-serif;
-    text-align: center;
-    }
-/* Styling for the overall table */
-table {
-    font: 100% Verdana, Arial, Helvetica, sans-serif;
-    table-layout: fixed;
-    border-collapse: collapse;
-    width: 100%;
-    }
-/* Styling for the column headers (days of the week) */
-th {
-    padding: 0 0.5em;
-    text-align: center;
-    background-color:gray;
-    color:white;
-    }
-/* Styling for the individual cells (days) */
-td  {     
-    font-size: medium;
-    padding: 0.25em 0.25em;   
-    width: 14%; 
-    height: 80px;
-    text-align: left;
-    vertical-align: top;
-    }
-/* Styling for the date numbers */
-.date  {     
-    font-size: large;
-    padding: 0.25em 0.25em;   
-    text-align: left;
-    vertical-align: top;
-    }
-/* Class for individual days (coming in future release) */
-.sun {
-     color:red;
-     }
-/* Hide the month element (coming in future release) */
-th.month {
-    visibility: hidden;
-    display:none;
-    }
-   
-</style>
-<div class="title">January 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td></tr>
-<tr><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td></tr>
-<tr><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td></tr>
-<tr><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td></tr>
-<tr><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">31</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">February 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td></tr>
-<tr><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td></tr>
-<tr><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td></tr>
-<tr><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td></tr>
-<tr><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">March 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td></tr>
-<tr><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td></tr>
-<tr><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td></tr>
-<tr><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td></tr>
-<tr><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td></tr>
-<tr><td><span class="date">30</span></td><td><span class="date">31</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">April 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td></tr>
-<tr><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td></tr>
-<tr><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td></tr>
-<tr><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td></tr>
-<tr><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">May 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td></tr>
-<tr><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td></tr>
-<tr><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td></tr>
-<tr><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td></tr>
-<tr><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">31</span></td></tr>
-</table>
-<p><div class="title">June 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td></tr>
-<tr><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td></tr>
-<tr><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td></tr>
-<tr><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td></tr>
-<tr><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">July 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td></tr>
-<tr><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td></tr>
-<tr><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td></tr>
-<tr><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td></tr>
-<tr><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">31</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">August 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td></tr>
-<tr><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td></tr>
-<tr><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td></tr>
-<tr><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td></tr>
-<tr><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td></tr>
-<tr><td><span class="date">31</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">September 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td></tr>
-<tr><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td></tr>
-<tr><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td></tr>
-<tr><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td></tr>
-<tr><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">October 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td></tr>
-<tr><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td></tr>
-<tr><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td></tr>
-<tr><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td></tr>
-<tr><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">31</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">November 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td></tr>
-<tr><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td><td><span class="date">7</span></td><td><span class="date">8</span></td></tr>
-<tr><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td><td><span class="date">14</span></td><td><span class="date">15</span></td></tr>
-<tr><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td><td><span class="date">21</span></td><td><span class="date">22</span></td></tr>
-<tr><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td><td><span class="date">28</span></td><td><span class="date">29</span></td></tr>
-<tr><td><span class="date">30</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table>
-<p><div class="title">December 2014</div>
-<table border="1">
-<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
-<tr><td><span class="date">&nbsp;</span></td><td><span class="date">1</span></td><td><span class="date">2</span></td><td><span class="date">3</span></td><td><span class="date">4</span></td><td><span class="date">5</span></td><td><span class="date">6</span></td></tr>
-<tr><td><span class="date">7</span></td><td><span class="date">8</span></td><td><span class="date">9</span></td><td><span class="date">10</span></td><td><span class="date">11</span></td><td><span class="date">12</span></td><td><span class="date">13</span></td></tr>
-<tr><td><span class="date">14</span></td><td><span class="date">15</span></td><td><span class="date">16</span></td><td><span class="date">17</span></td><td><span class="date">18</span></td><td><span class="date">19</span></td><td><span class="date">20</span></td></tr>
-<tr><td><span class="date">21</span></td><td><span class="date">22</span></td><td><span class="date">23</span></td><td><span class="date">24</span></td><td><span class="date">25</span></td><td><span class="date">26</span></td><td><span class="date">27</span></td></tr>
-<tr><td><span class="date">28</span></td><td><span class="date">29</span></td><td><span class="date">30</span></td><td><span class="date">31</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td><td><span class="date">&nbsp;</span></td></tr>
-</table></center>
-
-
+    <a href="dailyappointmentscalendar" style="position: absolute; margin-top: 10px; margin-left: 200px">Daily View</a>
+    <div id="calendar"></div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
     <script src="js/figure13.js"></script>
   </body>
 </html>
