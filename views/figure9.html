@@ -37,16 +37,16 @@
     <br><table style="width:500px">
     <tr>
       <td>Consulting Doctor:</td>
-      <td><form><input type="text" name="doctorname"><br></form></td>
+      <td><form><input id="doctorname" type="text" name="doctorname" readonly><br></form></td>
     </tr>
     <tr>
       <td>Blood Pressure:</td>
-      <td><form>Systolic: <input type="text" name="sysnumber"></form><form>
-      <form>Diastolic: <input type="text" name="diasnumber"></form></td>
+      <td><form>Systolic: <input id="systolic" type="text" name="sysnumber" readonly></form><form>
+      <form>Diastolic: <input id="diastolic" type="text" name="diasnumber" readonly></form></td>
     </tr>
     <tr>
       <td>Diagnosis:</td>
-      <td><select>
+      <td><select id="diagnoses" readonly>
         <option value="eye">Diagnosis 1</option>
         <option value="general">Diagnosis 2 - optional</option>
         <option value="heart">Diagnosis 3 - optional</option>
@@ -56,27 +56,15 @@
     </tr>
     <tr>
       <td>Medications Prescribed:</td>
-      <td><table style="width:500px" border="1">
+      <td><table id="prescriptionsTable" style="width:500px" border="1">
       <tr>
         <td style="width:150px">Medicine Name</td>
         <td style="width:100px">Dosage</td>
         <td style="width:80px">Duration</td>
         <td style="width:300px">Notes</td>
       </tr>
-      <tr>
-        <td>Med1</td>
-        <td>1 per day</td>
-        <td>10 days</td>
-        <td>Notes Here</td>
-      </tr>
-      <tr>
-        <td>Med2</td>
-        <td>2 per day</td>
-        <td>20 days</td>
-        <td>Notes Here</td>
-      </tr>
-      </td>
       </table>
+      </td>
 
     </table>
     </div>

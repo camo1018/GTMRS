@@ -501,11 +501,44 @@ app.get('/visithistory/getVisits', function(req, res) {
 		if (err) throw err;
 		for (var i = 0; i < rows.length; i++) {
 			var visit = { pUsername: username, dUsername: rows[i].DUsername, visitDate: rows[i].VisitDate, 
-				sdiastolic: rows[i].Diastolic, systolic: rows[i].Systolic, billingAmount: rows[i].BillingAmount };
-			visits.push(visit);
+				diastolic: rows[i].Diastolic, systolic: rows[i].Systolic, billingAmount: rows[i].BillingAmount, diagnoses: null, prescriptions: null };
+			var query2 = 'SELECT Diagnosis FROM Diagnosis WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
+				'\' AND DUsername = \'' + visit.dUsername + '\'';
+			connection.query(query2, function(err2, rows2, fields2) {
+				var diagnoses = [];
+				if (err2) throw err2;
+				for (var j = 0; j < rows2.length; j++) {
+					diagnoses.push(rows2[j].Diagnosis);
+				}
+				visit.diagnoses = diagnoses;
+				var query3 = 'SELECT * FROM Prescription WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
+					'\' AND DUsername = \'' + visit.dUsername + '\'';
+				connection.query(query3, function(err3, rows3, fields3) {
+					var prescriptions = [];
+					if (err3) throw err3;
+					for (var k = 0; k < rows3.length; k++) {
+						var prescription = { medicineName: rows3[k].MedicineName, dosage: rows3[k].Dosage, duration: rows3[k].Duration, notes: rows3[k].Notes };
+						prescriptions.push(prescription);
+					}
+					visit.prescriptions = prescriptions;
+					visits.push(visit);
+					if (i >= rows.length - 1)
+						res.json(visits);
+				});
+			});
 		}
-		res.json(visits);
 	});
+});
+
+app.get('/visithistory/getDoctorName', function(req, res) {
+	var dUsername = req.query.dUsername;
+
+	var query = 'SELECT FirstName, LastName FROM Doctor WHERE Username = \'' + dUsername + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		var name = rows[0].FirstName + ' ' + rows[0].LastName;
+		res.send(name);
+	})
 });
 
 // Figure 10.  Rate a Doctor
@@ -545,27 +578,12 @@ app.get('/rate/getDoctors', function(req, res) {
 	});
 })
 
-
-
-// Figure 5. Patient Homepage
-app.get('/patienthome/getMessageCount', function(req, res) {
-	console.log('Getting message count from the server.');
-	var username = req.query.username;
-	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Patient WHERE ReceiverPUsername = \'' + username +'\'';
-	connection.query(query, function(err, rows, fields) {
-		if (err) throw err;
-		var count = rows[0].Count;
-		res.send(''+count);
-		console.log("Returning count " + count);
-	});
-});
-
 // Figure 11. Doctor Homepage
 app.get('/doctorhome/getMessageCount', function(req, res) {
 	console.log('Getting message count from the server.');
 	var username = req.query.username;
-	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Doctor OUTER JOIN Communicates ' + 
-    'WHERE ReceiverDUsername = \'' + username +'\' AND ReceiverUsername = \'' + username +'\'';
+	var query = 'SELECT COUNT(*) AS Count FROM Sends_Message_To_Doctor WHERE ReceiverDUsername = \'' 
+		+ username + '\' UNION ALL SELECT COUNT(*) AS Count FROM Communicates WHERE ReceiverUsername = \'' + username + '\'';
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
 		var count = rows[0].Count;
