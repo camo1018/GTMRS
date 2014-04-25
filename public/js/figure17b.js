@@ -48,26 +48,27 @@ $(function() {
 			return;
 
 		var receivingDUsername = $('#dNameOption').val();
-		var pUsername = $('#pNameOption').val()
-		var parameters;
+		var pUsername = $('#pNameOption').val();
+		var parameters1;
+		var parameters2;
 
-		if(pmessage=='' && dmessage!=''){
-			parameters = { dUsername: dUsername, pUsername: pUsername, message: message };
-			$.get('/sendmessagetopatient/sendMessage', parameters, function(data) { 
+		if(pmessage!='' && dmessage==''){
+			parameters1 = { dUsername: dUsername, pUsername: pUsername, message: pmessage };
+			$.get('/sendmessagetopatient/sendToPatient', parameters1, function(data) { 
 				document.location = 'doctorhome';
 			})
 
-		}else if(dmessage=='' && pmessage!=''){
-			parameters = { dUsername: dUsername, receivingDUsername: receivingDUsername, message: message };
-			$.get('/sendmessagetopatient/communicateDoctor', parameters, function(data) { 
+		}else if(dmessage!='' && pmessage==''){
+			parameters1 = { dUsername: dUsername, receivingDUsername: receivingDUsername, message: dmessage };
+			$.get('/sendmessagetopatient/communicateDoctor', parameters1, function(data) { 
 				document.location = 'doctorhome';
 			})
 
-		}else{ //both fields have messages
-			parameters1 = { dUsername: dUsername, pUsername: pUsername, message: message };
-			parameters2 = { dUsername: dUsername, receivingDUsername: receivingDUsername, message: message };
-			$.get('/sendmessagetopatient/sendMessage', parameters, function(data) { 
-				$.get('/sendmessagetopatient/communicateDoctor', parameters, function(data) { 
+		}else if(dmessage!='' && pmessage!=''){ //both fields have messages
+			parameters1 = { dUsername: dUsername, pUsername: pUsername, message: pmessage };
+			parameters2 = { dUsername: dUsername, receivingDUsername: receivingDUsername, message: dmessage };
+			$.get('/sendmessagetopatient/sendToPatient', parameters1, function(data1) { 
+				$.get('/sendmessagetopatient/communicateDoctor', parameters2, function(data2) { 
 				});
 				document.location = 'doctorhome';
 			});
