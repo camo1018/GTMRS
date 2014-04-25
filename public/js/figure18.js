@@ -35,12 +35,8 @@ $(function() {
 					var Message = data[i].Message;
 					$('#messageTable').append('<tr><td align="center">' + Status + '</td><td align="center">'+ date + 
 					'</td><td align="center"> Dr. ' + PName + '</td><td align="center">' + Message + '</td></tr>');
+				}
 			});
-	}
+		}
 	});
-
-	
-	
-
-
 });

@@ -10,6 +10,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/gtmrs.css" rel="stylesheet">
 
+     <!-- Data to be passed in from server -->
+    <script type='text/javascript'>
+      var serverData =<%-JSON.stringify(data)%>
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,21 +25,11 @@
   <body>
     <h1 align="center">Doctor Performance Report</h1>
     <center><img src="img/buzz CS4400 image.jpg" align="middle">
-    <table style="width:600px" border="1">
+    <table id='docReportTable' style="width:600px" border="1">
     <tr>
       <td align="center">Specialty</td>
       <td align="center">Average Rating</td> 
       <td align="center">No of Surgeries Performed</td>
-    </tr>
-    <tr>
-      <td align="center">General Physician</td>
-      <td align="center">3</td>
-      <td align="center">10</td>
-    </tr>
-    <tr>
-      <td align="center">Heart Specialist</td>
-      <td align="center">2.3</td>
-      <td align="center">8</td>
     </tr>
     </table>
     <a href="adminhome">Return to Homepage</a>

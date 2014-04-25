@@ -142,7 +142,8 @@ app.get('/billing', function(req, res) {
 });
 
 app.get('/docreport', function(req, res) {
-	res.render('figure21.html');
+	var data = { username:req.session.username };
+	res.render('figure21.html',  { data: data});
 
 });
 
@@ -993,11 +994,12 @@ app.get('/inbox/getMessagesDoctor', function(req, res) {
 	var username = req.query.username;
 
 	// Search for user in the database
-	var query = 'SELECT Status, DateTime, Name, Content FROM Sends_Message_To_Doctor AS S, Patient AS P WHERE S.ReceiverDUsername = \'' + 
+	var query1 = 'SELECT Status, DateTime, Name, Content FROM Sends_Message_To_Doctor AS S, Patient AS P WHERE S.ReceiverDUsername = \'' + 
 		username + '\' AND S.SenderPUsername = P.Username';
+	var query2 = 'SELECT Status, DateTime, FirstName, LastName, Content FROM Communicates AS C, Doctor AS D WHERE C.ReceiverUsername = \'' + 
+		username + '\' AND C.SenderUsername = D.Username';
 	var messages = [];
-	console.log('Executing SQL\n' + query);
-	connection.query(query, function(err, rows, fields) {
+	connection.query(query1, function(err, rows, fields) {
 		if (err) throw err;
 		console.log(rows.length);
 		for (var i = 0; i < rows.length; i++ ) {
@@ -1005,12 +1007,47 @@ app.get('/inbox/getMessagesDoctor', function(req, res) {
 			var DateTime = rows[i].DateTime;
 			var PName = rows[i].Name;
 			var Message = rows[i].Content;
-			var message = { DateTime:DateTime, PName:Name, Message:Message, Status:Status };
+			var message = { DateTime:DateTime, PName:PName, Message:Message, Status:Status };
 			messages.push(message);
 		}
-		res.json(messages);
+		connection.query(query2, function(err, rows, fields) {
+			if (err) throw err;
+			console.log(rows.length);
+			for (var i = 0; i < rows.length; i++ ) {
+				var Status = rows[i].Status;
+				var DateTime = rows[i].DateTime;
+				var SfName = rows[i].FirstName;
+				var SlName = rows[i].LastName;
+				var PName = 'Dr. ' + SfName + ' ' + SlName;
+				var Message = rows[i].Content;
+				var message = { DateTime:DateTime, PName:PName, Message:Message, Status:Status };
+				messages.push(message);
+			}
+			res.json(messages);
+		});
 	});
 });
+
+// Figure 21. Doctor Performance Report
+app.get('/docreport/createTable', function(req, res) {
+	var username = req.query.username;
+
+	var query = 'SELECT * FROM DoctorReport';
+	var docReport = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows.length);
+		for (var i = 0; i < rows.length; i++ ) {
+			var specialty = rows[i].Specialty;
+			var avgRating = rows[i].AverageRating;	
+			var NoSurgeries = rows[i].NumberOfSurgeries;
+			var Row = { specialty:specialty, avgRating:avgRating, NoSurgeries:NoSurgeries };
+			docReport.push(Row);
+			}
+		res.json(docReport);
+	});
+});
+
 
 // TEST
 app.get('/patientprofile/test', function(req, res) {
