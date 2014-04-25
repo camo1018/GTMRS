@@ -8,8 +8,11 @@ $(function() {
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#registerButton').bind('click', function() {
+		$('.validationError').hide();
+
 		var username = $('#username').val();
 		var password = $('#password').val();
+		var userType = $('#userType').val();
 		var confirm = $('#confirmPass').val();
 
 		// Validation
@@ -27,13 +30,11 @@ $(function() {
 			$('#confirmValidationError').show();
 			validationError = true;
 		}
+		else if (confirm != password) {
+			$('#confirmMatchError').show();	
+			validationError = true;
+		}
 
-		var parameters = { username: username, password: password, confirm: confirm };
-
-		$.get('/register/newuser', parameters, function(data) {
-			document.location = "patientprofile";
-		});
-		
 		// Submit!
 
 		// If validation failed, then don't actually submit anything.

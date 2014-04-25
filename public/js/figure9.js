@@ -8,10 +8,11 @@ $(function() {
 	var parameters = { username: username }
 
 	$.get('/visithistory/getVisits', parameters, function(data) {
+		console.log(data.length);
 		visits = data;
 		for (var i = 0; i < visits.length; i++) {
-			$('#visitDateTable').append('<tr><td><button type="button" style="width:100px" class="visitDateButton" id="'+i+'">' + 
-				visits[i].visitDate + '</button></td></tr>');
+			$('#visitDateTable').append('<tr><td><button type="button" style="width:150px" class="visitDateButton" id="'+i+'">' + 
+				visits[i].visitDate.substring(0, 10) + '</button></td></tr>');
 		}
 
 		$('.visitDateButton').on('click', function() {

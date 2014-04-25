@@ -39,6 +39,7 @@ $(function() {
 
 		var parameters = { dUsername: dUsername, pUsername: pUsername, rating: parseInt(rating) };
 		$.get('/rate/submitRating', parameters, function(data) {
+			document.location = 'patienthome';
 		});
 	});
 

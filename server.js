@@ -5,6 +5,7 @@
 var express = require('express');
 var ejs = require('ejs');
 var mysql = require('mysql');
+var dateFormat = require('dateformat');
 
 var app = express();
 
@@ -407,18 +408,11 @@ app.get('/makeappointment/requestAppointment', function(req, res) {
 			}
 		}
 	}
-	var count = appointments.length;
 	for (i = 0; i < appointments.length; ++i) {
-		var query = 'INSERT INTO RequestAppointment VALUES (\'' + pUsername + '\', ' + appointments[i].dUsername + '\', ' 
-			+ appointments[i].date + '\', ' + appointments[i].from + '\')';
+		var query = 'INSERT INTO RequestAppointment VALUES (\'' + pUsername + '\', \'' + appointments[i].dUsername + '\', \'' 
+			+ appointments[i].date + '\', \'' + appointments[i].from + '\')';
 		connection.query(query, function(err, rows, fields) {
-			if (err){
-				res.send('partial');
-			}
-			--count;
-			if (count <= 0) {
-				res.send('good');
-			}
+			if (err) throw (err)
 		});
 	}
 })
@@ -510,32 +504,35 @@ app.get('/visithistory/getVisits', function(req, res) {
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
 		for (var i = 0; i < rows.length; i++) {
-			var visit = { pUsername: username, dUsername: rows[i].DUsername, visitDate: rows[i].VisitDate, 
+			var visit = { pUsername: username, dUsername: rows[i].DUsername, visitDate: dateFormat(rows[i].VisitDate, "yyyy-mm-dd" ),
 				diastolic: rows[i].Diastolic, systolic: rows[i].Systolic, billingAmount: rows[i].BillingAmount, diagnoses: null, prescriptions: null };
 			var query2 = 'SELECT Diagnosis FROM Diagnosis WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
 				'\' AND DUsername = \'' + visit.dUsername + '\'';
-			connection.query(query2, function(err2, rows2, fields2) {
-				var diagnoses = [];
-				if (err2) throw err2;
-				for (var j = 0; j < rows2.length; j++) {
-					diagnoses.push(rows2[j].Diagnosis);
-				}
-				visit.diagnoses = diagnoses;
-				var query3 = 'SELECT * FROM Prescription WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
-					'\' AND DUsername = \'' + visit.dUsername + '\'';
-				connection.query(query3, function(err3, rows3, fields3) {
-					var prescriptions = [];
-					if (err3) throw err3;
-					for (var k = 0; k < rows3.length; k++) {
-						var prescription = { medicineName: rows3[k].MedicineName, dosage: rows3[k].Dosage, duration: rows3[k].Duration, notes: rows3[k].Notes };
-						prescriptions.push(prescription);
+			(function (i, visit, query2) {
+				connection.query(query2, function(err2, rows2, fields2) {
+					var diagnoses = [];
+					if (err2) throw err2;
+					console.log(rows2.length);
+					for (var j = 0; j < rows2.length; j++) {
+						diagnoses.push(rows2[j].Diagnosis);
 					}
-					visit.prescriptions = prescriptions;
-					visits.push(visit);
-					if (i >= rows.length - 1)
-						res.json(visits);
+					visit.diagnoses = diagnoses;
+					var query3 = 'SELECT * FROM Prescription WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
+						'\' AND DUsername = \'' + visit.dUsername + '\'';
+					connection.query(query3, function(err3, rows3, fields3) {
+						var prescriptions = [];
+						if (err3) throw err3;
+						for (var k = 0; k < rows3.length; k++) {
+							var prescription = { medicineName: rows3[k].MedicineName, dosage: rows3[k].Dosage, duration: rows3[k].Duration, notes: rows3[k].Notes };
+							prescriptions.push(prescription);
+						}
+						visit.prescriptions = prescriptions;
+						visits.push(visit);
+						if (i >= rows.length - 1)
+							res.json(visits);
+					});
 				});
-			});
+			})(i, visit, query2);
 		}
 	});
 });
@@ -605,12 +602,14 @@ app.get('/doctorhome/getMessageCount', function(req, res) {
 // Figure 12. Appointments for Selected Date.
 app.get('/dailyappointmentscalendar/getAppointments', function(req, res) {
 	var dUsername = req.query.dUsername;
-	var date = req.query.date;
+	var date = dateFormat(req.query.date, 'yyyy-mm-dd');
+	console.log(date);
 
 	var query = 'SELECT P.Username as Username, P.Name as Name, A.Time as Time FROM Patient as P, RequestAppointment as A WHERE P.Username = A.PUsername AND A.Date = \'' + 
-		date + '\' AND A.DUsername = \'' + dUsername + '\'';
+		dateFormat(date, 'yyyy-mm-dd') + '\' AND A.DUsername = \'' + dUsername + '\'';
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
+		console.log(query);
 		var patients = [];
 		for (var i = 0; i < rows.length; i++) {
 			var pUsername = rows[i].Username;
@@ -627,11 +626,13 @@ app.get('/dailyappointmentscalendar/getTimeRange', function(req, res) {
 	var dUsername = req.query.dUsername;
 	var time = req.query.time;
 
-	var query = 'SELECT From, To FROM Availability WHERE DUsername = \'' + dUsername + '\' AND From = \'' + time + '\'';
+	var query = 'SELECT `From` as F, `To` as T FROM Availability WHERE DUsername = \'' + dUsername + '\' AND `From` = \'' + time + '\'';
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
-		var time = { from: rows[0].From, to: rows[0].To };
-		res.send(time);
+		if (rows.length > 0) {
+			var time = { from: rows[0].F, to: rows[0].T };
+			res.send(time);
+		}
 	});
 });
 

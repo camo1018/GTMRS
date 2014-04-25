@@ -39,4 +39,21 @@ $(function() {
 			});
 		}
 	});
+	
+	$('#homepageLink').on('click', function() {
+		$.get('/login/getUserType', { username: username }, function(data) {
+			if (data == 'patient') {
+				document.location = 'patienthome';
+			}
+			else if (data == 'doctor') {
+				document.location = 'doctorhome';
+			}
+			else if (data == 'admin') {
+				document.location = 'adminhome';
+			}
+			else {
+				document.location = 'login';
+			}
+		});	
+	});
 });

@@ -8,7 +8,7 @@ $(function() {
 	}
 
 	function getDayOfWeek(dayInt) {
-		switch (dayInt) {
+		switch (parseInt(dayInt)) {
 			case 1:
 				return 'Sunday';
 				break;
@@ -38,14 +38,18 @@ $(function() {
 
 	function displayTable(doctors) {
 		doctorsArray = doctors;
+		$('#doctorsTable').empty();
+		$('#doctorsTable').append('<tr><td>Doctor Name</td><td>Phone Number</td><td>Room Number</td><td>Availability</td><td>Average Rating</td></tr>');
+
 		var index;
-		for (index = 0; index < doctors; ++index) {
+		for (index = 0; index < doctorsArray.length; ++index) {
 			var doctor = doctors[index];
+			console.log(doctor);
 			if (doctor.availability.length > 0) {
 				$('#doctorsTable').append('<tr id=' + doctor.username + '><td id="name">Dr. ' + doctor.fName + ' ' + doctor.lName + '</td>' +
 				      '<td id="wPhone">' + doctor.wPhone + '</td>' +
 				      '<td id="roomNo"># ' + doctor.roomNo + '</td>' +
-				      '<td id="availability">' + getDayOfWeek(doctor.availability[0]) + ': ' + doctor.availability[0].from + ' - ' + doctor.availability[0].to + 
+				      '<td id="availability">' + getDayOfWeek(doctor.availability[0].day) + ': ' + doctor.availability[0].from + ' - ' + doctor.availability[0].to + 
 				      	'<input type="checkbox" name="appointment" value="1" id=' + index + '|' + 0 + ' class="apptCheckbox"></td>' +
 				      '<td id="avgRating">' + doctor.avgRating + '</td></tr>');
 				if (doctor.availability.length > 1) {
@@ -74,27 +78,32 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
-	var specialty = $('#specialtyOption').val();
-	var parameters = { specialty: specialty };
-	$.get('/makeappointment/getDoctors', parameters, function(data) {
-		var doctors = data;
-		var index;
-		for (index = 0; index < doctors.length; ++index) {
-			var doctor = { username:doctors[index].username, fName:doctors[index].fName, lName:doctors[index].lName, 
-				wPhone:doctors[index].wPhone, roomNo:doctors[index].roomNo, availability: null, avgRating: null };
-			var subParameters = { username:doctor.username };
-			$.get('/makeappointment/getAvailability', subParameters, function(subData) {
-				doctor.availability = subData;
-				$.get('/makeappointment/getAverageRating', subParameters, function(averageRating) {
-					doctor.avgRating = averageRating;
-					doctors.push(doctor);
-					if (index >= doctors.length-1)
-						displayTable(doctors);
-				});
-			});
-		}
+	$('#searchButton').on('click', function() {
+		var specialty = $('#specialtyOption').val();
+		var parameters = { specialty: specialty };
+		$.get('/makeappointment/getDoctors', parameters, function(data) {
+			var doctors = data;
+			var newDoctors = [];
+			var index;
+			for (index = 0; index < doctors.length; ++index) {
+				var doctor = { username:doctors[index].username, fName:doctors[index].fName, lName:doctors[index].lName, 
+					wPhone:doctors[index].wPhone, roomNo:doctors[index].roomNo, availability: [], avgRating: null };
+				var subParameters = { username:doctor.username };
+				(function (doctor, keepIndex, subParameters) {
+					$.get('/makeappointment/getAvailability', subParameters, function(subData) {
+						doctor.availability = subData;
+						$.get('/makeappointment/getAverageRating', subParameters, function(averageRating) {
+							doctor.avgRating = averageRating;
+							newDoctors.push(doctor);
+							if (keepIndex >= doctors.length-1) {
+								displayTable(newDoctors);
+							}
+						});
+					});
+				})(doctor, index, subParameters);
+			}
+		});
 	});
-
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#reqbutton').bind('click', function() {
@@ -111,7 +120,7 @@ $(function() {
 				var doctorIndex = $(this).attr('id').split('|')[0];
 				var availabilityIndex = $(this).attr('id').split('|')[1];
 				var dUsername = doctorsArray[doctorIndex].username;
-				var date = Date.parse('next ' + getDayOfWeek(doctorsArray[doctorIndex].availability[availabilityIndex].day));
+				var date = Date.parse('next ' + getDayOfWeek(doctorsArray[doctorIndex].availability[availabilityIndex].day)).toString('yyyy-MM-dd');
 				var from = doctorsArray[doctorIndex].availability[availabilityIndex].from;
 				var to = doctorsArray[doctorIndex].availability[availabilityIndex].to;
 				var appointment = { dUsername: dUsername, date: date, from: from, to: to };
@@ -130,18 +139,18 @@ $(function() {
 		if (validationError)
 			return;
 
+		console.log(appointments);
 		var pUsername = serverData.username;
 		var parameters = { pUsername: pUsername, appointments: appointments };
-		$.get('/makeappointment/requestAppointment', function(data) {
+		$.get('/makeappointment/requestAppointment', parameters, function(data) {
 			if (data == 'good') {
-				document.window = 'patienthome';
+				document.location = 'patienthome';
 			}
 			else if (data == 'partial') {
-				// What the fuck do I do here???
-				document.window = 'makeappointment';
+				document.location = 'makeappointment';
 			}
 			else {
-				document.window = 'makeappointment';
+				document.location = 'makeappointment';
 			}
 		});
 

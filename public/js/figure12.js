@@ -4,8 +4,8 @@ $(function() {
 
 	today = new Date();
     
-	var dd = today.getDate();
-    $("#day").val(dd);
+	var dd = today.getDate() + 1;
+    $("#day").val(dd-1);
     
 	var mm = today.getMonth()+1;
     $("#month").val(mm);
@@ -23,15 +23,19 @@ $(function() {
 	    	$('#appointmentsTable').empty();
 	    	$('#appointmentsTable').append('<tr><td>Patient Name</td><td>Scheduled Time</td></tr>');
 	    	for (var i = 0; i < patients.length; i++) {
-	    		$.get('/dailyappointmentscalendar/getTimeRange', { dUsername: dUsername, from: patients[i].time }, function(data) {
-	    			$('#appointmentsTable').append('<tr><td>' + patients[i].name + '</td><td>' + data.from + ' - ' + data.to + '</td></tr>');
-	    		});
+	    		(function (i) {
+			    	$.get('/dailyappointmentscalendar/getTimeRange', { dUsername: dUsername, time: patients[i].time }, function(data) {
+			    		$('#appointmentsTable').append('<tr><td>' + patients[i].name + '</td><td>' + data.from + ' - ' + data.to + '</td></tr>');
+			    	});
+			    })(i);
 	    	}
 	    }); 
 	}
 
+	updateSchedule(fullDate);
+
 	$("#day, #month, #year").on('change', function() {
-		var newDate = '' + $('#year').val() + '-' + $('#month') + '-' + $('#day');
+		var newDate = '' + $('#year').val() + '-' + $('#month').val() + '-' + (parseInt($('#day').val()) + 1);
 		updateSchedule(newDate);
 	});
 });
