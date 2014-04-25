@@ -20,7 +20,7 @@ $(function() {
 					var DfName = data[i].DfName;
 					var DlName = data[i].DlName;
 					var Message = data[i].Message;
-					$('#messageTable').append('<tr><td align="center">' + Status + '</td><td align="center">'+ date + 
+					$('#messageTable').append('<tr><td align="center">' + '<form><input type="checkbox" name="status" value="unread" id="status"></form>' + '</td><td align="center">'+ date + 
 					'</td><td align="center"> Dr. ' + DfName + ' ' + DlName + '</td><td align="center">' + Message + '</td></tr>');
 				}
 			});
@@ -33,7 +33,7 @@ $(function() {
 					var date = DateTime.substring(0,10);
 					var PName = data[i].PName;
 					var Message = data[i].Message;
-					$('#messageTable').append('<tr><td align="center">' + Status + '</td><td align="center">'+ date + 
+					$('#messageTable').append('<tr><td align="center">' + '<form><input type="checkbox" name="status" value="unread" id="status">' + Status + '</form>' + '</td><td align="center">'+ date + 
 					'</td><td align="center"> Dr. ' + PName + '</td><td align="center">' + Message + '</td></tr>');
 				}
 			});
