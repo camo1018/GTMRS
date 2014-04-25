@@ -510,23 +510,28 @@ app.get('/visithistory/getVisits', function(req, res) {
 app.get('/rate/submitRating', function(req, res) {
 	var dUsername = req.query.dUsername;
 	var pUsername = req.query.pUsername;
-	var rating = req.query.Rating;
+	var rating = req.query.rating;
 
-	var query = 'INSERT INTO Rates VALUES (\'' + dUsername + '\', \'' + pUsername + '\', \'' + rating + '\')';
-	connection.query(query, function(err, rows, fields) {
+	var query1 = 'DELETE FROM Rates WHERE DUsername = \'' + dUsername + '\' AND PUsername = \'' + pUsername + '\'';
+	var query2 = 'INSERT INTO Rates VALUES (\'' + dUsername + '\', \'' + pUsername + '\', \'' + rating + '\')';
+
+	connection.query(query1, function(err, rows, fields) {
+		if (err) throw err;
+		connection.query(query2, function(err, rows, fields) {
 		if (err) throw err;
 		res.send('good');
+	});
 	});
 });
 
 app.get('/rate/getDoctors', function(req, res) {
 	var pUsername = req.query.pUsername;
 
-	var query = 'SELECT Username, FirstName, LastName FROM Doctor' ;
-	//, Visit WHERE Doctor.Username = Visit.DUsername AND \'' + pUsername + '\' = Visit.PUsername'
+	var query = 'SELECT Username, FirstName, LastName FROM Doctor, Visit WHERE Doctor.Username = Visit.DUsername AND \'' + pUsername + '\' = Visit.PUsername';
 	var doctors = [];
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
+		console.log(rows.length);
 		for (var i = 0; i < rows.length; i++ ) {
 			var resultUsername = rows[i].Username;
 			var resultFName = rows[i].FirstName;
