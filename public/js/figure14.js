@@ -6,6 +6,8 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
+	var dUsername = serverData.username;
+
 	function populateSearchResult(patients) {
 		$('#patientResultsTable').empty();
 		$('#patientResultsTable').append('<tr><td>Patient Name</td><td>Phone Number</td><td></td</tr>');
@@ -13,7 +15,37 @@ $(function() {
 			$('#patientResultsTable').append('<tr><td>' + patients[i].name + '</td><td>' + patients[i].phone + '</td>' +
 				'<td id="td_' + i + '"><button type="button" id="' + i + '">View</button><button type="button" id="' + i + '">Record a Visit</button></td>');
 			$('#patientResultsTable').find('#td_' + i).find('button')[0].on('click', function() {
-				
+				var pUsername = patients[i].username;
+				var params = { pUsername: pUsername, dUsername: dUsername };
+				$.get('/patientvisithistory/getPatientVisits', params, function(data) {
+					visits = data;
+					for (var i = 0; i < visits.length; i++) {
+						$('#visitDateTable').append('<tr><td><button type="button" style="width:100px" class="visitDateButton" id="'+i+'">' + 
+							visits[i].visitDate + '</button></td></tr>');
+					}
+					$('.visitDateButton').on('click', function() {
+						var index = $(this).attr('id');
+						$('#visitDate').val(visits[index].visitDate);
+						$('#systolic').val(visits[index].systolic);
+						$('#diastolic').val(visits[index].diastolic);
+						$('#diagnoses').empty();
+						for (var i = 0; i < visits[index].diagnoses.length; i++) {
+							$('#diagnoses').append('<option>'+visits[index].diagnoses[i]+'</option>');
+						}
+						$('#prescriptionsTable').empty();
+						$('#prescriptionsTable').append('<tr>' +
+										        '<td style="width:150px">Medicine Name</td>' +
+										        '<td style="width:100px">Dosage</td>' +
+										        '<td style="width:80px">Duration</td>' +
+										        '<td style="width:300px">Notes</td>' +
+										      	'</tr>');	
+						for (var i = 0; i < visits[index].prescriptions.length; i++) {
+							$('#prescriptionsTable').append('<tr><td style="width:150px">' + visits[index].prescriptions[i].medicineName +
+								'</td><td style="width:100px">' + visits[index].prescriptions[i].dosage + '</td><td style="width:80px">' + 
+								visits[index].prescriptions[i].duration + '</td><td style="width:300px">' + visits[index].prescriptions[i].notes + '</td></tr>');
+						}
+					});
+				});
 			});
 		}
 	} 
@@ -41,9 +73,21 @@ $(function() {
 			return;
 
 		if (name == '') {
-			var parameters = { phone: phone }
+			var parameters = { dUsername: dUsername, phone: phone }
 			$.get('/patientvisithistory/searchPatientByPhone', parameters, function(data) {
-
+				populateSearchResult(data);
+			});
+		}
+		else if (phone == '' ) {
+			var parameters = { dUsername: dUsername, name: name };
+			$.get('/patientvisithistory/searchPatientByName', parameters, function(data) {
+				populateSearchResult(data);
+			});
+		}
+		else {
+			var parameters = { dUsername: dUsername, name: name, phone: phone };
+			$.get('/patientvisithistory/searchPatientByNamePhone', parameters, function(data) {
+				populateSearchResult(data);
 			});
 		}
 

@@ -93,7 +93,7 @@ $(function() {
 			anesthesiaStartTime: anesthesiaStartTime, surgeryStartTime: surgeryStartTime, 
 			surgeryCompletionTime: surgeryCompletionTime, complications: complications };
 		$.get('/surgeryrecord/recordSurgery', parameters, function(data) {
-
+			
 		});
 
 	});

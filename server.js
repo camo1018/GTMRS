@@ -601,15 +601,67 @@ app.get('/doctorhome/getMessageCount', function(req, res) {
 
 // Figure 14. Patient Visit History
 app.get('/patientvisithistory/searchPatientByName', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var name = req.query.name;
 
+	var query = 'SELECT P.Username as Username, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Name = \'' 
+		+ name + '\' AND V.DUsername = \'' + dUsername + '\'';
+
+	var patients = [];
+
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		for (var i = 0; i < rows.length; i++) {
+			var username = rows[i].Username;
+			var phone = rows[i].Phone;
+			var patient = { username: username, phone: phone };
+			patients.push(patient);
+		}
+		res.json(patients);
+	});
 });
 
 app.get('/patientvisithistory/searchPatientByPhone', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var phone = req.query.phone;
 
+	var query = 'SELECT P.Username as Username, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Hphone = \'' 
+		+ phone + '\' AND V.DUsername = \'' + dUsername + '\'';
+
+	var patients = [];
+
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		for (var i = 0; i < rows.length; i++) {
+			var username = rows[i].Username;
+			var phone = rows[i].Phone;
+			var patient = { username: username, phone: phone };
+			patients.push(patient);
+		}
+		res.json(patients);
+	});
 });
 
 app.get('/patientvisithistory/searchPatientByNamePhone', function(req, res) {
+	var dUsername = req.query.dUsername;
+	var name = req.query.name;
+	var phone = req.query.phone;
 
+	var query = 'SELECT P.Username as Username, P.Hphone as Phone FROM Patient as P, Visit as V WHERE P.Username = V.PUsername AND P.Name = \'' 
+		+ name + '\' AND P.Hphone = \'' + phone + '\' AND V.DUsername = \'' + dUsername + '\'';
+
+	var patients = [];
+
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		for (var i = 0; i <s rows.length; i++) {
+			var username = rows[i].Username;
+			var phone = rows[i].Phone;
+			var patient = { username: username, phone: phone };
+			patients.push(patient);
+		}
+		res.json(patients);
+	});
 });
 
 app.get('/patientvisithistory/getPatientVisits', function(req, res) {
@@ -621,8 +673,8 @@ app.get('/patientvisithistory/getPatientVisits', function(req, res) {
 	connection.query(query, function(err, rows, fields) {
 		if (err) throw err;
 		for (var i = 0; i < rows.length; i++) {
-			var visit = { pUsername: username, dUsername: rows[i].DUsername, visitDate: rows[i].VisitDate, 
-				diastolic: rows[i].Diastolic, systolic: rows[i].Systolic, billingAmount: rows[i].BillingAmount, diagnoses: null, prescriptions: null };
+			var visit = { visitDate: rows[i].VisitDate, diastolic: rows[i].Diastolic, systolic: rows[i].Systolic, 
+				billingAmount: rows[i].BillingAmount, diagnoses: null, prescriptions: null };
 			var query2 = 'SELECT Diagnosis FROM Diagnosis WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
 				'\' AND DUsername = \'' + visit.dUsername + '\'';
 			connection.query(query2, function(err2, rows2, fields2) {
