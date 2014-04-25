@@ -1131,7 +1131,7 @@ app.get('/billing/createTable', function(req, res) {
 		console.log(rows.length);
 		for (var i = 0; i < rows.length; i++ ) {
 			var Pusername = rows[i].Pusername;
-			var vdate = rows[i].VDate;
+			var vdate = rows[i].VisitDate;
 			var vcost = rows[i].VisitCost;
 			var sname = rows[i].SurgeryName;
 			var scost = rows[i].SurgeryCost;

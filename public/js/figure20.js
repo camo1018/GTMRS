@@ -6,10 +6,6 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
-
-	var pname = $('#pnamefield').val();
-
-
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#createButton').bind('click', function() {
 		var pname = $('#pnamefield').val();
@@ -35,7 +31,7 @@ $(function() {
 			var Name = data[i].Name;
 			var Hphone = data[i].Hphone;	
 			var username = data[i].Username;
-			$('#possiblePatients').append('<tr><td id=' + username + ' align="center">' + Name+ '</td><td align="center">' + Hphone + '</td></tr>');
+			$('#possiblePatients').replaceWith('<tr id =possiblePatients><td id=' + username + ' align="center">' + Name+ '</td><td align="center">' + Hphone + '</td></tr>');
 		}
 
 			var parameters = { pname:username};
@@ -43,14 +39,14 @@ $(function() {
 			for(var i =0; i<data.length; i++){
 				var Pusername = data[i].Pusername;
 				var vdate = data[i].vdate;
+				var Vdate = vdate.substring(0,10);
 				var vcost = data[i].vcost;
 				var sname = data[i].sname;
 				var scost = data[i].scost;
 				var tcost = data[i].tcost;
-				$('#visits').append('<td align="center">' + vdate + '</td><td align="center">' + vcost + '</td>');
-				$('#surgeries').append('<td align="center">' + sname + '</td><td align="center">' + scost + '</td>');
-				$('#totalCost').append(tcost);
-
+				$('#visits').replaceWith('<tr id="visits"><td align="center">' + Vdate + '</td><td align="center">' + vcost + '</td>');
+				$('#surgeries').replaceWith('<tr id="surgeries"><td align="center">' + sname + '</td><td align="center">' + scost + '</td>');
+				$('#totalCost').replaceWith('<tr id="totalCost">' + tcost);
 			}
 	});
 	});
