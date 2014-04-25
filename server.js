@@ -100,7 +100,8 @@ app.get('/monthlyappointmentscalendar', function(req, res) {
 });
 
 app.get('/patientvisithistory', function(req, res) {
-	res.render('figure14.html');
+	var data = { username: req.session.username };
+	res.render('figure14.html', { data: data });
 });
 
 app.get('/recordvisit', function(req, res) {
@@ -591,11 +592,64 @@ app.get('/doctorhome/getMessageCount', function(req, res) {
 		if (err) throw err;
 		var count = rows[0].Count;
 		var count2 = rows[1].Count;
-		res.send(parseInt(count)+parseInt(count2));
+		res.send(''+(parseInt(count)+parseInt(count2)));
 	});
 });
 
 // Figure 12. Appointments for Selected Date.
+
+// Figure 14. Patient Visit History
+app.get('/patientvisithistory/searchPatientByName', function(req, res) {
+
+});
+
+app.get('/patientvisithistory/searchPatientByPhone', function(req, res) {
+
+});
+
+app.get('/patientvisithistory/searchPatientByNamePhone', function(req, res) {
+
+});
+
+app.get('/patientvisithistory/getPatientVisits', function(req, res) {
+	var pUsername = req.query.pUsername;
+	var dUsername = req.query.dUsername;
+
+	var query = 'SELECT * FROM Visit WHERE PUsername = \'' + pUsername + '\' AND DUsername = \'' + dUsername + '\'';
+	var visits = [];
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+		for (var i = 0; i < rows.length; i++) {
+			var visit = { pUsername: username, dUsername: rows[i].DUsername, visitDate: rows[i].VisitDate, 
+				diastolic: rows[i].Diastolic, systolic: rows[i].Systolic, billingAmount: rows[i].BillingAmount, diagnoses: null, prescriptions: null };
+			var query2 = 'SELECT Diagnosis FROM Diagnosis WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
+				'\' AND DUsername = \'' + visit.dUsername + '\'';
+			connection.query(query2, function(err2, rows2, fields2) {
+				var diagnoses = [];
+				if (err2) throw err2;
+				for (var j = 0; j < rows2.length; j++) {
+					diagnoses.push(rows2[j].Diagnosis);
+				}
+				visit.diagnoses = diagnoses;
+				var query3 = 'SELECT * FROM Prescription WHERE VisitDate=\'' + visit.visitDate + '\' AND PUsername = \'' + visit.pUsername +
+					'\' AND DUsername = \'' + visit.dUsername + '\'';
+				connection.query(query3, function(err3, rows3, fields3) {
+					var prescriptions = [];
+					if (err3) throw err3;
+					for (var k = 0; k < rows3.length; k++) {
+						var prescription = { medicineName: rows3[k].MedicineName, dosage: rows3[k].Dosage, duration: rows3[k].Duration, notes: rows3[k].Notes };
+						prescriptions.push(prescription);
+					}
+					visit.prescriptions = prescriptions;
+					visits.push(visit);
+					if (i >= rows.length - 1)
+						res.json(visits);
+				});
+			});
+		}
+	});
+
+});
 
 // Figure 15. Record Visits
 app.get('/recordvisit/getPatients', function(req, res) {

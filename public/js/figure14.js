@@ -6,6 +6,17 @@ $(function() {
 	// .validationError is a JQuery selector word that will find all HTML elements on the page whose CSS class is 'validationError'
 	$('.validationError').hide();
 
+	function populateSearchResult(patients) {
+		$('#patientResultsTable').empty();
+		$('#patientResultsTable').append('<tr><td>Patient Name</td><td>Phone Number</td><td></td</tr>');
+		for (var i = 0; i < patients.length; i++) {
+			$('#patientResultsTable').append('<tr><td>' + patients[i].name + '</td><td>' + patients[i].phone + '</td>' +
+				'<td id="td_' + i + '"><button type="button" id="' + i + '">View</button><button type="button" id="' + i + '">Record a Visit</button></td>');
+			$('#patientResultsTable').find('#td_' + i).find('button')[0].on('click', function() {
+				
+			});
+		}
+	} 
 
 	// This will bind a click eventhandler to the Submit Button.  Everytime the Submit button is clicked, this function will be executed.
 	$('#searchButton').bind('click', function() {
@@ -29,7 +40,12 @@ $(function() {
 		if (validationError)
 			return;
 
+		if (name == '') {
+			var parameters = { phone: phone }
+			$.get('/patientvisithistory/searchPatientByPhone', parameters, function(data) {
 
+			});
+		}
 
 	});
 
