@@ -46,7 +46,7 @@ $(function() {
 				var tcost = data[i].tcost;
 				$('#visits').replaceWith('<tr id="visits"><td align="center">' + Vdate + '</td><td align="center">' + vcost + '</td>');
 				$('#surgeries').replaceWith('<tr id="surgeries"><td align="center">' + sname + '</td><td align="center">' + scost + '</td>');
-				$('#totalCost').replaceWith('<tr id="totalCost">' + tcost);
+				$('#totalCost').replaceWith('<tr id="totalCost"><td>' + tcost + '</tr>');
 			}
 	});
 	});

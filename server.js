@@ -819,6 +819,11 @@ app.get('/recordvisit/record', function(req, res) {
 			});
 		})(i, query);
 	}
+
+	query = 'DELETE FROM RequestAppointment WHERE DUsername = \'' + dUsername + '\' AND Date = \'' + dateOfVisit + '\'';
+	connection.query(query, function(err, rows, fields) {
+		if (err) throw err;
+	});
 });
 
 // Figure 16.  Surgery Record
